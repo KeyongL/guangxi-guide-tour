@@ -1,0 +1,111 @@
+---
+// 行程时间线（F012）：逐日纵向时间线，每日含交通（transport）+ 住宿（lodging）。
+// 北欧极简：直角、1px 描边、无阴影；左侧 1px 竖线为轴，节点为主色小方块。
+// 颜色只引用 global.css 令牌，禁止硬编码 hex。
+// 375px 安全：无固定 px 宽度，卡片 max-width:100%，长字段 overflow-wrap 换行。
+interface Day {
+  day: number;
+  title: string;
+  transport: string;
+  lodging: string;
+}
+interface Props {
+  days: Day[];
+}
+const { days } = Astro.props;
+---
+<ol class="timeline">
+  {days.map((d) => (
+    <li class="timeline__item">
+      <div class="timeline__marker" aria-hidden="true"></div>
+      <div class="timeline__card">
+        <span class="timeline__day">Day {d.day}</span>
+        <h3 class="timeline__title">{d.title}</h3>
+        <dl class="timeline__facts">
+          <div class="timeline__fact">
+            <dt>Transport</dt>
+            <dd>{d.transport}</dd>
+          </div>
+          <div class="timeline__fact">
+            <dt>Lodging</dt>
+            <dd>{d.lodging}</dd>
+          </div>
+        </dl>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    list-style: none;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .timeline__item {
+    position: relative;
+    padding: 0 0 24px 28px;
+    border-left: 1px solid var(--border);
+  }
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: -5px;
+    top: 4px;
+    width: 9px;
+    height: 9px;
+    background: var(--primary);
+    border: 1px solid var(--bg);
+  }
+
+  .timeline__card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px;
+  }
+
+  .timeline__day {
+    align-self: flex-start;
+    background: var(--primary-soft);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    font: 600 0.6875rem/1.4 var(--sans);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+  }
+
+  .timeline__title {
+    font-size: 1.1875rem;
+  }
+
+  .timeline__facts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+  }
+
+  .timeline__fact dt {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .timeline__fact dd {
+    color: var(--text);
+    margin: 2px 0 0;
+    overflow-wrap: break-word;
+  }
+</style>

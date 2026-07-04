@@ -93,7 +93,7 @@
     "milestone": "V1",
     "description": "行程时间线：day-by-day 竖向时间线，每天含交通 + 住宿",
     "steps": ["行程页渲染逐日时间线", "每天含交通与住宿信息", "375px 下不溢出"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F013",

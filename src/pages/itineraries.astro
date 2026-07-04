@@ -1,6 +1,28 @@
 ---
-// 极简 Itineraries 占位页 —— 行程功能是 F022 的地盘，此页仅让 F008 导航端到端可达。
+// Itineraries 页（F012）：逐日纵向行程时间线，每日含交通 + 住宿。
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Timeline from '../components/Timeline.astro';
+
+const days = [
+  {
+    day: 1,
+    title: 'Arrive in Guilin',
+    transport: 'Fly into Guilin Liangjiang (KWL), then airport shuttle to the city centre (~50 min).',
+    lodging: 'Riverside guesthouse near Shanhu Lake.',
+  },
+  {
+    day: 2,
+    title: 'Li River to Yangshuo',
+    transport: 'Morning Li River cruise Guilin → Yangshuo (~4.5 hr), bus back not needed.',
+    lodging: 'West Street boutique inn, Yangshuo.',
+  },
+  {
+    day: 3,
+    title: 'Longji Rice Terraces',
+    transport: 'Bus from Yangshuo to Longsheng (~3 hr), village minibus to Ping\'an trailhead.',
+    lodging: 'Terrace-view lodge in Ping\'an village.',
+  },
+];
 ---
 <BaseLayout
   title="Itineraries — Guangxi Bound"
@@ -8,6 +30,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <main>
     <h1>Itineraries</h1>
-    <p>Itineraries are on the way.</p>
+    <p>A day-by-day plan with transport and lodging worked out for you.</p>
+    <Timeline days={days} />
   </main>
 </BaseLayout>
