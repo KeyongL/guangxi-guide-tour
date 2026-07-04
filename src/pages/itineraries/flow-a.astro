@@ -1,0 +1,83 @@
+---
+// 行程 · 流向A（F022）：3–5 天海岸线 + 出境越南。
+// 标注适用签证类型：全程走 240 小时过境免签指定口岸（入境南宁、出境东兴口岸转越南），
+// 故挂 twov 徽章（✅ 240h TWOV OK）。徽章文案为 F009 验收原文，勿改。
+// 375px 安全：Timeline 卡片 max-width:100%，正文限 640px。
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+import VisaBadge from '../../components/VisaBadge.astro';
+import ContactForm from '../../components/ContactForm.astro';
+
+const days = [
+  {
+    day: 1,
+    title: 'Arrive in Nanning',
+    transport: 'Fly into Nanning Wuxu (NNG), a designated 240-hour transit port; metro line 1 to the city centre (~40 min).',
+    lodging: 'Business hotel near Chaoyang Square.',
+  },
+  {
+    day: 2,
+    title: 'Beihai & Silver Beach',
+    transport: 'High-speed train Nanning → Beihai (~1.5 hr), then local bus 3 to Silver Beach (Yin Tan).',
+    lodging: 'Seafront guesthouse in the old town quarter.',
+  },
+  {
+    day: 3,
+    title: 'Fangchenggang coast',
+    transport: 'Train Beihai → Fangchenggangbei (~1 hr); taxi to the Golden Beach and fishing harbour.',
+    lodging: 'Harbour-view inn, Fangchenggang.',
+  },
+  {
+    day: 4,
+    title: 'Dongxing border — exit to Vietnam',
+    transport: 'Bus Fangchenggang → Dongxing (~1.5 hr); walk the Beilun River bridge crossing to Móng Cái, Vietnam — a designated exit port.',
+    lodging: 'Onward in Móng Cái, Vietnam.',
+  },
+];
+---
+<BaseLayout
+  title="Coastline Route to Vietnam (3–5 days) — Guangxi Bound"
+  description="A 3–5 day Guangxi coastline itinerary from Nanning through Beihai and Fangchenggang, exiting overland to Vietnam at the Dongxing border."
+>
+  <main>
+    <article class="flow">
+      <h1>Coastline Route &amp; Vietnam Exit</h1>
+      <p class="flow__meta"><VisaBadge zone="twov" /></p>
+      <p class="lead">
+        A 3–5 day run down the Beibu Gulf coast — Nanning, Beihai, Fangchenggang —
+        ending with an overland crossing into Vietnam at Dongxing.
+      </p>
+      <p>
+        This route is built to fit inside China's 240-hour (10-day) visa-free
+        transit window: you enter at a designated port (Nanning Wuxu) and exit at
+        another (the Dongxing land border to Móng Cái). Confirm your nationality
+        and current port list with the NIA before you travel.
+      </p>
+      <Timeline days={days} />
+    </article>
+    <ContactForm />
+  </main>
+</BaseLayout>
+
+<style>
+  /* 可读行宽：正文限 640px，与 About 一致；移动端 max-width:100% 不溢出。 */
+  .flow {
+    max-width: 640px;
+  }
+  .flow h1 {
+    margin-bottom: 12px;
+  }
+  .flow__meta {
+    margin: 0 0 20px;
+  }
+  .lead {
+    font-size: 1.0625rem;
+    color: var(--ink);
+  }
+  .flow p + p {
+    margin-top: 16px;
+  }
+  .flow :global(.timeline) {
+    margin-top: 24px;
+  }
+</style>

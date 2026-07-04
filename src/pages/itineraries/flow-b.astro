@@ -1,0 +1,108 @@
+---
+// 行程 · 流向B（F022）：7–10 天边境大环线。
+// 验收要点（F022 step 2）：页面开头必须讲清「仅 48 国免签 / 持签证者适用」——
+// 此环线深入非过境免签区，挂 non-twov 徽章 + VisaAlert 提醒框。
+// 徽章/提醒文案为 F009/F033 验收原文，勿改。375px 安全同 flow-a。
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+import VisaBadge from '../../components/VisaBadge.astro';
+import VisaAlert from '../../components/VisaAlert.astro';
+import ContactForm from '../../components/ContactForm.astro';
+
+const days = [
+  {
+    day: 1,
+    title: 'Nanning gateway',
+    transport: 'Fly into Nanning Wuxu (NNG); metro to the centre. Stock up before heading to the border counties.',
+    lodging: 'City hotel, Nanning.',
+  },
+  {
+    day: 2,
+    title: 'Detian Transnational Waterfall',
+    transport: 'Bus Nanning → Daxin (~3 hr), local shuttle to Detian — the falls straddle the China–Vietnam border.',
+    lodging: 'Guesthouse in Shuolong town.',
+  },
+  {
+    day: 3,
+    title: 'Mingshi pastoral valley',
+    transport: 'Minibus to Mingshi Tianyuan (~1 hr); karst peaks and river rafting.',
+    lodging: 'Riverside lodge, Mingshi.',
+  },
+  {
+    day: 4,
+    title: 'Jingxi border town',
+    transport: 'Bus Daxin → Jingxi (~3 hr); Tongling Grand Canyon and Jiuzhou old street.',
+    lodging: 'Boutique inn, Jingxi.',
+  },
+  {
+    day: 5,
+    title: 'Baise revolutionary route',
+    transport: 'Train/bus Jingxi → Baise (~2.5 hr); riverside old quarter.',
+    lodging: 'Business hotel, Baise.',
+  },
+  {
+    day: 6,
+    title: 'Leye sinkholes (Dashiwei)',
+    transport: 'Bus Baise → Leye (~3 hr); the Dashiwei tiankeng cluster and Buliu River.',
+    lodging: 'Mountain guesthouse, Leye.',
+  },
+  {
+    day: 7,
+    title: 'Return via Bama',
+    transport: 'Bus Leye → Bama (~3 hr), then express bus back toward Nanning (~4 hr).',
+    lodging: 'Return to Nanning, or extend to 10 days at your own pace.',
+  },
+];
+---
+<BaseLayout
+  title="Border Grand Loop (7–10 days) — Guangxi Bound"
+  description="A 7–10 day loop through Guangxi's border counties — Detian, Jingxi, Baise, Leye — for visa holders or nationals of the 30-day visa-free countries."
+>
+  <main>
+    <article class="flow">
+      <h1>Border Grand Loop</h1>
+      <p class="flow__meta"><VisaBadge zone="non-twov" /></p>
+      <p class="lead">
+        <strong>Before you plan this loop:</strong> it runs deep into Guangxi's
+        border counties, <strong>outside</strong> the 240-hour transit zone. It is
+        suitable only if you are a national of one of the ~48 countries in China's
+        30-day visa-free program, or if you hold a valid Chinese visa. Entering on
+        a transit-visa-free basis does not cover this route.
+      </p>
+      <VisaAlert />
+      <p>
+        With that settled, here is a 7-day core you can stretch to 10 — from the
+        Detian falls on the Vietnam border, through Jingxi and Baise, out to the
+        Leye sinkholes. Always verify current rules with the NIA before you go.
+      </p>
+      <Timeline days={days} />
+    </article>
+    <ContactForm />
+  </main>
+</BaseLayout>
+
+<style>
+  /* 可读行宽：正文限 640px；移动端 max-width:100% 不溢出。 */
+  .flow {
+    max-width: 640px;
+  }
+  .flow h1 {
+    margin-bottom: 12px;
+  }
+  .flow__meta {
+    margin: 0 0 20px;
+  }
+  .lead {
+    font-size: 1.0625rem;
+    color: var(--ink);
+  }
+  .flow p + p {
+    margin-top: 16px;
+  }
+  .flow :global(.visa-alert) {
+    margin: 20px 0;
+  }
+  .flow :global(.timeline) {
+    margin-top: 24px;
+  }
+</style>

@@ -32,7 +32,51 @@ const days = [
   <main>
     <h1>Itineraries</h1>
     <p>A day-by-day plan with transport and lodging worked out for you.</p>
+
+    {/* F022：两条流向的入口，各标注适用签证类型。 */}
+    <nav class="routes" aria-label="Route options">
+      <a class="route" href="/itineraries/flow-a/">
+        <span class="route__name">Coastline Route &amp; Vietnam Exit</span>
+        <span class="route__meta">3–5 days · fits the 240-hour transit window</span>
+      </a>
+      <a class="route" href="/itineraries/flow-b/">
+        <span class="route__name">Border Grand Loop</span>
+        <span class="route__meta">7–10 days · 30-day visa-free nationals or visa holders only</span>
+      </a>
+    </nav>
+
     <Timeline days={days} />
     <ContactForm />
   </main>
 </BaseLayout>
+
+<style>
+  /* F022 路线入口卡：北欧极简，直角 1px 描边，375px 下单列不溢出。 */
+  .routes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 24px 0 32px;
+  }
+  .route {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    color: var(--text);
+  }
+  .route:hover {
+    border-color: var(--primary);
+  }
+  .route__name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .route__meta {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+</style>
