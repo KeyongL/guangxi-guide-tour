@@ -37,7 +37,7 @@
     "milestone": "V1",
     "description": "/sitemap.xml 与 /robots.txt 可访问（验收标准5）",
     "steps": ["构建产出 dist/sitemap.xml 含全部页面", "dist/robots.txt 可访问且指向 sitemap", "本地预览请求两个路径均 200"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F006",
