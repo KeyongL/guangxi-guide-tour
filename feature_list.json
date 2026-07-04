@@ -13,7 +13,7 @@
     "milestone": "V1",
     "description": "内容集合 schema：guides 与 cities 两个集合的 frontmatter 有类型定义（title/slug/summary/cover/region/visa_zone/verified 等，city 含 SPEC 城市名片数据模型），非法 frontmatter 使构建失败",
     "steps": ["定义 src/content 集合 schema（含 SPEC city-card 字段）", "放一条合法 Markdown，构建通过", "故意写错一个必填 frontmatter 字段，确认 npm run build 报错而非静默通过"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F003",

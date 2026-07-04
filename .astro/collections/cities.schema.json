@@ -1,0 +1,88 @@
+{
+  "$ref": "#/definitions/cities",
+  "definitions": {
+    "cities": {
+      "type": "object",
+      "properties": {
+        "name_en": {
+          "type": "string"
+        },
+        "name_local": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "visa_zone": {
+          "type": "string",
+          "enum": [
+            "twov",
+            "non-twov"
+          ]
+        },
+        "days": {
+          "type": "number"
+        },
+        "must_eat": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attractions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "activity_level": {
+          "type": "string"
+        },
+        "adventure_hook": {
+          "type": "string"
+        },
+        "daily_budget": {
+          "type": "string"
+        },
+        "budget_verified_on": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "flow_links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name_en",
+        "name_local",
+        "region",
+        "visa_zone",
+        "days",
+        "must_eat",
+        "attractions",
+        "activity_level",
+        "adventure_hook"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

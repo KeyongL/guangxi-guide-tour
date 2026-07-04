@@ -1,0 +1,59 @@
+{
+  "$ref": "#/definitions/guides",
+  "definitions": {
+    "guides": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "visa_zone": {
+          "type": "string",
+          "enum": [
+            "twov",
+            "non-twov"
+          ]
+        },
+        "slug": {
+          "type": "string"
+        },
+        "cover": {
+          "type": "string"
+        },
+        "verified": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "summary",
+        "region",
+        "visa_zone"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

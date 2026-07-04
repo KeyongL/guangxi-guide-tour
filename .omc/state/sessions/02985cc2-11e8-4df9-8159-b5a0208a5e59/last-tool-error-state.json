@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"grep -iEn \\\"activity|chill|adventur|budget|verified|must.?eat|attraction|days|flow\\\" docs/../mockups/06-city-card-route-map.html 2>/dev/null | head -60; echo \\\"=== exit $? ===\\\"; ls mockup...",
+  "error": "Exit code 2\n=== exit 0 ===",
+  "timestamp": "2026-07-04T01:21:08.326Z",
+  "retry_count": 1
+}
