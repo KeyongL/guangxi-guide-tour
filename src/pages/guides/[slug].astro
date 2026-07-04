@@ -1,0 +1,234 @@
+---
+// 文章详情页（F021）：答案式开头 + 正文折叠 + TOC + 相关文章 + 单个 accent CTA。
+// 反劝退原则：结论前置、文字少留白多、复杂度折叠、纯英文 UI（双语只落地名/菜名）。
+// visa-alert 由 frontmatter visa_zone 自动挂载（F010 地基），作者零手写。
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VisaBadge from '../../components/VisaBadge.astro';
+import VisaAlert from '../../components/VisaAlert.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((entry) => ({
+    params: { slug: entry.data.slug ?? entry.id },
+    props: { entry, guides },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'guides'>;
+  guides: CollectionEntry<'guides'>[];
+}
+
+const { entry, guides } = Astro.props;
+const { Content, headings } = await render(entry);
+const toc = headings.filter((h) => h.depth === 2);
+
+// 答案式结论：先回答"你这护照行不行"，由 visa_zone 系统生成。
+const verdict =
+  entry.data.visa_zone === 'twov'
+    ? 'Yes — this area is inside the 240-hour visa-free transit zone. Most passports can visit without a Chinese visa.'
+    : 'Careful — this area is outside the 240-hour transit zone. You need the 30-day visa-free program or a visa.';
+
+// 相关文章：同集合其他文章 ≤3 篇；不足 1 篇则整块不渲染。
+const related = guides.filter((g) => g.id !== entry.id).slice(0, 3);
+const guideUrl = (g: CollectionEntry<'guides'>) => `/guides/${g.data.slug ?? g.id}/`;
+---
+<BaseLayout title={`${entry.data.title} — Guangxi Bound`} description={entry.data.summary}>
+  <main class="article">
+    <header class="article-head">
+      <p class="k">{entry.data.region}</p>
+      <h1>{entry.data.title}</h1>
+      <p class="verdict">{verdict}</p>
+      <VisaBadge zone={entry.data.visa_zone} />
+    </header>
+
+    {
+      /* 自动 visa-alert：non-twov 紧随结论区显著渲染；twov 不渲染（F010） */
+      entry.data.visa_zone === 'non-twov' && (
+        <div class="alert-slot">
+          <VisaAlert />
+        </div>
+      )
+    }
+
+    <!-- 正文默认折叠：原生 details，零 JS。TOC 放折叠区首部，
+         展开后锚点目标必然可见——无 JS 也能跳转（F013 依赖）。 -->
+    <details class="article-fold">
+      <summary>Read the full guide</summary>
+
+      {
+        toc.length > 0 && (
+          <nav class="toc" aria-label="Table of contents">
+            <span class="k">In this guide</span>
+            <ol>
+              {toc.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`}>{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )
+      }
+
+      <div class="article-body">
+        <Content />
+      </div>
+    </details>
+
+    {
+      related.length > 0 && (
+        <section class="related">
+          <span class="k">Keep reading</span>
+          <ul>
+            {related.map((g) => (
+              <li>
+                <a href={guideUrl(g)}>{g.data.title}</a>
+                <span class="meta">{g.data.region}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section class="cta">
+      <a class="btn-accent" href="/about/">Ask me anything about this route</a>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* 文章版心 700–720px（DESIGN.md），覆盖 global.css 的 main 1100px */
+  .article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 64px;
+  }
+
+  .k {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  .article-head h1 {
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    margin: 10px 0 14px;
+    overflow-wrap: break-word;
+  }
+
+  .verdict {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .alert-slot {
+    margin-top: 24px;
+  }
+
+  /* 折叠区：1px 细线分隔，summary 作主色行为链接 */
+  .article-fold {
+    margin-top: 32px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .article-fold summary {
+    cursor: pointer;
+    padding: 16px 0;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--primary);
+  }
+  .article-fold summary:hover {
+    color: var(--primary-strong);
+  }
+
+  /* TOC：primary-soft 底盒 + 数字序号锚点（F013） */
+  .toc {
+    background: var(--primary-soft);
+    padding: 18px 20px;
+    margin: 8px 0 8px;
+  }
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    counter-reset: t;
+  }
+  .toc li {
+    counter-increment: t;
+    padding: 5px 0;
+  }
+  .toc li::before {
+    content: counter(t, decimal-leading-zero);
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    margin-right: 12px;
+  }
+
+  /* 渲染后的 Markdown 是组件外内容，需 :global 触达 */
+  .article-body {
+    padding-bottom: 32px;
+  }
+  .article-body :global(p),
+  .article-body :global(li) {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-top: 16px;
+  }
+  .article-body :global(h2) {
+    font-size: 1.375rem;
+    margin-top: 44px;
+  }
+  .article-body :global(ol),
+  .article-body :global(ul) {
+    padding-left: 22px;
+  }
+
+  .related {
+    margin-top: 56px;
+  }
+  .related ul {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .related li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .related li a {
+    font-weight: 600;
+  }
+  .related .meta {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* 唯一 accent CTA（琥珀只用于主 CTA 与签证警告） */
+  .cta {
+    margin-top: 48px;
+  }
+  .btn-accent {
+    display: inline-block;
+    padding: 12px 20px;
+    background: var(--accent);
+    color: #241a02;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  .btn-accent:hover {
+    background: var(--accent-strong);
+    color: #241a02;
+  }
+</style>

@@ -165,7 +165,7 @@
     "milestone": "V1",
     "description": "文章页：答案式开头（先给\"你这护照行不行\"结论）+ 正文折叠 + TOC + 相关文章 + 咨询 CTA + 自动 visa-alert，参照 mockups/03-article.html 新方向",
     "steps": ["首屏先给签证结论再折叠展开正文", "崇左/百色文章自动挂 visa-alert（F010）", "含 TOC/相关文章/单个 accent CTA"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F022",

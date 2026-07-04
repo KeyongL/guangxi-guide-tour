@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 
 // 站点 URL 与 astro.config.mjs 保持一致（买自定义域名后一起替换）。
 const SITE = 'https://guangxi-guide.pages.dev';
@@ -17,8 +18,15 @@ function toLoc(route: string): string {
   return route === '/' ? `${SITE}/` : `${SITE}${route}/`;
 }
 
-export const GET: APIRoute = () => {
-  const locs = Object.keys(pageFiles).map(toRoute).sort().map(toLoc);
+export const GET: APIRoute = async () => {
+  // 动态路由文件（如 guides/[slug].astro）不映射固定 URL，排除字面 [slug]；
+  // 其真实页面 URL 从内容集合枚举（F005 交接注记预留的补口，F021 落实）。
+  const staticRoutes = Object.keys(pageFiles)
+    .filter((p) => !p.includes('['))
+    .map(toRoute);
+  const guides = await getCollection('guides');
+  const guideRoutes = guides.map((g) => `/guides/${g.data.slug ?? g.id}`);
+  const locs = [...staticRoutes, ...guideRoutes].sort().map(toLoc);
   const body =
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

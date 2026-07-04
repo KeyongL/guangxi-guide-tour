@@ -1,0 +1,39 @@
+---
+// 签证分区提醒框（F021 落地；F010/F033 的地基）。
+// 由文章模板按 frontmatter visa_zone=non-twov 自动挂载——作者零手写。
+// 文案要点（F033 验收）：仅 30-day visa-free 国籍或持签证者可去；配色只用 warn 令牌。
+---
+<aside class="visa-alert">
+  <strong>Outside the 240-hour transit zone</strong>
+  <p>
+    This area is <em>not</em> covered by China's 240-hour visa-free transit policy.
+    It is open only under the 30-day visa-free program or to visa holders —
+    visiting on a transit-visa-free entry is a violation.
+  </p>
+</aside>
+
+<style>
+  /* 北欧极简：琥珀 warn 令牌 + 左粗边，直角、无阴影（参照 mockups/03-article.html） */
+  .visa-alert {
+    background: var(--warn-bg);
+    border-left: 2px solid var(--warn-border);
+    color: var(--warn-text);
+    padding: 14px 16px;
+  }
+  .visa-alert strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9375rem;
+    color: inherit;
+  }
+  .visa-alert p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: inherit;
+  }
+  .visa-alert em {
+    font-style: normal;
+    font-weight: 650;
+  }
+</style>
