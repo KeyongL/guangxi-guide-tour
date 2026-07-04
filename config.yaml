@@ -1,0 +1,55 @@
+# ==============================================================
+# config.yaml — 模型与 API 配置（模型名只允许出现在本文件）
+# 项目：guangxi-guide（广西英文旅游攻略站 · Astro 静态站）
+# ==============================================================
+
+site:
+  name: "Guangxi Bound"          # 品牌占位名（域名未定；不绑死 "Beihai" 字样）
+  lang: en                       # 站点仅英文（SPEC 范围外：不做中文/多语言）
+  # 双语只出现在“游客会指给本地人看的名词”：地名/菜名/地址。UI/正文一律纯英文。
+  bilingual_scope: [place_names, dish_names, addresses]
+  default_domain: "guangxi-guide.pages.dev"   # Cloudflare Pages 默认子域，买域名后替换
+
+# ── AI 模型：SPEC 明确“无运行期 AI 调用”。以下仅开发/写作辅助起草 ──
+# 铁律（SPEC 红线）：AI 只起草，成品必须站长人工改写定稿，AI 不直接发布。
+ai_models:
+  content_draft:
+    provider: anthropic
+    model: claude-opus-4-8       # 强模型：攻略初稿、SEO 标题候选
+    temperature: 0.7
+    max_tokens: 4000
+    usage: dev_time_only         # 运行期站点不调用任何 AI
+
+# ── 外部 API 集成（对照 SPEC “外部 API 集成清单”）──
+integrations:
+  formspree:
+    purpose: 联系表单转邮件
+    base_url: "https://formspree.io/f/"      # 拼接 PUBLIC_FORMSPREE_ID
+    auth_type: endpoint_id                    # 端点 ID，非密钥
+    credential_env: PUBLIC_FORMSPREE_ID
+    rate_limit: "50/月（免费档）"
+    retry: none                               # 前端一次性提交
+    failure_strategy: "降级为 mailto: 链接（PUBLIC_CONTACT_EMAIL）"
+
+  google_analytics_4:
+    purpose: 访问量统计
+    auth_type: measurement_id                 # 公开测量 ID
+    credential_env: PUBLIC_GA4_MEASUREMENT_ID
+    rate_limit: none
+    retry: none
+    failure_strategy: "静默失败，不阻塞页面渲染"
+
+  openstreetmap_leaflet:
+    purpose: 交互路线地图（V1.1，行程页）
+    auth_type: none                           # 无需凭证/密钥
+    credential_env: null
+    rate_limit: "OSM 公共瓦片使用策略；流量增长后换免费档瓦片托管"
+    retry: none
+    failure_strategy: "地图不加载→降级为静态占位图 + 文字路线；核心内容始终静态 HTML"
+
+# ── 部署（SPEC 技术栈决策）──
+deploy:
+  target: cloudflare_pages       # 免费、全球 CDN、境外托管无需 ICP 备案
+  build_command: "npm run build"
+  output_dir: "dist"
+  node_version: "20"

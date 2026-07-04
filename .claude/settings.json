@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git stash:*)",
+      "Bash(npm run:*)",
+      "Bash(npx:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(pwd:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(git push --force:*)",
+      "Bash(git branch -d:*)",
+      "Bash(git branch -D:*)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(chmod 777:*)",
+      "Bash(curl * | bash:*)",
+      "Bash(wget * | bash:*)"
+    ]
+  },
+  "notes": {
+    "allow说明": "AI 可以自动执行这些命令，不用每次问你批准",
+    "deny说明": "这些命令 AI 永远不能执行——必须由你手动做",
+    "deny原则": [
+      "git push: 代码推远程必须由人决定",
+      "删分支: 不可逆操作必须由人决定",
+      "rm -rf: 危险删除命令",
+      "sudo: 系统级权限",
+      "管道执行: 防止恶意代码注入"
+    ]
+  }
+}

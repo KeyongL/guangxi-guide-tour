@@ -1,0 +1,7 @@
+{
+  "tool_name": "StructuredOutput",
+  "tool_input_preview": "{\"summary\":\"支付方面证据最扎实：外国游客可将Visa/Mastercard直接绑定微信支付/支付宝（单笔上限5000美元、年度5万美元），ATM可用外卡取现，银行网点/自助机可换汇；200元以下微信支付免手续费，超过收3%——但\\\"外卡可在POS机刷卡消费\\\"这一常见假设在验证中被推翻（0-3票），说明移动支付绑卡是比实体刷卡更可靠的路径。互联网方面，长城防火墙确认屏蔽WhatsApp...",
+  "error": "Output does not match required schema: root: must have required property 'findings'",
+  "timestamp": "2026-07-03T05:18:50.983Z",
+  "retry_count": 1
+}

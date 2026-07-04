@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__plugin_playwright_playwright__browser_resize",
+  "tool_input_preview": "{\"width\":1280,\"height\":900}",
+  "error": "### Error\nError: async initializeServer: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome\nRun \"npx playwright install chrome\"",
+  "timestamp": "2026-07-03T08:29:12.218Z",
+  "retry_count": 1
+}
