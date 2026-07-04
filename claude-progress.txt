@@ -758,3 +758,32 @@ F030（375px 无横向溢出）❌ 仍 false（诚实，不标 passing）：
   （Leaflet+OSM 渐进增强、JS-off 降级、375px、Lighthouse≥85）留给下一 /work 会话。
 - 无 git 提交：mockups/ 被 .gitignore；DESIGN.md 未改；src/ 未动。无远程（站长自建 GitHub 库并 push）。
 下一步：站长浏览器打开 mockups/00-index.html 确认设计 → 开新对话 /work 落地 F019 成品页。
+
+---------------------------------------------
+2026-07-04 | /work F019 完成（地图主角着陆页落地为成品 Astro 页）
+改动文件：
+- src/pages/index.astro：占位首页 → F019 成品页（参照 mockups/07-map-first.html）。
+  走 BaseLayout（复用 F008 顶栏 + F003 令牌 + 深色切换），本页只产 <main>：
+  ① HERO 答案式 H1「Yes — you can explore Guangxi visa-free…」+ 副标 + SVG 地图英雄
+     （6 城标记 + 流向A实线/流向B虚线 + 图例，viewBox 缩放不横溢）
+  ② 城市标记 <a href="#card-*"> → 对应名片 :target 高亮（零 JS）
+  ③ Start here 4 链接全部指向真实路由（flow-a/flow-b/weizhou-island guide/about）
+  ④ 城市名片用 VisaBadge 组件；崇左(non-twov)/东兴自动挂 visa-alert；百色空态；日预算「~ not yet verified」
+  ⑤ 签证 lanes <details> 渐进披露，不进英雄图；表格包 overflow-x 滚动（375px 安全）
+  ⑥ 保留 F011「Latest guides」小节（不回归已 passing 功能）
+- feature_list.json：F019 passes false → true（仅改 passes 字段）
+验证（本环境无浏览器截图，走 HTML 断言 + 活服务器双重）：
+- npm run build 通过，10 页构建成功（含内容 schema 校验 + 断链检查）
+- dist/index.html 21 条断言全 PASS：答案式 H1、hero SVG、h1<svg<details 顺序、
+  6 张 card-* 锚点、marker 跳转 href、<details>/<summary>、双态 VisaBadge、
+  崇左 visa-alert、未核实预算、百色空态、Start here 真实路由、F011 Latest guides 保留、
+  无残留 mockup 开发占位文字、表格 overflow-x 包裹
+- 5 个链接目标页（flow-a/flow-b/weizhou-island/detian-chongzuo/about）dist 均存在，无死链
+- dev server（本 worktree，端口 4322，因 4321 被主 checkout 旧服务占用）返回 72KB 正确页，
+  9 条活页断言全 PASS
+遗留/交界：
+- 人眼最终确认待站长在浏览器过目（本环境浏览器截图自动化不可用，历史教训在案）。
+  预览：本 worktree dev server 在 http://127.0.0.1:4322/（4321 被主 checkout 旧 scaffold 占用）。
+- 未 git push / 未开 PR（CLAUDE.md 铁律7：远程操作由人来做）。
+- 地图目前为 schematic SVG（零 JS、JS-off 天然降级）；若日后要真 Leaflet+OSM 交互地图，
+  另开会话作为渐进增强，不属 F019 验收范围。

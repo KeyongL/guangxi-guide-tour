@@ -149,7 +149,7 @@
     "milestone": "V1",
     "description": "着陆/枢纽页（地图为主角）：答案式大标题 → 地图英雄第一屏 → 点城市弹极简名片 → Start here 链接；签证复杂度点击展开（渐进披露），参照 mockups/07-map-first.html",
     "steps": ["首页首屏是答案式标题+大地图英雄", "点城市标记弹极简名片", "签证分区不进英雄图、点击才展开；375px 无横向滚动"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F020",

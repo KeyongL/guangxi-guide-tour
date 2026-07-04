@@ -1,10 +1,13 @@
 ---
-// 占位首页 — /init-harness 生成的最小可运行骨架，现走 BaseLayout（F003）。
-// 真正的着陆页（地图为主角，见 feature_list.json F019 + mockups/07-map-first.html）在 /work 实现。
-// F011：附加一个「Latest guides」攻略卡片小节（最多 3 张），不改动地图着陆页方向。
+// 着陆/枢纽页（F019，参照 mockups/07-map-first.html）：
+// 答案式大标题 → 地图英雄第一屏 → 点城市标记弹极简名片（:target，零 JS）
+// → Start here 链接 → 签证复杂度渐进披露（<details>，不进英雄图）。
+// 走 BaseLayout（复用 F008 顶栏 + F003 令牌 + 深色切换），本页只产 <main> 内容。
+// F011：保留「Latest guides」攻略卡片小节（最多 3 张），不与地图着陆页方向冲突。
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GuideCard from '../components/GuideCard.astro';
+import VisaBadge from '../components/VisaBadge.astro';
 
 // 阅读时长：正文词数 / 200，向上取整，至少 1 分钟（F011 说明，确定性计算）。
 function readingMinutes(body: string): number {
@@ -24,11 +27,156 @@ const latest = guides.slice(0, 3).map((entry) => ({
 ---
 <BaseLayout
   title="Guangxi Bound — Independent travel guides to Guangxi, China"
-  description="Practical, ground-verified travel guides to Guangxi: Guilin, Yangshuo, Beihai and beyond — routes, visas and city cards for independent travellers."
+  description="Practical, ground-verified travel guides to Guangxi: the map, the visa lanes, and city cards for independent travellers flying in or crossing overland from Vietnam."
 >
   <main>
-    <h1>Guangxi Bound</h1>
+    <!-- HERO：答案式标题 + 地图英雄第一屏 -->
+    <section class="hero">
+      <h1>Yes — you can explore Guangxi <span class="em">visa-free</span>, then cross into Vietnam.</h1>
+      <p class="sub">
+        China's 240-hour visa-free transit covers the coast and Nanning; 48 nationalities
+        also get 30 days visa-free. Here's the map, and exactly which lane you're in.
+      </p>
 
+      <figure class="map">
+        <!-- Schematic region map (not to scale). Future build: Leaflet + OpenStreetMap, progressive enhancement. -->
+        <svg viewBox="0 0 800 460" role="img" aria-label="Schematic map of Guangxi showing six regions and two travel flows">
+          <rect x="0" y="0" width="800" height="460" fill="var(--primary-soft)" />
+          <text x="70" y="430" fill="var(--muted)" font-size="13" font-style="italic">Vietnam · Việt Nam</text>
+
+          <!-- Flow A：海岸线，过境免签合规（实线 primary） -->
+          <polyline points="430,250 300,330 210,300 150,360 90,405" fill="none"
+                    stroke="var(--primary)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />
+          <!-- Flow B：边境大环线，仅 48 国/持签证（虚线 accent） -->
+          <polyline points="120,430 250,380 340,300 430,250" fill="none"
+                    stroke="var(--accent)" stroke-width="3" stroke-dasharray="7 6" stroke-linejoin="round" stroke-linecap="round" />
+
+          <a href="#card-nanning" class="marker">
+            <circle cx="430" cy="250" r="9" fill="var(--accent)" stroke="var(--surface)" stroke-width="2" />
+            <text x="444" y="248">Nanning 南宁</text><text x="444" y="263" class="sub">Hub · entry port</text>
+          </a>
+          <a href="#card-beihai" class="marker">
+            <circle cx="300" cy="330" r="9" fill="var(--primary)" stroke="var(--surface)" stroke-width="2" />
+            <text x="314" y="328">Beihai 北海</text><text x="314" y="343" class="sub">Coast · entry port</text>
+          </a>
+          <a href="#card-weizhou" class="marker">
+            <circle cx="330" cy="392" r="8" fill="var(--primary)" stroke="var(--surface)" stroke-width="2" />
+            <text x="344" y="396">Weizhou 涠洲岛</text>
+          </a>
+          <a href="#card-dongxing" class="marker">
+            <circle cx="150" cy="360" r="9" fill="var(--primary)" stroke="var(--surface)" stroke-width="2" />
+            <text x="18" y="356">Dongxing 东兴</text><text x="18" y="371" class="sub">Border · to Vietnam</text>
+          </a>
+          <a href="#card-chongzuo" class="marker">
+            <circle cx="250" cy="230" r="9" fill="var(--accent-strong)" stroke="var(--surface)" stroke-width="2" />
+            <text x="264" y="228">Chongzuo 崇左</text><text x="264" y="243" class="sub">Detian Falls · not TWOV</text>
+          </a>
+          <a href="#card-baise" class="marker">
+            <circle cx="200" cy="120" r="9" fill="var(--accent-strong)" stroke="var(--surface)" stroke-width="2" />
+            <text x="214" y="118">Baise 百色</text><text x="214" y="133" class="sub">Leye karst · not TWOV</text>
+          </a>
+          <a href="#card-hechi" class="marker">
+            <circle cx="420" cy="90" r="9" fill="var(--primary)" stroke="var(--surface)" stroke-width="2" />
+            <text x="434" y="88">Hechi · Bama 河池·巴马</text><text x="434" y="103" class="sub">Longevity karst</text>
+          </a>
+        </svg>
+        <figcaption class="map-cap">
+          <span class="legend"><span class="swatch" style="border-top-color:var(--primary)"></span> Flow A — fly in, leave overland (TWOV-legal)</span>
+          <span class="legend"><span class="swatch swatch--dashed" style="border-top-color:var(--accent)"></span> Flow B — overland from Vietnam (48-country / visa only)</span>
+          <span class="legend"><span class="dot" style="background:var(--accent-strong)"></span> Not in the transit-visa zone</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- START HERE：只放几个入口链接（真实路由） -->
+    <section class="starthere">
+      <h2>Start here</h2>
+      <div class="links">
+        <a class="cta" href="/itineraries/flow-a/">Fly into Guangxi, leave overland to Vietnam →</a>
+        <a href="/itineraries/flow-b/">Vietnam to China, overland</a>
+        <a href="/guides/weizhou-island/">Weizhou Island, complete guide</a>
+        <a href="/about/">Who's writing this?</a>
+      </div>
+    </section>
+
+    <!-- CITY CARDS：点上方标记跳到对应名片（:target 高亮，零 JS） -->
+    <section class="cards">
+      <h2>The regions at a glance</h2>
+      <p class="hint">Tap a marker on the map to open a card. Day budgets are drafts — <span class="unverified">not yet verified on the ground.</span></p>
+      <div class="grid">
+
+        <article class="card" id="card-beihai">
+          <h3>Beihai <span class="cn">北海</span></h3>
+          <p class="card__badge"><VisaBadge zone="twov" /></p>
+          <ul class="meta">
+            <li><span class="k">Stay</span><span>2–3 days</span></li>
+            <li><span class="k">Day budget</span><span class="unverified">~ not yet verified</span></li>
+            <li><span class="k">Must-eat</span><span>Silver Beach oysters, shatian pomelo</span></li>
+            <li><span class="k">Pace</span><span>Chill → coastal</span></li>
+          </ul>
+          <a class="open" href="/itineraries/flow-a/">Open Flow A →</a>
+        </article>
+
+        <article class="card" id="card-weizhou">
+          <h3>Weizhou Island <span class="cn">涠洲岛</span></h3>
+          <p class="card__badge"><VisaBadge zone="twov" /></p>
+          <ul class="meta">
+            <li><span class="k">Stay</span><span>1–2 days</span></li>
+            <li><span class="k">Day budget</span><span class="unverified">~ not yet verified</span></li>
+            <li><span class="k">Must-see</span><span>Volcanic sea cliffs, Catholic church</span></li>
+            <li><span class="k">Pace</span><span>Chill → snorkel</span></li>
+          </ul>
+          <a class="open" href="/guides/weizhou-island/">Open guide →</a>
+        </article>
+
+        <article class="card" id="card-dongxing">
+          <h3>Dongxing <span class="cn">东兴</span></h3>
+          <p class="card__badge"><VisaBadge zone="twov" /></p>
+          <div class="visa-alert">Land exit for transit-visa travellers is still being verified on the ground — confirm before you rely on it.</div>
+          <ul class="meta">
+            <li><span class="k">Stay</span><span>Half day</span></li>
+            <li><span class="k">Day budget</span><span class="unverified">~ not yet verified</span></li>
+            <li><span class="k">Why go</span><span>Land/water border to Móng Cái</span></li>
+            <li><span class="k">Pace</span><span>Transit</span></li>
+          </ul>
+          <a class="open" href="/itineraries/flow-a/">Open Flow A →</a>
+        </article>
+
+        <article class="card" id="card-nanning">
+          <h3>Nanning <span class="cn">南宁</span></h3>
+          <p class="card__badge"><VisaBadge zone="twov" /></p>
+          <ul class="meta">
+            <li><span class="k">Stay</span><span>1–2 days</span></li>
+            <li><span class="k">Day budget</span><span class="unverified">~ not yet verified</span></li>
+            <li><span class="k">Must-eat</span><span>Lao You rice noodles</span></li>
+            <li><span class="k">Pace</span><span>Hub · transit</span></li>
+          </ul>
+          <a class="open" href="/itineraries/flow-b/">Open Flow B →</a>
+        </article>
+
+        <!-- 区外分区：自动 visa-alert（DESIGN 原则4） -->
+        <article class="card" id="card-chongzuo">
+          <h3>Chongzuo <span class="cn">崇左</span></h3>
+          <p class="card__badge"><VisaBadge zone="non-twov" /></p>
+          <div class="visa-alert">Outside the transit-visa zone. Only 48 visa-free nationalities (Europe / AU-NZ etc.) or visa holders may go — transit-visa travellers cannot.</div>
+          <ul class="meta">
+            <li><span class="k">Stay</span><span>1–2 days</span></li>
+            <li><span class="k">Day budget</span><span class="unverified">~ not yet verified</span></li>
+            <li><span class="k">Must-see</span><span>Detian transnational waterfall</span></li>
+            <li><span class="k">Pace</span><span>Adventurous</span></li>
+          </ul>
+          <a class="open" href="/guides/detian-chongzuo/">Open guide →</a>
+        </article>
+
+        <!-- 空态 -->
+        <article class="card empty" id="card-baise">
+          Baise 百色 — city card in the works.
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Latest guides（F011）：保留攻略卡片小节，最多 3 张 -->
     {latest.length > 0 && (
       <section class="latest-guides">
         <h2>Latest guides</h2>
@@ -37,17 +185,141 @@ const latest = guides.slice(0, 3).map((entry) => ({
         </div>
       </section>
     )}
+
+    <!-- 签证复杂度：渐进披露，不进英雄图 -->
+    <section class="visa-lanes">
+      <h2>Not sure which lane you're in?</h2>
+      <details>
+        <summary>Show the visa lanes and which regions each one covers</summary>
+        <div class="lane-body">
+          <p>Two lanes decide where you can legally go. Pick your passport's lane:</p>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Region</th><th>240h transit visa-free</th><th>30-day visa-free (48 countries)</th></tr></thead>
+              <tbody>
+                <tr><td>Beihai &amp; Weizhou Island</td><td class="yes">Yes · entry port</td><td class="yes">Yes</td></tr>
+                <tr><td>Dongxing / Fangchenggang</td><td class="yes">Yes*</td><td class="yes">Yes</td></tr>
+                <tr><td>Nanning (hub)</td><td class="yes">Yes · entry port</td><td class="yes">Yes</td></tr>
+                <tr><td>Hechi · Bama</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+                <tr><td>Chongzuo (Detian, Friendship Pass)</td><td class="no">No</td><td class="yes">Yes</td></tr>
+                <tr><td>Baise (Leye karst)</td><td class="no">No</td><td class="yes">Yes</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="unverified lane-note">*Land exit from Dongxing for transit-visa travellers is pending on-the-ground verification. Policies change — verify with the NIA.</p>
+        </div>
+      </details>
+    </section>
   </main>
 </BaseLayout>
 
 <style>
-  .latest-guides {
-    margin-top: 48px;
+  /* 北欧极简：直角、1px 细线、令牌配色全跟随 global.css 深浅切换。 */
+
+  /* ── Hero ── */
+  .hero { margin-bottom: 8px; }
+  .hero h1 {
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    line-height: 1.15;
+    margin: 0 0 12px;
+    max-width: 20ch;
   }
+  .hero h1 .em { color: var(--primary); }
+  .hero .sub {
+    color: var(--muted);
+    font-size: 1.0625rem;
+    max-width: 56ch;
+    margin: 0 0 24px;
+  }
+
+  /* ── Map figure ── */
+  figure.map { margin: 0; border: 1px solid var(--border); background: var(--surface); }
+  figure.map svg { display: block; width: 100%; height: auto; }
+  .map-cap {
+    color: var(--muted);
+    font-size: 0.8125rem;
+    padding: 8px 12px;
+    border-top: 1px solid var(--border);
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  }
+  .legend { display: inline-flex; align-items: center; gap: 7px; }
+  .swatch { width: 22px; height: 0; border-top: 3px solid; display: inline-block; }
+  .swatch--dashed { border-top-style: dashed; }
+  .legend .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+
+  /* SVG markers */
+  .marker circle { cursor: pointer; }
+  .marker text { font-size: 13px; fill: var(--ink); font-family: var(--sans); }
+  .marker text.sub { fill: var(--muted); font-size: 10.5px; }
+
+  /* ── Start here ── */
+  .starthere { margin-top: 22px; }
+  .starthere h2 { font-size: 1.1875rem; margin: 0 0 12px; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .links a {
+    display: inline-block; padding: 9px 14px; font-size: 0.9375rem;
+    border: 1px solid var(--border); color: var(--text); background: var(--surface);
+  }
+  .links a:hover { border-color: var(--primary); color: var(--primary); }
+  .links a.cta { background: var(--accent); border-color: var(--accent); color: #231400; font-weight: 600; }
+  .links a.cta:hover { background: var(--accent-strong); border-color: var(--accent-strong); color: #231400; }
+
+  /* ── City cards ── */
+  .cards { margin-top: 28px; }
+  .cards h2 { font-size: 1.1875rem; margin: 0 0 4px; }
+  .cards .hint { color: var(--muted); font-size: 0.8125rem; margin: 0 0 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .card { border: 1px solid var(--border); background: var(--surface); padding: 16px; scroll-margin-top: 16px; }
+  .card:target { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-soft); }
+  .card h3 { margin: 0 0 8px; font-size: 1.0625rem; }
+  .card h3 .cn { color: var(--muted); font-weight: 400; font-size: 0.875rem; }
+  .card__badge { margin: 0 0 10px; }
+  .meta { list-style: none; margin: 0 0 10px; padding: 0; font-size: 0.875rem; }
+  .meta li { display: flex; gap: 8px; padding: 3px 0; border-bottom: 1px solid var(--border); }
+  .meta li:last-child { border-bottom: 0; }
+  .meta .k { color: var(--muted); flex: 0 0 92px; }
+  .unverified { color: var(--accent-strong); font-style: italic; }
+  .card a.open { color: var(--primary); font-size: 0.875rem; font-weight: 600; }
+  .card a.open:hover { color: var(--primary-strong); }
+  .card .visa-alert {
+    background: var(--warn-bg); border-left: 3px solid var(--warn-border); color: var(--warn-text);
+    padding: 9px 11px; font-size: 0.8125rem; margin: 0 0 10px;
+  }
+  .card.empty {
+    border-style: dashed; color: var(--muted); display: flex; align-items: center; justify-content: center;
+    text-align: center; min-height: 150px; font-size: 0.875rem;
+  }
+
+  /* ── Latest guides（F011） ── */
+  .latest-guides { margin-top: 40px; }
+  .latest-guides h2 { font-size: 1.1875rem; margin: 0 0 16px; }
   .guide-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
-    margin-top: 24px;
+  }
+
+  /* ── Visa lanes：渐进披露 ── */
+  .visa-lanes { margin-top: 40px; }
+  .visa-lanes h2 { font-size: 1.1875rem; margin: 0; }
+  details { border: 1px solid var(--border); background: var(--surface); margin-top: 12px; }
+  summary {
+    cursor: pointer; padding: 14px 16px; font-weight: 600; color: var(--ink);
+    list-style: none; font-size: 0.9375rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "  +"; color: var(--muted); float: right; }
+  details[open] summary::after { content: "  –"; }
+  .lane-body { padding: 0 16px 16px; font-size: 0.875rem; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.8125rem; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .yes { color: var(--ok-text); font-weight: 600; }
+  .no { color: var(--warn-text); font-weight: 600; }
+  .lane-note { font-size: 0.8125rem; }
+
+  @media (max-width: 768px) {
+    .hero { margin-top: -12px; }
   }
 </style>
