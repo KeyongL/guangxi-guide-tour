@@ -787,3 +787,38 @@ F030（375px 无横向溢出）❌ 仍 false（诚实，不标 passing）：
 - 未 git push / 未开 PR（CLAUDE.md 铁律7：远程操作由人来做）。
 - 地图目前为 schematic SVG（零 JS、JS-off 天然降级）；若日后要真 Leaflet+OSM 交互地图，
   另开会话作为渐进增强，不属 F019 验收范围。
+
+---------------------------------------------
+2026-07-04 | /verify 独立审计（防漂移）
+范围：28 条 passes=true（>15），测近 5 提交涉及 + 抽样，共 9 条。
+方法：npm run build（10 页 exit 0）→ dist/ 构建产物 HTML 断言（无浏览器，符历史教训）。
+结论：确认 9 条，打回 0 条，无法测试 0 条——全过，无回归。
+- F019 地图着陆页：答案式 H1/hero SVG/6 城锚点/marker 跳转/崇左·东兴自动 visa-alert/
+  Start here 真实路由/<details> lanes/table-scroll/h1→svg→details 顺序，全 PASS。
+- F011 首页 Latest guides：3 张真实卡片，PASS。
+- F022 流向B：non-twov 徽章 + 48国适用声明 + VisaAlert + Day1–7 时间线 + 表单，PASS。
+- F002 schema 强制：注入缺字段 md → 构建失败 exit=1（summary/region/visa_zone Required），PASS。
+- F005 sitemap/robots、F009 徽章双态、F010 非过境区自动挂 aside.visa-alert（过境区不挂）、
+  F026 双语只落地名——均 PASS。
+- step7 篡改检查：feature_list.json 近 5 提交仅改 passes:false→true，功能描述无篡改。
+- 未介入功能（本就 passes=false，不在 true 集）：F024 Formspree 端到端 / F031 Lighthouse /
+  F006 Cloudflare——需真实外部服务或人眼，/auto 跑不到，留人工。
+
+下一步交接（站长要求：一次多做点，下会话用 /auto）：
+- 新对话打 /auto（或 /auto F034 指定起点），连续吃能自动验证的功能。
+- 建议起点 F034 首发批文章；可连做 F034–F048（内容/UI/地图/名片/降级态）。
+- 节奏：/auto 连做 3–5 个 → 插一轮 /verify 当安全网 → 再 /auto。别不验证一口气跑完。
+- /auto 做不了：F024/F031/F006（真实邮件/跑分/部署）——留站长手动。
+
+2026-07-04 | /auto 内容批（站长确认 risky 模式，500K 上限）
+产出：F034–F040、F042–F044 共 10 篇英文攻略，每篇独立子代理写（隔离上下文）。
+- 生死线首发批：F034 流向A旗舰 / F035 流向B旗舰 / F036 外卡绑微信支付宝 /
+  F037 国际eSIM（零VPN，合规门通过）/ F038 涠洲岛 / F039 北海老街 / F040 海鲜市场（双语菜名）。
+- 第二批：F042 德天+友谊关（non-twov 强制）/ F043 乐业天坑（non-twov）/ F044 巴马（twov）。
+验证：npm run build 干净通过（18 页，compliance 前置门过），10 篇 slug 唯一、visa_zone 正确
+  （F042/F043=non-twov 由 schema 强制校验）。全程未碰 feature_list.json。
+⚠️ 铁律守线：这 10 篇 passes 仍= false，未标 passing。内容需站长做事实/文案校对后自行标过。
+  全批共 57 处 "(not yet verified)" 标记（价格/班次/口岸资格）——站长逐条核实后删标+标 passing。
+  东兴陆路出境资格（F034/F035 核心）仍待站长向 NIA 核实。
+- F041/F045 行程页（flow-a/flow-b.astro）本就已有实质内容，未改；建议站长同批核实其交通时长。
+下一步：站长逐篇校对 10 篇攻略事实与英文 → 满意即在 feature_list 标 passing；勿一键全标。
