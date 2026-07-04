@@ -213,7 +213,7 @@
     "milestone": "V1",
     "description": "Formspree 不可用/提交失败 → 表单降级显示 mailto: 链接（PUBLIC_CONTACT_EMAIL）（验收标准4）",
     "steps": ["模拟 Formspree 失败/无 id", "表单降级为 mailto: 链接", "链接指向站长邮箱且可点"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F028",

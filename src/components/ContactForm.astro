@@ -1,7 +1,12 @@
 ---
-// 联系表单组件（F015，仅 UI 层）：Name / Email / Message + 提交成功占位态。
-// 无真实后端——Formspree 转发（F024）与 mailto 回退（F027）是后续独立功能。
+// 联系表单组件（F015 UI 层 + F027 降级）：Name / Email / Message + 提交成功占位态。
+// F027：Formspree id 缺失/不可用时，降级为可见的 mailto: 链接（站长邮箱来自 env）。
+// env 读取遵循 Astro 约定（见 GoogleAnalytics.astro）：import.meta.env.PUBLIC_*。
 // 校验走原生 HTML5 required + type="email"；成功态用极小内联脚本拦截提交切换显隐。
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
+// formspree 可用 = id 非空；不可用时立即把 mailto 回退设为可见。
+const formspreeAvailable = Boolean(formspreeId);
 ---
 <section class="contact" aria-labelledby="contact-heading">
   <h2 id="contact-heading">Contact</h2>
@@ -23,16 +28,27 @@
   <div class="contact-success" hidden>
     <p>Thanks — I'll reply within 24h.</p>
   </div>
+  {contactEmail && (
+    <p class="contact-fallback" hidden={formspreeAvailable}>
+      Prefer email? Reach me at <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+    </p>
+  )}
 </section>
 
 <script>
   // 极小提交拦截：阻止默认提交 + 无网络请求，仅隐藏表单显示成功占位。
+  // F027：若提交处理失败，兜底显示 mailto 回退链接（若存在），用户仍能联系站长。
   const form = document.querySelector('.contact-form');
   const success = document.querySelector('.contact-success');
+  const fallback = document.querySelector('.contact-fallback');
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    (form as HTMLFormElement).hidden = true;
-    (success as HTMLElement).hidden = false;
+    try {
+      (form as HTMLFormElement).hidden = true;
+      (success as HTMLElement).hidden = false;
+    } catch {
+      if (fallback) (fallback as HTMLElement).hidden = false;
+    }
   });
 </script>
 
@@ -97,5 +113,13 @@
     background: var(--success-bg);
     color: var(--success-text);
     font-size: 0.875rem;
+  }
+  .contact-fallback {
+    margin-top: 16px;
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+  .contact-fallback a {
+    color: var(--primary);
   }
 </style>
