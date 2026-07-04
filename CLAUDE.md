@@ -89,3 +89,4 @@
 ## 历史教训（复合工程：每次犯错追加一条）
 <!-- 格式：日期 | 犯的错 | 新规则 -->
 - 2026-07-03 | UI 验证先试 Playwright 截图，本环境无 Chrome（/opt/google/chrome 缺失）走弯路 | UI/页面验证优先 curl 抓 HTML 断言关键文案，需人眼时起 dev server 让用户确认；本环境浏览器截图自动化不可用，勿反复重试。npm run build 会自动清空 dist/，无需（且 settings 禁止）rm -rf dist。
+- 2026-07-04 | 在 worktree 里 `npm run dev` 后直接 curl 4321 验证，抓到的却是主 checkout 另一个会话占用 4321 的旧 scaffold 页 | 多 worktree/并行会话下 4321 常被占用，dev 会自动跳到 4322+。curl 前先 `grep -oE 'http://127.0.0.1:[0-9]+/' dev.log` 读实际端口；`data-astro-source-file` 路径可确认页面来自哪个 checkout。验证成品页优先 curl `dist/index.html`（构建产物就是本 worktree），dev server 仅供人眼预览。
