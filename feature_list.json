@@ -101,7 +101,7 @@
     "milestone": "V1",
     "description": "文章目录 TOC：数字序号锚点列表，primary-soft 底盒",
     "steps": ["文章页渲染 TOC", "点击锚点跳到对应小节", "无 JS 时仍是可用锚点链接"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F014",
