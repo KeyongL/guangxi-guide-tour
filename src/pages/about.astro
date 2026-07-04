@@ -2,6 +2,7 @@
 // 极简 About 占位页 —— F023 会扩充内容，现走 BaseLayout（F003）。
 // 仍保持每页 SEO 唯一（F004）：与首页不同的 title/description，og:image 走默认回退。
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AuthorTrust from '../components/AuthorTrust.astro';
 ---
 <BaseLayout
   title="About — Guangxi Bound"
@@ -9,5 +10,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <main>
     <h1>About</h1>
+    <AuthorTrust />
   </main>
 </BaseLayout>

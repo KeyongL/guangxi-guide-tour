@@ -1,0 +1,53 @@
+---
+// 作者信任条（F014）：扁平头像占位 + 身份行 + 实地核实日期。
+// verified 来自 frontmatter；无核实日期则整行不渲染——绝不编造假日期。
+interface Props {
+  verified?: Date;
+}
+const { verified } = Astro.props;
+const verifiedLabel = verified
+  ? verified.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })
+  : null;
+---
+<aside class="author-trust">
+  <span class="avatar" aria-hidden="true"></span>
+  <div class="who">
+    <span class="identity">PhD, based in Beihai</span>
+    {verifiedLabel && (
+      <span class="verified">Last verified on the ground · {verifiedLabel}</span>
+    )}
+  </div>
+</aside>
+
+<style>
+  /* 北欧极简：扁平头像占位（primary-soft 底 + 1px 描边），直角无阴影。 */
+  .author-trust {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+  }
+  .avatar {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    background: var(--primary-soft);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+  }
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .identity {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .verified {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+</style>

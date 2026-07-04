@@ -7,6 +7,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import VisaBadge from '../../components/VisaBadge.astro';
 import VisaAlert from '../../components/VisaAlert.astro';
+import AuthorTrust from '../../components/AuthorTrust.astro';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -42,6 +43,7 @@ const guideUrl = (g: CollectionEntry<'guides'>) => `/guides/${g.data.slug ?? g.i
       <h1>{entry.data.title}</h1>
       <p class="verdict">{verdict}</p>
       <VisaBadge zone={entry.data.visa_zone} />
+      <AuthorTrust verified={entry.data.verified} />
     </header>
 
     {

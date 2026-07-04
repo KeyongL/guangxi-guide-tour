@@ -109,7 +109,7 @@
     "milestone": "V1",
     "description": "作者信任条：头像占位 + \"PhD, based in Beihai\" + 实地核实日期（Last verified on the ground）",
     "steps": ["文章页与 About 渲染信任条", "核实日期来自 frontmatter", "无核实日期时不显示假日期"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F015",
