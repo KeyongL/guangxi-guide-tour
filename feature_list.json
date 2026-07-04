@@ -133,7 +133,7 @@
     "milestone": "V1",
     "description": "页脚：政策免责声明（policies change, verify with NIA）+ 站点地图链接",
     "steps": ["全部页面渲染页脚", "含免责声明与官方来源链接", "站点地图链接可达"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F018",

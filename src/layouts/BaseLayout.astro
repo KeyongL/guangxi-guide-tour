@@ -37,6 +37,19 @@ const { title, description, image } = Astro.props;
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Dark</button>
     </header>
     <slot />
+    <footer class="site-footer">
+      <p class="footer-disclaimer">
+        Visa and entry policies change. Always verify current rules with the
+        <a href="https://en.nia.gov.cn/" target="_blank" rel="noopener noreferrer">National Immigration Administration (NIA)</a>
+        before you travel.
+      </p>
+      <nav class="footer-nav" aria-label="Sitemap">
+        <a href="/guides/">Guides</a>
+        <a href="/itineraries/">Itineraries</a>
+        <a href="/about/">About</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </footer>
     <script>
       const btn = document.getElementById('theme-toggle');
       const media = window.matchMedia('(prefers-color-scheme: dark)');
@@ -60,5 +73,27 @@ const { title, description, image } = Astro.props;
       media.addEventListener('change', updateLabel);
       updateLabel();
     </script>
+    <style>
+      .site-footer {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 24px 48px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.8125rem;
+        line-height: 1.6;
+      }
+      .footer-disclaimer {
+        margin: 0 0 16px;
+        max-width: 700px;
+      }
+      .site-footer a { color: var(--primary); }
+      .site-footer a:hover { color: var(--primary-strong); }
+      .footer-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+      }
+    </style>
   </body>
 </html>
