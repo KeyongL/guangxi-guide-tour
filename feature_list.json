@@ -125,7 +125,7 @@
     "milestone": "V1",
     "description": "空状态：区域暂无文章时显示 \"Guides in the works\" 占位",
     "steps": ["列表页某区域无文章时渲染空状态", "有文章后空状态消失", "空状态文案纯英文"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F017",
