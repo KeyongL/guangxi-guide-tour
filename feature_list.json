@@ -21,7 +21,7 @@
     "milestone": "V1",
     "description": "基础布局 + 设计令牌：全局 CSS 引用 DESIGN.md 深浅两套 hex、系统字体栈、375px 移动优先、深色模式跟随系统且提供手动切换",
     "steps": ["建 BaseLayout 与令牌 CSS，色值全部取自 DESIGN.md", "系统深色偏好切换时页面配色随之切换", "手动切换按钮可覆盖系统偏好"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F004",

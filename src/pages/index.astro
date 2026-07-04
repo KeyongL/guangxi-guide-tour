@@ -1,22 +1,14 @@
 ---
-// 占位首页 — /init-harness 生成的最小可运行骨架。
+// 占位首页 — /init-harness 生成的最小可运行骨架，现走 BaseLayout（F003）。
 // 真正的着陆页（地图为主角，见 feature_list.json F019 + mockups/07-map-first.html）在 /work 实现。
-import BaseHead from '../components/BaseHead.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <BaseHead
-      title="Guangxi Bound — Independent travel guides to Guangxi, China"
-      description="Practical, ground-verified travel guides to Guangxi: Guilin, Yangshuo, Beihai and beyond — routes, visas and city cards for independent travellers."
-    />
-  </head>
-  <body>
-    <main>
-      <h1>Guangxi Bound</h1>
-      <p>Scaffold placeholder. Run <code>/work</code> to build features (see feature_list.json).</p>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  title="Guangxi Bound — Independent travel guides to Guangxi, China"
+  description="Practical, ground-verified travel guides to Guangxi: Guilin, Yangshuo, Beihai and beyond — routes, visas and city cards for independent travellers."
+>
+  <main>
+    <h1>Guangxi Bound</h1>
+    <p>Scaffold placeholder. Run <code>/work</code> to build features (see feature_list.json).</p>
+  </main>
+</BaseLayout>

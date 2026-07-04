@@ -1,0 +1,56 @@
+---
+// 基础布局（F003）：全局令牌 CSS + 深色模式（跟随系统 + 手动切换覆盖）。
+// head 复用 BaseHead（F004 唯一 title/description，内部已含 GoogleAnalytics）。
+import BaseHead from '../components/BaseHead.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      // 防闪烁：渲染前应用手动主题；无手动值则交给 CSS 跟随系统偏好。
+      (function () {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+  <body>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Dark</button>
+    <slot />
+    <script>
+      const btn = document.getElementById('theme-toggle');
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function currentTheme(): 'light' | 'dark' {
+        const manual = document.documentElement.getAttribute('data-theme');
+        if (manual === 'light' || manual === 'dark') return manual;
+        return media.matches ? 'dark' : 'light';
+      }
+
+      function updateLabel() {
+        if (btn) btn.textContent = currentTheme() === 'dark' ? 'Light' : 'Dark';
+      }
+
+      btn?.addEventListener('click', () => {
+        const next = currentTheme() === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateLabel();
+      });
+      media.addEventListener('change', updateLabel);
+      updateLabel();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,120 @@
+/* 设计令牌 + 全局基座（F003）。
+   色值唯一真相源：docs/DESIGN.md（深浅两套 hex，禁止发明新色值）。
+   方向：极简北欧——系统无衬线栈、直角（border-radius:0）、1px 细线、留白加倍。
+   深色策略：浅色为默认 → @media 跟随系统（手动选 light 时排除）→ [data-theme="dark"] 手动覆盖。 */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FBF9F4;
+  --surface: #FFFFFF;
+  --ink: #16232B;
+  --text: #34454F;
+  --muted: #64748B;
+  --border: #E4E2DB;
+  --primary: #0E7490;
+  --primary-strong: #155E75;
+  --primary-soft: #E3F1F5;
+  --accent: #F59E0B;
+  --accent-strong: #D97706;
+  --ok-bg: #DCF0F4;
+  --ok-text: #0E7490;
+  --warn-bg: #FEF3C7;
+  --warn-border: #F59E0B;
+  --warn-text: #92400E;
+  --success-bg: #DCFCE7;
+  --success-text: #15803D;
+  --error-bg: #FEE2E2;
+  --error-text: #B91C1C;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 深色：跟随系统偏好（用户手动选了 light 时不生效） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1B22;
+    --surface: #14262F;
+    --ink: #F1F5F7;
+    --text: #C3D2D9;
+    --muted: #7E94A0;
+    --border: #24404C;
+    --primary: #4FC3DD;
+    --primary-strong: #7DD5E8;
+    --primary-soft: #12333E;
+    --accent: #FBBF24;
+    --accent-strong: #F59E0B;
+    --ok-bg: #12333E;
+    --ok-text: #4FC3DD;
+    --warn-bg: #33270B;
+    --warn-border: #B45309;
+    --warn-text: #FCD34D;
+    --success-bg: #132E1C;
+    --success-text: #4ADE80;
+    --error-bg: #391414;
+    --error-text: #F87171;
+  }
+}
+
+/* 深色：手动覆盖（赢过系统浅色偏好） */
+:root[data-theme="dark"] {
+  --bg: #0D1B22;
+  --surface: #14262F;
+  --ink: #F1F5F7;
+  --text: #C3D2D9;
+  --muted: #7E94A0;
+  --border: #24404C;
+  --primary: #4FC3DD;
+  --primary-strong: #7DD5E8;
+  --primary-soft: #12333E;
+  --accent: #FBBF24;
+  --accent-strong: #F59E0B;
+  --ok-bg: #12333E;
+  --ok-text: #4FC3DD;
+  --warn-bg: #33270B;
+  --warn-border: #B45309;
+  --warn-text: #FCD34D;
+  --success-bg: #132E1C;
+  --success-text: #4ADE80;
+  --error-bg: #391414;
+  --error-text: #F87171;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  color: var(--ink);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 650;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-strong); }
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 20px;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font: 600 0.65rem/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--primary); border-color: var(--primary); }
