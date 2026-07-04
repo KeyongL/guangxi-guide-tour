@@ -61,7 +61,7 @@
     "milestone": "V1",
     "description": "顶部导航：品牌名 + Guides / Itineraries / About + 深色切换；375px 下可用（不溢出、可点）",
     "steps": ["全部页面渲染统一导航", "375px 下导航项可点、不横向溢出", "深色切换按钮生效"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F009",

@@ -27,7 +27,15 @@ const { title, description, image } = Astro.props;
     <BaseHead title={title} description={description} image={image} />
   </head>
   <body>
-    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Dark</button>
+    <header class="site-header">
+      <a class="brand" href="/">Guangxi Bound</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="/guides/">Guides</a>
+        <a href="/itineraries/">Itineraries</a>
+        <a href="/about/">About</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Dark</button>
+    </header>
     <slot />
     <script>
       const btn = document.getElementById('theme-toggle');

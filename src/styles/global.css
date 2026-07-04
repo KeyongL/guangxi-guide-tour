@@ -104,10 +104,42 @@ main {
   padding: 48px 20px;
 }
 
+/* 顶部导航（F008）：品牌 + 三链接 + 深色切换。
+   375px 不做汉堡：flex-wrap 换行收纳，链接纵向 padding 保证 ≥40px 点击高度。 */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  color: var(--ink);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  padding: 8px 0;
+  white-space: nowrap;
+}
+.brand:hover { color: var(--primary); }
+
+.site-nav {
+  display: flex;
+  column-gap: 20px;
+  margin-left: auto;
+}
+
+.site-nav a {
+  color: var(--text);
+  padding: 10px 2px;
+  white-space: nowrap;
+}
+.site-nav a:hover { color: var(--primary); }
+
 .theme-toggle {
-  position: fixed;
-  top: 12px;
-  right: 12px;
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--muted);
