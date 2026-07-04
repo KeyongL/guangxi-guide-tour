@@ -5,7 +5,7 @@
     "milestone": "V1",
     "description": "Astro 项目可构建、可本地预览：npm install 后 npm run build 产出 dist/ 无报错，npm run dev 本地可访问占位首页",
     "steps": ["运行 npm install", "运行 npm run build 确认无报错且产出 dist/", "运行 npm run dev 确认 http://127.0.0.1:4321 打开占位首页"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F002",
