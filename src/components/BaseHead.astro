@@ -2,6 +2,8 @@
 // 可复用的 <head> SEO 片段（F004）。纯 head，不含样式/设计 token。
 // 每页传入唯一 title/description，生成唯一 <title>/description/OG 标签。
 // 绝对 URL 由 astro.config.mjs 的 site + 当前页 pathname 拼出（OG/canonical 需要绝对地址）。
+import GoogleAnalytics from './GoogleAnalytics.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -25,3 +27,5 @@ const socialImageURL = new URL(image, Astro.site);
 <meta property="og:image" content={socialImageURL} />
 
 <meta name="twitter:card" content="summary_large_image" />
+
+<GoogleAnalytics />

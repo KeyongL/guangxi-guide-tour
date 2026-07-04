@@ -3,3 +3,5 @@
 {"t":0,"agent":"a4c7d70","agent_type":"general-purpose","event":"agent_stop","success":true,"duration_ms":229733}
 {"t":0,"agent":"aa64673","agent_type":"general-purpose","event":"agent_start","parent_mode":"none"}
 {"t":0,"agent":"aa64673","agent_type":"general-purpose","event":"agent_stop","success":true,"duration_ms":118486}
+{"t":0,"agent":"ae5e935","agent_type":"general-purpose","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"ae5e935","agent_type":"general-purpose","event":"agent_stop","success":true,"duration_ms":230479}

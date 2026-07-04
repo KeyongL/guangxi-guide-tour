@@ -53,7 +53,7 @@
     "milestone": "V1",
     "description": "GA4 注入：measurement id 来自 env（PUBLIC_GA4_MEASUREMENT_ID），缺省时页面仍正常渲染（静默失败）",
     "steps": ["有 GA4 id 时页面注入 gtag 片段", "清空该 env 后构建与渲染不报错", "确认无 id 时不注入脚本"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F008",
