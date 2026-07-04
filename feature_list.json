@@ -181,7 +181,7 @@
     "milestone": "V1",
     "description": "About + Contact 页：站长故事信任页（博士/北海本地/英语流利/欧美生活4年）+ 联系表单，是转化核心",
     "steps": ["About 呈现站长背书故事", "含联系表单与信任条", "移动端可读不溢出"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F024",

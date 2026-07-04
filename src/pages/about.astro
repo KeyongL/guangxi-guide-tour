@@ -1,17 +1,65 @@
 ---
-// 极简 About 占位页 —— F023 会扩充内容，现走 BaseLayout（F003）。
-// 仍保持每页 SEO 唯一（F004）：与首页不同的 title/description，og:image 走默认回退。
+// About 页（F023 转化核心）：站长可信故事 + 作者信任条（F014）+ 联系表单（F015）。
+// 事实来自规格：博士学位；北海本地人；英语流利；曾在欧美生活 4 年。
+// 保持每页 SEO 唯一（F004）：与首页不同的 title/description，og:image 走默认回退。
+// 正文纯英文（双语政策），仅地名保留中英对照（Beihai 北海）。
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AuthorTrust from '../components/AuthorTrust.astro';
 import ContactForm from '../components/ContactForm.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 ---
 <BaseLayout
   title="About — Guangxi Bound"
   description="Who is behind Guangxi Bound and how these guides are researched and verified on the ground."
 >
   <main>
-    <h1>About</h1>
-    <AuthorTrust />
+    <article class="about">
+      <h1>About</h1>
+      <AuthorTrust />
+
+      <div class="portrait">
+        <PhotoPlaceholder caption="Portrait of the author" />
+      </div>
+
+      <p class="lead">
+        I write Guangxi Bound because I grew up here and I want travellers to
+        see the real thing — not a rushed tour-bus version of it.
+      </p>
+      <p>
+        I hold a PhD and I am a Beihai 北海 local. English is a language I speak
+        fluently, and I spent four years living in Europe and the United States,
+        so I know what it feels like to land somewhere new and need honest,
+        practical directions rather than marketing copy.
+      </p>
+      <p>
+        Every guide here is researched and checked on the ground, then written
+        for independent travellers who plan their own trips. If something has
+        changed since I last visited, I want to hear about it.
+      </p>
+    </article>
+
     <ContactForm />
   </main>
 </BaseLayout>
+
+<style>
+  /* 可读行宽：正文限 640px（比 main 的 1100px 窄），移动端 max-width:100% 不溢出。 */
+  .about {
+    max-width: 640px;
+  }
+  .about h1 {
+    margin-bottom: 8px;
+  }
+  .portrait {
+    max-width: 320px;
+    margin: 24px 0 32px;
+  }
+  .lead {
+    font-size: 1.0625rem;
+    color: var(--ink);
+    margin-top: 24px;
+  }
+  .about p + p {
+    margin-top: 16px;
+  }
+</style>
