@@ -72,6 +72,13 @@
 8. 会话结束必须更新 claude-progress.txt。
 9. .env 文件永远不进 git。不确定就停下来问。
 
+## 英文文案铁律（F034–F045 内容文章及一切面向读者的文字）
+1. 读者是英语母语者。短句、主动语态，无营销腔（禁 wonderful/amazing/enjoy your journey 类空词）。
+2. 数字必须具体：写 "Ferry: 90 min, ¥150"，不写 "a short ferry ride"。查不到就标 not yet verified，不编。
+3. 结论前置：每篇首屏先回答"你这护照行不行/值不值得去"，再展开。
+4. 双语只留地名/菜名/地址（Weizhou 涠洲岛）；UI 与正文纯英文。
+5. 每个事实带来源或核实日期；未实地核实的价格/班次一律挂 unverified 态。
+
 ## 常用命令
 - 启动环境:   ./init.sh
 - 本地预览:   npm run dev    # http://127.0.0.1:4321
