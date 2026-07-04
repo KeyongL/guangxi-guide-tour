@@ -81,3 +81,4 @@
 
 ## 历史教训（复合工程：每次犯错追加一条）
 <!-- 格式：日期 | 犯的错 | 新规则 -->
+- 2026-07-03 | UI 验证先试 Playwright 截图，本环境无 Chrome（/opt/google/chrome 缺失）走弯路 | UI/页面验证优先 curl 抓 HTML 断言关键文案，需人眼时起 dev server 让用户确认；本环境浏览器截图自动化不可用，勿反复重试。npm run build 会自动清空 dist/，无需（且 settings 禁止）rm -rf dist。
