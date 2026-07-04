@@ -157,7 +157,7 @@
     "milestone": "V1",
     "description": "攻略列表页：按区域分组（Beihai & Weizhou / Border Towns / Inland Karst），含无文章区域的空状态",
     "steps": ["列表页按区域分组渲染卡片", "百色等暂无文章区域显示空状态", "移动端单列不溢出"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F021",
