@@ -117,7 +117,7 @@
     "milestone": "V1",
     "description": "联系表单组件：姓名/邮箱/留言 + 提交成功态（UI 层，真实转发见 F024）",
     "steps": ["行程页与 About 渲染表单", "必填校验生效", "提交后显示成功提示占位态"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F016",

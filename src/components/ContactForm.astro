@@ -1,0 +1,101 @@
+---
+// 联系表单组件（F015，仅 UI 层）：Name / Email / Message + 提交成功占位态。
+// 无真实后端——Formspree 转发（F024）与 mailto 回退（F027）是后续独立功能。
+// 校验走原生 HTML5 required + type="email"；成功态用极小内联脚本拦截提交切换显隐。
+---
+<section class="contact" aria-labelledby="contact-heading">
+  <h2 id="contact-heading">Contact</h2>
+  <form class="contact-form" novalidate={false}>
+    <label class="field">
+      <span>Name</span>
+      <input type="text" name="name" required />
+    </label>
+    <label class="field">
+      <span>Email</span>
+      <input type="email" name="email" required />
+    </label>
+    <label class="field">
+      <span>Message</span>
+      <textarea name="message" rows="4" required></textarea>
+    </label>
+    <button type="submit">Send</button>
+  </form>
+  <div class="contact-success" hidden>
+    <p>Thanks — I'll reply within 24h.</p>
+  </div>
+</section>
+
+<script>
+  // 极小提交拦截：阻止默认提交 + 无网络请求，仅隐藏表单显示成功占位。
+  const form = document.querySelector('.contact-form');
+  const success = document.querySelector('.contact-success');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    (form as HTMLFormElement).hidden = true;
+    (success as HTMLElement).hidden = false;
+  });
+</script>
+
+<style>
+  /* 北欧极简：直角、1px 细线、留白；色值全用全局令牌。 */
+  .contact {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    max-width: 480px;
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .field input,
+  .field textarea {
+    font: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 10px 12px;
+  }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  .field textarea {
+    resize: vertical;
+  }
+  button[type='submit'] {
+    align-self: flex-start;
+    background: var(--primary);
+    color: var(--surface);
+    border: 1px solid var(--primary);
+    border-radius: 0;
+    font: 600 0.875rem/1 var(--sans);
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  button[type='submit']:hover {
+    background: var(--primary-strong);
+    border-color: var(--primary-strong);
+  }
+  .contact-success {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--success-bg);
+    color: var(--success-text);
+    font-size: 0.875rem;
+  }
+</style>

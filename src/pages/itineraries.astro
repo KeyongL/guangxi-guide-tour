@@ -2,6 +2,7 @@
 // Itineraries 页（F012）：逐日纵向行程时间线，每日含交通 + 住宿。
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Timeline from '../components/Timeline.astro';
+import ContactForm from '../components/ContactForm.astro';
 
 const days = [
   {
@@ -32,5 +33,6 @@ const days = [
     <h1>Itineraries</h1>
     <p>A day-by-day plan with transport and lodging worked out for you.</p>
     <Timeline days={days} />
+    <ContactForm />
   </main>
 </BaseLayout>

@@ -3,6 +3,7 @@
 // 仍保持每页 SEO 唯一（F004）：与首页不同的 title/description，og:image 走默认回退。
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AuthorTrust from '../components/AuthorTrust.astro';
+import ContactForm from '../components/ContactForm.astro';
 ---
 <BaseLayout
   title="About — Guangxi Bound"
@@ -11,5 +12,6 @@ import AuthorTrust from '../components/AuthorTrust.astro';
   <main>
     <h1>About</h1>
     <AuthorTrust />
+    <ContactForm />
   </main>
 </BaseLayout>
