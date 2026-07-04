@@ -229,7 +229,7 @@
     "milestone": "V1",
     "description": "缺失 GA4 / Formspree 等 env 变量时站点仍能构建与渲染（不硬崩），相关功能优雅降级",
     "steps": ["清空 .env 后 npm run build 成功", "页面正常渲染", "缺 id 的集成走各自降级路径而非报错"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F030",
