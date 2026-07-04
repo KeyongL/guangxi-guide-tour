@@ -736,3 +736,25 @@ F030（375px 无横向溢出）❌ 仍 false（诚实，不标 passing）：
   当前 /（index.astro）还是「Scaffold placeholder」骨架，不是验收目标的地图首页。
   即便窄屏静态无溢出，也只代表占位页，不代表 F019 成品页。
 - 结论：F030 需在 F019 建成后、且有真实浏览器（或人眼在 375px）时才能端到端标 passing。
+
+[2026-07-04] Session: /design — F019 着陆/枢纽页地图主角样张
+---------------------------------------------
+背景：DESIGN.md 引用 mockups/07-map-first.html 为"已落地"，但 mockups/ 目录实际不存在
+  （从未创建/丢失）。/design 补上这个缺口。设计三问无需再问——DESIGN.md 已定稿
+  （极简北欧风/中英对照仅地名/UI 英文），本会话只产视觉原型。
+产出（mockups/ 在 .gitignore 第59行，属一次性原型，不进 git）：
+- mockups/07-map-first.html：答案式大标题 → SVG 地图英雄第一屏（6城标记+流向A实线/流向B虚线+图例）
+  → 点标记锚定弹极简城市名片（:target，零 JS）→ Start here 4链接 → 签证 lanes 渐进披露
+  （<details>，不进英雄图）。城市名片含 visa-badge(✅/⚠️)、天数、日预算=「~ not yet verified」
+  （预算走未核实态）、必吃、活动强度；崇左/百色自动挂 visa-alert（DESIGN 原则4）；
+  百色为 empty 态"city card in the works"。色彩令牌逐一引用 DESIGN.md hex，深浅两套+手动切换。
+- mockups/00-index.html：汇总页（链 07 + 色板）；01–06 按 DESIGN 说明留给 /work 直接建，不重做原型。
+验证（本环境无浏览器，HTML 断言，非人眼自嗨）：
+  well-formed 无未闭合标签；hero(h1)→svg→details 顺序正确；:target 名片/details 披露/未核实预算/
+  viewport+fluid 全部断言 PASS；5个 hex 令牌命中 DESIGN.md。
+  预览服务器：python http.server 127.0.0.1:4319 服务 mockups/，07 与 00 均 HTTP 200。
+未做/交界：
+- F019 passes 仍 false（诚实）——本会话只是设计样张，非成品 Astro 页。真正 index.astro 地图主角页
+  （Leaflet+OSM 渐进增强、JS-off 降级、375px、Lighthouse≥85）留给下一 /work 会话。
+- 无 git 提交：mockups/ 被 .gitignore；DESIGN.md 未改；src/ 未动。无远程（站长自建 GitHub 库并 push）。
+下一步：站长浏览器打开 mockups/00-index.html 确认设计 → 开新对话 /work 落地 F019 成品页。
