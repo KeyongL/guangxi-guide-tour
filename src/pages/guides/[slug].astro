@@ -55,8 +55,8 @@ const guideUrl = (g: CollectionEntry<'guides'>) => `/guides/${g.data.slug ?? g.i
       )
     }
 
-    <!-- 正文默认折叠：原生 details，零 JS。TOC 放折叠区首部，
-         展开后锚点目标必然可见——无 JS 也能跳转（F013 依赖）。 -->
+    <!-- Body collapsed by default: native details, zero JS. TOC sits at the top of the fold,
+         so once expanded the anchor targets are always visible — jumps work without JS (F013 depends on this). -->
     <details class="article-fold">
       <summary>Read the full guide</summary>
 

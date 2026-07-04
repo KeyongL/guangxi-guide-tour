@@ -205,7 +205,7 @@
     "milestone": "V1",
     "description": "双语范围落地：仅地名/菜名/地址显示 EN + 中文（如 Weizhou 涠洲岛）；UI 标签/导航/正文一律纯英文（DESIGN.md 现行方向）",
     "steps": ["地名/菜名/地址处成对显示英文+中文", "导航/按钮/正文无中文", "抽查一页确认双语只落在名词层"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F027",

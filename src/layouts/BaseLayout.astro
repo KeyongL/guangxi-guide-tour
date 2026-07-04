@@ -18,7 +18,7 @@ const { title, description, image } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
-      // 防闪烁：渲染前应用手动主题；无手动值则交给 CSS 跟随系统偏好。
+      // Anti-flicker: apply manual theme before render; fall back to CSS system preference when unset.
       (function () {
         var t = localStorage.getItem('theme');
         if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
