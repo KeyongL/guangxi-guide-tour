@@ -523,3 +523,38 @@ VisaAlert，作者零手写；本会话零代码改动，仅端到端复核 3 st
     count=1 自动挂载；删除+rebuild 后 404 恢复。
 注意：astro preview 只监听 [::1]，用 localhost 而非 127.0.0.1 访问。
 进度：passing 11/49。F010 passes → true。
+
+[2026-07-03] Session: /auto 无人值守批次 #2（UI 地基 + 文章页系统链，5 个）
+---------------------------------------------
+模式：/auto，token 上限 500K（沿用上批先例，无人在场自取），每功能独立子代理 +
+真浏览器验证（发现本机 Playwright 捆绑 chromium 可用——历史教训针对的是系统
+Chrome 缺失；NODE_PATH=$(npm root -g) 可 require('playwright')，从此 UI 溢出/
+点击/深色切换均可真测，不再只靠 curl 断言）。
+完成（passing 6→11/49，每个一 commit "feat: 完成 FXXX [auto]"）：
+- F003 BaseLayout+令牌：global.css 全量 DESIGN.md 深浅 hex；防闪烁脚本 +
+  data-theme 双向覆盖系统偏好 + localStorage 持久；浅 #FBF9F4/深 #0D1B22 实测。
+- F008 导航：header 品牌+Guides/Itineraries/About+toggle；四页统一；375px
+  溢出 0、点击目标高 44px；新增 /guides/ /itineraries/ stub（F020/F022 地盘）。
+- F009 VisaBadge：twov/non-twov 两态，文案含 ✅/⚠️ 字面（feature_list 为验收
+  真相源，未因北欧去-emoji 方向删）；ok/warn 令牌精确匹配；深色对比度
+  6.49/10.14 ≥4.5；新增 /styleguide/ 组件样张页。
+- F021 文章页：答案式首屏（结论+徽章）→ 自动 VisaAlert → details 折叠正文
+  （零 JS）→ 数字 TOC（锚点真实跳转）→ 相关文章 → 唯一 accent CTA；3 篇
+  draft 样例；sitemap 端点补集合页枚举。16/16 断言。
+- F010 自动 visa-alert：独立复核 3 steps，含"临时零提醒文字样例自动挂载"
+  强证；零代码改动。
+消耗：约 477K token（F003 95K/F008 86K/F009 92K/F021 121K/F010 83K）。
+未做（原因）：
+- F017 页脚、F033 构建强制校验：500K 硬闸到，顺延下批（F033 是验收7 后半，
+  地基 F010 已牢，下批优先）。
+- F018/F011/F020/F016/F013/F014/F015/F027/F023/F025：排在预算外；F013/F014
+  因 F021 已建 TOC/文章页，下批验收成本低。
+- 内容 F034–F045（SPEC 红线人工核实定稿）、V1.1 F028/F032/F046–F049（范围
+  纪律）、F006/F024（远程部署/真实邮件）、F019/F030/F031/F026（需人眼或全
+  页型齐备）——不纳入无人值守。
+收尾健诊：feature_list 仅 5 处 passes 翻转无篡改；npm run build 8 页 exit 0；
+工作区干净（仅 .omc 插件噪音未入库）。
+下一步：
+→ 再开 /auto 做 F033+F017+F013/F014/F011/F020/F016 一批（均可真浏览器自动验）。
+→ 或 /verify 复审本批 5 条（建议：F003/F009 涉配色品味，人眼过一遍 /styleguide/）。
+→ 本批未 push（铁律7）；分支 worktree-feature+F001-astro-scaffold 待人合并/推送。
