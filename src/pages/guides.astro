@@ -1,6 +1,24 @@
 ---
-// 极简 Guides 占位页 —— 列表功能是 F020 的地盘，此页仅让 F008 导航端到端可达。
+// 攻略列表页（F011）：渲染攻略卡片网格。
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import GuideCard from '../components/GuideCard.astro';
+
+// 阅读时长：正文词数 / 200，向上取整，至少 1 分钟（F011 说明，确定性计算）。
+function readingMinutes(body: string): number {
+  const words = (body.replace(/[#*_`>\-\[\]()!]/g, ' ').match(/\S+/g) ?? []).length;
+  return Math.max(1, Math.round(words / 200));
+}
+
+const guides = await getCollection('guides');
+const cards = guides.map((entry) => ({
+  title: entry.data.title,
+  summary: entry.data.summary,
+  region: entry.data.region,
+  cover: entry.data.cover,
+  href: `/guides/${entry.data.slug ?? entry.id}/`,
+  readingMinutes: readingMinutes(entry.body ?? ''),
+}));
 ---
 <BaseLayout
   title="Guides — Guangxi Bound"
@@ -8,6 +26,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <main>
     <h1>Guides</h1>
-    <p>City guides are on the way.</p>
+    {cards.length === 0 ? (
+      <p>City guides are on the way.</p>
+    ) : (
+      <div class="guide-grid">
+        {cards.map((card) => <GuideCard {...card} />)}
+      </div>
+    )}
   </main>
 </BaseLayout>
+
+<style>
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+</style>

@@ -1,7 +1,26 @@
 ---
 // 占位首页 — /init-harness 生成的最小可运行骨架，现走 BaseLayout（F003）。
 // 真正的着陆页（地图为主角，见 feature_list.json F019 + mockups/07-map-first.html）在 /work 实现。
+// F011：附加一个「Latest guides」攻略卡片小节（最多 3 张），不改动地图着陆页方向。
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import GuideCard from '../components/GuideCard.astro';
+
+// 阅读时长：正文词数 / 200，向上取整，至少 1 分钟（F011 说明，确定性计算）。
+function readingMinutes(body: string): number {
+  const words = (body.replace(/[#*_`>\-\[\]()!]/g, ' ').match(/\S+/g) ?? []).length;
+  return Math.max(1, Math.round(words / 200));
+}
+
+const guides = await getCollection('guides');
+const latest = guides.slice(0, 3).map((entry) => ({
+  title: entry.data.title,
+  summary: entry.data.summary,
+  region: entry.data.region,
+  cover: entry.data.cover,
+  href: `/guides/${entry.data.slug ?? entry.id}/`,
+  readingMinutes: readingMinutes(entry.body ?? ''),
+}));
 ---
 <BaseLayout
   title="Guangxi Bound — Independent travel guides to Guangxi, China"
@@ -10,5 +29,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <main>
     <h1>Guangxi Bound</h1>
     <p>Scaffold placeholder. Run <code>/work</code> to build features (see feature_list.json).</p>
+
+    {latest.length > 0 && (
+      <section class="latest-guides">
+        <h2>Latest guides</h2>
+        <div class="guide-grid">
+          {latest.map((card) => <GuideCard {...card} />)}
+        </div>
+      </section>
+    )}
   </main>
 </BaseLayout>
+
+<style>
+  .latest-guides {
+    margin-top: 48px;
+  }
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+</style>

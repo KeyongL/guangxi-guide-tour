@@ -85,7 +85,7 @@
     "milestone": "V1",
     "description": "攻略卡片：扁平照片占位 + 区域标签 + 标题 + 摘要 + 阅读时长",
     "steps": ["列表页与首页渲染攻略卡片", "字段齐全且照片为扁平占位块", "hover 态描边变主色"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F012",
