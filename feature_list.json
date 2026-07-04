@@ -141,7 +141,7 @@
     "milestone": "V1",
     "description": "扁平照片占位块：primary-soft 底 + 1px 描边 + 灰字图注，可在文章/卡片复用（禁止 AI 生成图充当实拍）",
     "steps": ["占位块组件可复用", "含图注说明该放什么照片", "无外部图片请求"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F019",

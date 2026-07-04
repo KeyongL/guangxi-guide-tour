@@ -1,0 +1,41 @@
+---
+// 扁平照片占位块（F018）：主色浅底 + 1px 描边 + 灰字图注。
+// 铁律：不用 AI 伪造真实照片、不发外部图片请求——纯 CSS 占位。
+// 图注说明「此处该放什么照片」，供作者/编辑替换真实图。
+// 颜色只引用 global.css 令牌，禁止硬编码 hex。
+// flush：贴在带边框容器内（如卡片）时只画底边线，避免与容器边框叠成双线。
+interface Props {
+  caption: string;
+  region?: string;
+  flush?: boolean;
+}
+const { caption, region, flush } = Astro.props;
+---
+<div
+  class:list={['photo-placeholder', { 'photo-placeholder--flush': flush }]}
+  role="img"
+  aria-label={region ? `Photo of ${region}` : caption}
+>
+  <span class="photo-placeholder__caption">{caption}</span>
+</div>
+
+<style>
+  /* 扁平照片占位：主色浅底 + 描边 + 灰字图注（DESIGN.md「扁平照片占位」） */
+  .photo-placeholder {
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 3 / 2;
+    background: var(--primary-soft);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+  }
+  .photo-placeholder--flush {
+    border: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .photo-placeholder__caption {
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+</style>

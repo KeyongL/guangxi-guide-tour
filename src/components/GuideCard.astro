@@ -2,6 +2,7 @@
 // 攻略卡片（F011）：扁平照片占位 + 区域标签 + 标题 + 摘要 + 阅读时长。
 // 北欧极简：直角、1px 描边、无阴影；hover 描边变主色（DESIGN.md）。
 // 颜色只引用 global.css 令牌，禁止硬编码 hex。
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
 interface Props {
   title: string;
   summary: string;
@@ -13,9 +14,7 @@ interface Props {
 const { title, summary, region, href, readingMinutes, cover } = Astro.props;
 ---
 <article class="guide-card">
-  <div class="guide-card__photo" role="img" aria-label={`Photo of ${region}`}>
-    <span class="guide-card__photo-caption">{cover ?? 'Photo'}</span>
-  </div>
+  <PhotoPlaceholder caption={cover ?? 'Photo'} region={region} flush />
   <div class="guide-card__body">
     <span class="guide-card__region">{region}</span>
     <h3 class="guide-card__title">
@@ -36,21 +35,6 @@ const { title, summary, region, href, readingMinutes, cover } = Astro.props;
   }
   .guide-card:hover {
     border-color: var(--primary);
-  }
-
-  /* 扁平照片占位：主色浅底 + 描边 + 灰字图注（DESIGN.md「扁平照片占位」） */
-  .guide-card__photo {
-    display: flex;
-    align-items: flex-end;
-    aspect-ratio: 3 / 2;
-    background: var(--primary-soft);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 12px;
-  }
-  .guide-card__photo-caption {
-    color: var(--muted);
-    font-size: 0.75rem;
-    letter-spacing: 0.04em;
   }
 
   .guide-card__body {
