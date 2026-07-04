@@ -69,7 +69,7 @@
     "milestone": "V1",
     "description": "签证徽章 visa-badge：✅ 240h TWOV OK（蓝绿）/ ⚠️ 30-day visa-free or visa holders only（琥珀），配色取自 DESIGN.md 令牌",
     "steps": ["渲染两种徽章态", "颜色与 DESIGN.md ok/warn 令牌一致", "深浅模式下均可读"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F010",

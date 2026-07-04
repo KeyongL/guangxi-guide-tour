@@ -1,0 +1,31 @@
+---
+// 签证徽章（F009）：两态配色只取 DESIGN.md ok/warn 令牌（global.css CSS 变量，深浅自动跟随）。
+// 文案（含 ✅/⚠️ 字符）为 feature_list 验收原文，勿改动。
+interface Props {
+  zone: 'twov' | 'non-twov';
+}
+const { zone } = Astro.props;
+const label = zone === 'twov' ? '✅ 240h TWOV OK' : '⚠️ 30-day visa-free or visa holders only';
+---
+<span class:list={['visa-badge', zone === 'twov' ? 'visa-badge-ok' : 'visa-badge-warn']}>{label}</span>
+
+<style>
+  /* 北欧极简：直角、1px 细线、小号无衬线 */
+  .visa-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border: 1px solid;
+    font: 600 0.75rem/1.5 var(--sans);
+  }
+  .visa-badge-ok {
+    background: var(--ok-bg);
+    color: var(--ok-text);
+    border-color: var(--ok-text);
+  }
+  .visa-badge-warn {
+    background: var(--warn-bg);
+    color: var(--warn-text);
+    border-color: var(--warn-border);
+  }
+</style>
