@@ -77,7 +77,7 @@
     "milestone": "V1",
     "description": "签证分区提醒框 visa-alert：崇左/百色内容由 frontmatter visa_zone 自动挂载警告框，不靠作者手写记忆（验收标准7，系统强制）",
     "steps": ["frontmatter visa_zone=non-twov 的页面自动渲染 visa-alert", "visa_zone=twov 的页面不渲染该框", "作者未写任何提醒文字也能自动挂载"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F011",
