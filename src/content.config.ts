@@ -21,6 +21,19 @@ const guides = defineCollection({
     cover: z.string().optional(),
     // 实地核实日期（"Last verified on the ground"）；无则不显示假日期（F014）。
     verified: z.coerce.date().optional(),
+  }).superRefine((data, ctx) => {
+    // F033 / 验收标准7：崇左(Chongzuo)/百色(Baise)相关攻略强制归入 non-twov 分区，
+    // 否则模板不会挂载 visa-alert 提醒框——缺提醒框的此类页面必须在构建期被拦截。
+    const haystack = `${data.title} ${data.region} ${data.slug ?? ''}`;
+    const isVisaZonePage = /Chongzuo|崇左|Baise|百色/i.test(haystack);
+    if (isVisaZonePage && data.visa_zone !== 'non-twov') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['visa_zone'],
+        message:
+          '崇左/百色相关页面必须 visa_zone: "non-twov"（强制展示签证分区提醒框，F033/验收标准7）',
+      });
+    }
   }),
 });
 
