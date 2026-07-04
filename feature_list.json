@@ -197,7 +197,7 @@
     "milestone": "V1",
     "description": "内容发布流程跑通：站长在 content/ 写一篇 Markdown → 构建 → 新攻略自动出现在列表页与站点（站长只写 Markdown、不碰代码）",
     "steps": ["在 content/guides 新增一篇 Markdown", "构建后该文出现在列表页且有独立 URL", "站长全程只编辑 Markdown 与 frontmatter"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F026",
