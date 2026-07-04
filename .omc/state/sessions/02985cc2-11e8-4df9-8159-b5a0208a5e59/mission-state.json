@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T01:23:36.365Z",
+  "updatedAt": "2026-07-04T01:28:36.287Z",
   "missions": [
     {
       "id": "session:02985cc2-11e8-4df9-8159-b5a0208a5e59:none",
@@ -7,15 +7,15 @@
       "name": "none",
       "objective": "Session mission",
       "createdAt": "2026-07-04T01:19:46.632Z",
-      "updatedAt": "2026-07-04T01:23:36.365Z",
+      "updatedAt": "2026-07-04T01:28:36.287Z",
       "status": "done",
-      "workerCount": 1,
+      "workerCount": 2,
       "taskCounts": {
-        "total": 1,
+        "total": 2,
         "pending": 0,
         "blocked": 0,
         "inProgress": 0,
-        "completed": 1,
+        "completed": 2,
         "failed": 0
       },
       "agents": [
@@ -28,6 +28,16 @@
           "latestUpdate": "completed",
           "completedSummary": null,
           "updatedAt": "2026-07-04T01:23:36.365Z"
+        },
+        {
+          "name": "general-purpose:aa64673",
+          "role": "general-purpose",
+          "ownership": "aa64673360443196e",
+          "status": "done",
+          "currentStep": null,
+          "latestUpdate": "completed",
+          "completedSummary": null,
+          "updatedAt": "2026-07-04T01:28:36.287Z"
         }
       ],
       "timeline": [
@@ -46,6 +56,22 @@
           "agent": "general-purpose:a4c7d70",
           "detail": "completed",
           "sourceKey": "session-stop:a4c7d707d94056e6c"
+        },
+        {
+          "id": "session-start:aa64673360443196e:2026-07-04T01:26:37.801Z",
+          "at": "2026-07-04T01:26:37.801Z",
+          "kind": "update",
+          "agent": "general-purpose:aa64673",
+          "detail": "started general-purpose:aa64673",
+          "sourceKey": "session-start:aa64673360443196e"
+        },
+        {
+          "id": "session-stop:aa64673360443196e:2026-07-04T01:28:36.287Z",
+          "at": "2026-07-04T01:28:36.287Z",
+          "kind": "completion",
+          "agent": "general-purpose:aa64673",
+          "detail": "completed",
+          "sourceKey": "session-stop:aa64673360443196e"
         }
       ]
     }

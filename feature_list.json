@@ -29,7 +29,7 @@
     "milestone": "V1",
     "description": "SEO 元信息：每页有唯一 title、meta description、Open Graph 标签，由页面/frontmatter 生成（验收标准5）",
     "steps": ["文章页 head 输出唯一 title/description/og 标签", "查看两个不同页面的源码确认标签不重复", "og:image 有回退默认图"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F005",

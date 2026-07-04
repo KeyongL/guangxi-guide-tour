@@ -1,0 +1,27 @@
+---
+// 可复用的 <head> SEO 片段（F004）。纯 head，不含样式/设计 token。
+// 每页传入唯一 title/description，生成唯一 <title>/description/OG 标签。
+// 绝对 URL 由 astro.config.mjs 的 site + 当前页 pathname 拼出（OG/canonical 需要绝对地址）。
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+// image 缺省时回退到默认 OG 图（public/og-default.png）——保证 og:image 始终可解析。
+const { title, description, image = '/og-default.png' } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={socialImageURL} />
+
+<meta name="twitter:card" content="summary_large_image" />
