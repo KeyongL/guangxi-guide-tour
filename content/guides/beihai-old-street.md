@@ -6,43 +6,47 @@ visa_zone: "twov"
 slug: "beihai-old-street-arcades"
 ---
 
-Beihai Old Street 北海老街 is a straight, walkable strip of old arcade houses left over from Beihai's treaty-port days. Give it an hour, maybe two. It is worth that much: you get a rare, mostly-intact run of late-19th and early-20th-century "qilou" 骑楼 arcade buildings, plus coffee, pearls, and street snacks along the way. It is not a half-day sight, and it gets touristy in the middle of the day. If you are here on the 240-hour transit visa-free rule, there is no extra paperwork to see it — it sits inside the permitted zone, so you just walk in.
+Beihai Old Street 北海老街 is a free, flat, roughly 1.3 km strip of treaty-port arcade houses on Zhuhai Road 珠海路. Walking it takes 20–30 minutes; with food stops and photos, budget 1–2 hours. It sits inside the 240-hour transit visa-free zone, so no extra paperwork. Verdict: worth 1–2 hours as an add-on to Silver Beach 银滩 or a Weizhou ferry day — not worth a special trip on its own.
 
-## What you're looking at: the qilou 骑楼 arcades
+## Getting there
 
-The "qilou" 骑楼 are covered colonnade buildings: the upper floors ride out over the sidewalk on pillars, so the ground floor is a shaded, roofed walkway. That design keeps sun and rain off pedestrians — useful in Beihai's climate.
+- **From Silver Beach 银滩:** Bus 3 (¥2, board at the Yintan 银滩 stop) runs about 10.7 km to Beibu Gulf Square 北部湾广场; from there walk roughly 1 km (about 15 min) to the street. A tourist "Chang You Beihai" A-line bus also links Silver Beach and the Old Street directly (frequency and fare not yet verified). A taxi or Didi takes about 15–20 minutes; expect roughly ¥25–35 (fare not yet verified — Beihai's posted meter rate of ¥8 flag-fall plus ¥1.80/km is from a dated source).
+- **From the Weizhou ferry port (Beihai International Ferry Terminal 北海国际客运港):** Bus 3 stops at the terminal and continues toward the city center — get off at Beibu Gulf Square 北部湾广场 and walk the same 1 km. A taxi takes about 15 minutes (fare not yet verified).
+- Buses 2 and 25 stop closer, at the Beihai Old Street 北海老街 stop (walking distance from stop to arcades not yet verified).
 
-Beihai opened as a treaty port after the 1876 Sino-British Treaty of Yantai, and Western consulates, churches, and trading houses followed. The street grew from a short stretch into the arcade run you see now. Local sources put the current length at about 1.27 km, and describe it as the longest, best-preserved arcade block in southern China (both claims not yet verified against a second independent source). The buildings mix Chinese and European styles: two to three storeys, arched windows, carved trim.
+## The walk itself
 
-## Walking the street
+The street runs east–west along the old waterfront and is one straight line — no route to plan. Start from whichever end you reach first; the densest restored stretch is in the middle (which end is architecturally stronger is not yet verified). The pavement is old and uneven; arcades narrow where stalls spill out.
 
-It is one long, mostly flat line. Start at one end and walk to the other; there is no route to plan. The pavement is old and uneven in places, so watch your step, and note the covered arcades are narrow where stalls spill out.
+The buildings are qilou 骑楼: upper floors ride out over the sidewalk on pillars, making a shaded walkway against sun and rain. Beihai opened as a treaty port after the 1876 Sino-British Treaty of Yantai, and consulates, churches, and trading houses followed. Most facades date from the late 1800s to the 1920s: two to three storeys, arched windows, carved lintels. Look up — the upper floors are the point, and shopfront-level walking misses them. Local sources put the length between 1.27 km and 1.44 km and call it the longest preserved arcade block in southern China (both figures and the superlative not yet verified).
 
-Look up. The upper facades — carved lintels, shuttered windows, faded paint — are the reason to come, and they are easy to miss if you only watch the shopfronts. A few old buildings are marked as former consulates or trading houses; some hold small museums or exhibition rooms (opening hours and admission not yet verified).
+## Free vs ticketed
 
-## Eat and shop
+The street itself is free, always open, no gate. A few marked buildings — former consulates and trading houses — hold small museums or exhibition rooms; assume some charge admission (hours and prices not yet verified). Shops and food stalls run roughly mid-morning to late evening, with bars and cafes open at night (exact stall hours not yet verified).
 
-Beihai is a pearl town, and the street has plenty of pearl sellers. Quality and price vary widely, and haggling is expected — treat loose-pearl bargains with caution unless you know what you are buying.
+## What to eat
 
-For food, look for these local snacks (prices not yet verified):
+Prices below are rough street-stall levels, not yet verified:
 
-- **Rice noodles / Beihai fen 北海粉** — the everyday local breakfast bowl.
-- **Oil dumplings / jian dui 煎堆** — deep-fried sesame balls.
-- **Sea-snail and shellfish snacks** — Beihai is a fishing port, so small seafood stalls are common.
+- **Beihai fen 北海粉** — the local rice-noodle breakfast bowl, typically ¥8–15 (not yet verified).
+- **Jian dui 煎堆** — deep-fried sesame balls, a few yuan apiece (not yet verified).
+- **Seafood skewers and grilled shellfish** — sold from small stalls; agree the price before they cook.
 
-There are also coffee shops and cold-drink stops if you just want to sit and watch the street.
+Coffee shops line the middle stretch if you want to sit.
 
-## When to go & how long
+## Pearl-shop warning
 
-Go early morning or in the evening. The light is better for the facades, the heat is lower, and the crowds are thinner. Midday is the busiest and most tour-group-heavy stretch. Budget one to two hours end to end; longer only if you stop for a long meal or a museum.
+Beihai markets itself as a pearl town, and the street is thick with pearl sellers targeting tourists. Marked prices are opening bids, not prices; quality grading is opaque to non-experts. Do not buy loose pearls or "bargains" here unless you can grade pearls yourself.
 
-## Nearby
+## When to go
 
-Two things pair naturally with the Old Street:
+Go before 10:00 or after 17:00. Midday brings tour groups, heat, and the worst light for the facades. Evening adds open bars and snack stalls.
 
-- **Silver Beach 银滩** — Beihai's long, flat, fine-sand beach, a short ride away. Good for a couple of hours after the street.
-- **Weizhou Island 涠洲岛** — the volcanic island offshore, reached by ferry from Beihai. If Weizhou is your main goal, the Old Street is an easy thing to do on your arrival or departure day. See the [Weizhou Island guide](/guides/weizhou-island-complete-guide) for ferry details.
+## Pair it with
+
+- **Silver Beach 银滩** — one bus 3 ride away; do the street in the morning, the beach after.
+- **Weizhou Island 涠洲岛** — the ferry terminal is on the same bus 3 line, so the street slots into an arrival or departure day. Ferry times and tickets: see the [Weizhou Island guide](/guides/weizhou-island-complete-guide).
 
 ---
 
-*Sources: [CGTN](https://news.cgtn.com/news/2023-07-31/Beihai-Old-Street-demonstrates-charm-of-port-city-1lT6eeqFDhK/index.html). Prices, museum hours, and the "longest in southern China" superlative are not yet verified in the field.*
+*Sources: [CGTN](https://news.cgtn.com/news/2023-07-31/Beihai-Old-Street-demonstrates-charm-of-port-city-1lT6eeqFDhK/index.html); bus routes and fares cross-checked against Chinese bus-route listings and travel Q&A (July 2026, not field-verified). All prices, hours, and the "longest in southern China" superlative remain unverified in the field.*

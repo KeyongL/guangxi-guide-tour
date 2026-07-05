@@ -55,11 +55,9 @@ const guideUrl = (g: CollectionEntry<'guides'>) => `/guides/${g.data.slug ?? g.i
       )
     }
 
-    <!-- Body collapsed by default: native details, zero JS. TOC sits at the top of the fold,
-         so once expanded the anchor targets are always visible — jumps work without JS (F013 depends on this). -->
-    <details class="article-fold">
-      <summary>Read the full guide</summary>
-
+    <!-- 正文直接可见（站长决定 2026-07-04：折叠在建立信任前就劝退读者，拆掉）。
+         TOC 仍在正文上方，锚点跳转零 JS（F013 依赖）。 -->
+    <div class="article-main">
       {
         toc.length > 0 && (
           <nav class="toc" aria-label="Table of contents">
@@ -78,7 +76,7 @@ const guideUrl = (g: CollectionEntry<'guides'>) => `/guides/${g.data.slug ?? g.i
       <div class="article-body">
         <Content />
       </div>
-    </details>
+    </div>
 
     {
       related.length > 0 && (
@@ -134,21 +132,11 @@ const guideUrl = (g: CollectionEntry<'guides'>) => `/guides/${g.data.slug ?? g.i
     margin-top: 24px;
   }
 
-  /* 折叠区：1px 细线分隔，summary 作主色行为链接 */
-  .article-fold {
+  /* 正文区：上方 1px 细线与头部分隔 */
+  .article-main {
     margin-top: 32px;
     border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .article-fold summary {
-    cursor: pointer;
-    padding: 16px 0;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    color: var(--primary);
-  }
-  .article-fold summary:hover {
-    color: var(--primary-strong);
+    padding-top: 24px;
   }
 
   /* TOC：primary-soft 底盒 + 数字序号锚点（F013） */

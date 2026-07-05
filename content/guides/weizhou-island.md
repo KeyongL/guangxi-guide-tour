@@ -6,54 +6,56 @@ visa_zone: "twov"
 slug: "weizhou-island-complete-guide"
 ---
 
-Yes, Weizhou 涠洲岛 is worth the trip, and yes, you can go visa-free. The island sits off Beihai 北海 in the Beibu Gulf, inside the 240-hour transit zone. There is no separate visa-zone restriction for it — if you cleared 240-hour transit at Beihai, you can board the ferry. Weizhou is China's youngest volcanic island: a small crater coast you can circle in a day or two by scooter. Come for the volcanic cliffs, the coral shallows, and the quiet. Skip it if you only have one night in Beihai — the ferry crossing eats half a day each way.
+Weizhou 涠洲岛 sits 21 nautical miles off Beihai 北海, inside the 240-hour transit zone — no separate permit, no visa-zone restriction. If you cleared 240-hour transit at Beihai, you can board the ferry with your passport. It is China's youngest volcanic island: lava cliffs, coral shallows, one loop road you can ride in half a day. Budget two days and one night minimum. Skip it if you have one night in Beihai — the two crossings alone eat 3–4 hours plus port time.
 
 ## Getting there: the Beihai ferry 北海
 
-The only public way over is the ferry from Beihai International Passenger Port (Beihai 北海国际客运港). The crossing runs modern catamarans (the Beiyou 北游 fleet) and takes roughly 70–110 minutes depending on the boat and the sea (not yet verified).
+All sailings leave from Beihai International Passenger Port 北海国际客运港, about 20 minutes by taxi from Beihai's old town. Beiyou 北游 catamarans make the crossing in roughly 70–110 minutes depending on the boat and sea state (not yet verified).
 
-Book ahead. Tickets are timed and tied to a specific sailing, and they sell out on weekends and holidays. In high season, book a day or more in advance. You buy a round trip and pick your return sailing — do not assume walk-up seats.
+The official booking channel is Laiu8 来游吧 (laiu8.cn and the WeChat mini program 来游吧) — it lists timed, name-matched tickets tied to a specific sailing. Two problems for foreigners: the interface is Chinese-only, and passport-number registration reportedly fails for some users (not yet verified). Fallbacks that work: the ticket counter at the port with your passport, or any Beihai travel agency for a small commission. Trip.com does not sell this ferry.
 
-Rough prices, all to confirm before you travel:
+- Economy seat: ¥150 one way at 2025–26 listed prices; Guangxi residents pay ¥120 (volatile — confirm on the day)
+- Business/VIP cabin: about ¥180–¥300 one way (not yet verified)
+- Frequency: several sailings daily; exact times shift by season — check same-day
 
-- Standard/economy seat: about ¥120–¥150 one way (not yet verified)
-- Business or VIP cabin: about ¥180–¥300 one way (not yet verified)
-- Exact daily sailing times and frequency: not yet verified — check the port on the day
+Buy the round trip and lock your return sailing. Weekend and holiday boats sell out a day or more ahead. Bring your passport: the ticket is name-matched at boarding, and you need it again for island entry.
 
-Bring your passport. The ticket is in your name and matched at boarding.
+Weather rule: strong wind or typhoon suspends all sailings, sometimes for a full day or more, and you wait it out on whichever side you're on. Refunds run through your booking channel (process not yet verified). If your 240-hour clock is tight, do not schedule the return crossing on your last day.
 
 ## The volcano park 火山公园
 
-The main sight is the volcanic geopark on the island's south end — Crocodile Mountain (Weizhou Island Volcano National Geopark). This is where the island's origin shows: layered lava cliffs, ash beds, and sea-cut rock dropping straight into the water. The walk along the cliff edge is the one thing most visitors regret missing.
+The core sight is Crocodile Mountain 鳄鱼山 in the Weizhou Island Volcano National Geopark, on the south end: layered lava cliffs, ash beds, and sea-cut rock dropping straight into the water. The cliff-edge boardwalk takes 1.5–2 hours at photo pace.
 
-Access works through a single island entry/eco ticket rather than a gate fee at each site. That one ticket covers the volcano park, the coral beach, Shiluokou 石螺口, and the old Catholic church, and is valid for several days.
+Entry works on one island ticket, not per-site gates. It covers the volcano park, the coral beach, Shiluokou 石螺口, and the 1880s Catholic church at Shengtang 盛塘.
 
 - Island entry/eco ticket: about ¥98–¥115 per person, valid ~7 days (not yet verified)
-- Reduced rates for seniors and students, free for young children (not yet verified)
+- Senior/student discounts and free entry for young children (not yet verified)
 
-Confirm the current price and what it includes when you buy — bundles change.
+Confirm price and inclusions at purchase — the bundle changes.
 
 ## The coast: freediving & hiking
 
-Weizhou is the reason "adventure" shows up on its city card. Two things stand out.
+Volcanic-coast hiking: the south and west shores link cliff paths, tide pools, and black-rock coves. There is no marked long trail — plan sections by tide, and stay off wet lava.
 
-Volcanic-coast hiking: the southern and western shores string together cliff paths, tide pools, and black-rock coves. It is walkable in sections, not a marked long trail — plan by tide, not by distance, and stay off wet lava.
+Freediving and snorkeling: live coral sits in the shallows off the west coast; small operators run trips and courses roughly April–October, when water is clearest. Prices and safety standards vary widely — inspect gear and confirm inclusions in person before paying (not yet verified).
 
-Freediving and snorkeling: the island has live coral in the shallows, and small dive operators run trips and courses in season. Water is clearest in the warmer months. Prices, operators, and safety standards vary — vet the operator in person and confirm what's included (not yet verified).
-
-If you only swim and sunbathe, the coral beach and Shiluokou 石螺口 side are enough.
+Swimmers and sunbathers need only the coral beach and Shiluokou 石螺口.
 
 ## Where to stay
 
-Guesthouses cluster around Shiluokou 石螺口 on the west coast — that's the sunset side and the easiest base — and inland among the banana fields. These are small family guesthouses, not resorts. In high season they fill up, so book before you take the ferry, not after you land.
+Two bases, different trade-offs:
 
-The island is small. A scooter or e-bike is the normal way to get around, and most guesthouses rent or arrange one. You can loop the main road in a few hours.
+- Shiluokou 石螺口, west coast: sunset side, best snorkeling beach, quiet family guesthouses. Fewer restaurants; you ride to dinner.
+- South Bay 南湾, south coast: the island's harbor town — seafood market, food street, most restaurants and nightlife, but no swimming beach and more noise.
+
+Inland guesthouses among the banana fields run cheapest. High season fills every category — book before you board the ferry, not after you land.
 
 ## Practical notes
 
-- Ticket order: you need both an official ferry ticket and the island entry ticket. Buy the ferry first; it gates everything.
-- Passport: carry it for the ferry, and keep it on you — this is a border-zone island.
-- Best season: spring and autumn are the most reliable. Summer is hot and busy; typhoon season can cancel sailings, and if the sea closes you may be stuck a day. Build slack into your 240-hour clock.
-- Cash and pay: bring some cash for small guesthouses, scooter rental, and food stalls. Mobile payment is widespread but not universal here.
-- Getting around: scooter/e-bike over taxi. Distances are short and roads are quiet.
-- Time budget: two days and one night is the comfortable minimum. A single day trip is possible but rushed once you subtract the two ferry crossings.
+- Getting around: e-bike/scooter is the default. Rental stands cluster at the dock, and most guesthouses rent or arrange one — ¥50–¥120 per day, down to ~¥35 in low season, negotiable; no driving-license check reported (not yet verified). The main loop rides in 2–3 hours. Wear the helmet.
+- What a day costs: roughly ¥400–¥600 per person — mid-range guesthouse bed, e-bike, island ticket amortized, three meals with some seafood (rough estimate, not yet verified).
+- Food, in order of priority: banana pig 香蕉猪 (pigs fed on island bananas — get the braised belly), banana chicken 白切香蕉鸡 (poached, served with chili-ginger soy), sea urchin steamed egg 海胆蒸蛋, and mantis shrimp 濑尿虾 from the South Bay 南湾 market. Market stalls will cook what you buy for a per-dish fee (fee not yet verified).
+- Ticket order: ferry ticket first — it gates everything — then the island entry ticket.
+- Passport: carry it at all times; this is a border-zone island with checks at the ferry and island entry.
+- Cash and pay: mobile payment dominates, but small guesthouses, rental stands, and market stalls may want cash. Bring a few hundred yuan.
+- Season: spring and autumn are most reliable. Summer is hot, busy, and typhoon-exposed — build a spare day into your 240-hour clock in case the sea closes.

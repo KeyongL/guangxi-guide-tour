@@ -6,53 +6,53 @@ visa_zone: "twov"
 slug: "fly-into-guangxi-leave-overland"
 ---
 
-If you hold a passport from one of the ~54 nationalities on China's 240-hour (10-day) transit visa-free list, this route can work: fly into Beihai 北海 or Nanning 南宁, see the Guangxi coast, then leave overland to Vietnam at Dongxing 东兴. But there is one catch you must settle before you book. The 240-hour policy clearly names airports and cruise ports for ENTRY; it does not clearly confirm that transit travelers may EXIT overland at a land port. If you plan to rely on transit visa-free status, confirm the Dongxing land exit with China's National Immigration Administration (NIA) for your nationality first. If you instead hold a passport on the separate 30-day unilateral visa-free program (~48 countries, mostly Europe plus Australia and New Zealand — the USA is not on it), this uncertainty does not apply to you and the route is straightforward.
+The route: fly into Nanning 南宁 or Beihai 北海 visa-free, ride the coast for up to 10 days, walk across the Beilun River 北仑河 bridge at Dongxing 东兴 into Móng Cái, Vietnam. It works cleanly if your passport is on China's 30-day unilateral visa-free list (~48 countries, mostly Europe plus Australia and New Zealand; the USA is not on it). If you are instead using the 240-hour (10-day) transit visa-free policy (~54 nationalities, including the USA), one point is unresolved: the policy names airports and cruise ports for ENTRY but does not clearly confirm overland EXIT at a land port. Confirm the Dongxing exit with China's National Immigration Administration (NIA) for your nationality before booking. If you cannot confirm it, fly out instead — that stays inside the clearly written rules.
 
-## Who this route is for
+## Which visa program you are on
 
-Two different groups can run this trip, and the difference matters.
+- **30-day visa-free** (~48 countries): 30 days, no onward-ticket requirement, no restriction on leaving by land. The Dongxing exit is routine for you.
+- **240-hour transit** (~54 nationalities): max 10 days, only as a genuine A-to-C transit — arrive from one country, hold a confirmed ticket onward to a different one. Vietnam is your country C; a Hanoi-bound bus or flight booking satisfies the onward-travel check.
 
-- **30-day visa-free nationals** (~48 countries; check the current NIA list). You get a genuine 30-day stay, no onward-ticket rule, and no restriction on leaving by land. This route is easy for you.
-- **240-hour transit nationals** (~54 nationalities; check the current NIA list). You get up to 10 days, but only as a transit between two different countries, and the overland exit point needs confirming (see below).
+Both lists change; check the current NIA lists before booking.
 
-If you are unsure which list your passport is on, treat that as the first thing to resolve. The two programs have different rules, different lengths, and different country sets.
+## Entry: Nanning or Beihai
 
-## The 240-hour rule, in plain English
+Both are designated 240-hour entry ports:
 
-The transit visa-free policy lets eligible travelers pass through parts of China for up to 240 hours (10 days) without a visa, on one condition: you must be travelling from country A to country C, and China is the stop in the middle. You enter at a designated port, hold a confirmed onward ticket to the third country, and leave within 240 hours.
+- **Nanning Wuxu International Airport 南宁吴圩国际机场 (NNG)** — Guangxi's main hub. Direct flights from Bangkok, Kuala Lumpur, Singapore, Hanoi, and Hong Kong. Airport shuttle and metro Line ties into Nanning East railway station 南宁东站 (not yet verified — check the current airport-to-station connection on arrival).
+- **Beihai Fucheng Airport 北海福成机场 (BHY)** — mostly domestic flights; only useful with an international connection, which complicates transit status. Enter and exit China once.
 
-For this route, country C is Vietnam. You fly in from your departure country, tour Guangxi, and exit to Vietnam. That makes the trip legally self-consistent — Vietnam is the required third country. Nationals on the 30-day program do not need a third country at all.
+At immigration, have ready: passport, arrival card, onward booking to Vietnam (app screenshot is fine), and your first night's hotel address. Transit travelers use the dedicated 240-hour/TWOV counter.
 
-## Entering: Beihai or Nanning
+## Nanning to Beihai by train
 
-Guangxi has two designated 240-hour entry points that fit this plan:
+Around 58 high-speed trains run daily from Nanning East 南宁东 to Beihai 北海, 06:48 to 22:29, taking 56 minutes to 1 h 40 min for the 197 km. Second class costs ¥87, first class ¥140.
 
-- **Beihai 北海** — the coastal city, closest to Weizhou 涠洲岛 and the beaches. Airport: Beihai Fucheng 北海福成机场.
-- **Nanning 南宁** — the provincial capital and main air hub, with more international connections. Airport: Nanning Wuxu 南宁吴圩国际机场.
+Buying tickets: book on **Trip.com** (English, international cards; the ticket links to your passport — no paper ticket, scan the passport at the gate) or the official **China Railway 12306 app** (English version; registration needs passport verification and can take a day — set it up before you fly). Same-day booking usually works on this route; holiday weeks sell out. Arrive 30–40 minutes early for security and ID checks.
 
-At the border, be ready to show your passport, your confirmed onward ticket to Vietnam, and your first hotel address. Clear immigration normally through the transit channel.
+## Beihai and Weizhou 涠洲岛
 
-## The coast: Beihai & Weizhou 涠洲岛
+Beihai fills 2–3 days: Silver Beach 银滩, the colonial-era Old Street 老街, and Weizhou Island. Ferries leave from **Beihai International Passenger Port 北海国际客运港** to Xijiao Pier 西角码头 on Weizhou; crossing takes roughly 70–110 minutes and one-way fares run about ¥150 (not yet verified — schedules and fares are seasonal, and sailings are cancelled in rough weather). Book on the Laiu/official Beibu Gulf ferry channel or Trip.com; you need your passport, and island entry includes a scenic-area fee (not yet verified). Check the ferry the same week you travel — a cancelled sailing can eat a transit day you cannot spare.
 
-Beihai is the reason to slow down here. Silver Beach 银滩, the old colonial-era Beihai Old Street 北海老街, and the ferry out to the volcanic island of Weizhou 涠洲岛 fill two to three easy days. The Beihai–Weizhou ferry runs regularly but schedules and fares are seasonal (not yet verified) — check same-week before you commit, as sailings are cut in rough weather. A fuller coast guide lives elsewhere on this site.
+## Beihai to Dongxing 东兴
 
-## Exiting overland at Dongxing 东兴
+Direct buses run from Beihai's long-distance bus station to Dongxing, roughly 2.5–3 hours (not yet verified — station name, frequency, and fare unconfirmed; buy at the counter with your passport). Alternative: high-speed train Beihai → Fangchenggang North 防城港北, then bus or taxi ~40 km to Dongxing (durations not yet verified). Sleep in Dongxing the night before crossing — pick any hotel within walking distance of the border gate, and confirm "accepts foreign guests" when booking on Trip.com.
 
-Dongxing 东兴 sits on the Beibu Gulf coast, directly across the Beilun River 北仑河 from Móng Cái in Vietnam. Cross at the designated Dongxing land port and clear immigration normally. From the Vietnam side you can continue to Móng Cái, then on to Hạ Long or Hà Nội.
+Rough daily cost on this route: budget ¥300–450 per day for a mid-range hotel, trains, and meals (not yet verified — estimate only).
 
-Two hard warnings:
+## The crossing at Dongxing
 
-- **⚠️ Transit travelers: confirm the overland exit first.** The 240-hour policy is written around airport and cruise-port entry. Whether a 240-hour transit traveler may legally EXIT overland at Dongxing is not confirmed (not yet verified). Before you travel, confirm this directly with the NIA for your nationality. If it cannot be confirmed, the safe fallback is to fly out from your original airport instead — which keeps you inside the clearly-permitted rules. 30-day visa-free nationals are not affected by this point.
-- **⚠️ Do not route via Friendship Pass 友谊关.** The Friendship Pass land crossing is in Chongzuo 崇左, which sits OUTSIDE the 240-hour transit zone. Transit visa-free travelers must not exit there. For this route, Dongxing is the only coastal land port inside the zone.
+The border is the Beilun River; Móng Cái sits on the far bank. As of early 2026, foot passengers are processed at the **Bắc Luân II bridge** checkpoint while the original Bắc Luân I bridge area is rebuilt as a smart border gate (not yet verified — flows have changed more than once; confirm locally the day before). A 2024 trial extended gate hours to 07:00–20:00 Vietnam time (08:00–21:00 China time) (not yet verified). Typical wait is 30–60 minutes. You walk the bridge; exit China first, then clear Vietnamese entry on the far side. From Móng Cái bus station, buses continue to Hạ Long (~3 h) and Hà Nội (~5 h) (not yet verified). Arrange your Vietnam visa or e-visa in advance — there is no visa on arrival at this land border.
 
-Bus and transfer times from Beihai/Nanning to Dongxing, and border opening hours, are not yet verified — check locally before your travel day.
+Two hard rules:
 
-## Before you go: confirm these yourself
+- **⚠️ 240-hour transit travelers: confirm the overland exit first.** Whether transit status permits EXIT at the Dongxing land port is not confirmed (not yet verified). Ask the NIA directly for your nationality. No confirmation = fly out from your entry airport instead. 30-day visa-free nationals are unaffected.
+- **⚠️ Do not route via Friendship Pass 友谊关.** That crossing is in Chongzuo 崇左, OUTSIDE the 240-hour transit zone. Transit travelers must not exit there. Dongxing is the only coastal land port inside the zone.
 
-- Which list your passport is on: 240-hour transit or 30-day visa-free (check the current NIA list).
-- For 240-hour travelers: whether the overland Dongxing exit is accepted for transit status (confirm with the NIA).
-- Your confirmed onward ticket to Vietnam, required for transit entry.
-- Beihai–Weizhou ferry schedule and fare for your dates (not yet verified).
-- Dongxing land-port opening hours and transfer times (not yet verified).
+## Confirm before you book
 
-Rules change, and they differ by nationality. Confirm the current visa specifics with China's National Immigration Administration (NIA) for your own passport before you book anything.
+- Your list: 240-hour transit or 30-day visa-free (current NIA lists).
+- Transit travelers: NIA confirmation of the Dongxing overland exit.
+- Onward booking to Vietnam in hand for transit entry.
+- Ferry sailings for your Weizhou dates; bus times Beihai→Dongxing; border-gate hours that week (all not yet verified in this guide).
+- Vietnam e-visa approved before you reach the border.

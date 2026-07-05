@@ -37,6 +37,11 @@ const latest = guides.slice(0, 3).map((entry) => ({
         China's 240-hour visa-free transit covers the coast and Nanning; 48 nationalities
         also get 30 days visa-free. Here's the map, and exactly which lane you're in.
       </p>
+      <!-- 站长信任线（编辑处：改身份文案只动下面这一行，见 docs/EDITING.md） -->
+      <p class="trust">
+        Written by a Beihai local — PhD, fluent English, four years living in the West.
+        <a href="/about/">Who's writing this?</a>
+      </p>
 
       <figure class="map">
         <!-- Schematic region map (not to scale). Future build: Leaflet + OpenStreetMap, progressive enhancement. -->
@@ -94,7 +99,7 @@ const latest = guides.slice(0, 3).map((entry) => ({
       <div class="links">
         <a class="cta" href="/itineraries/flow-a/">Fly into Guangxi, leave overland to Vietnam →</a>
         <a href="/itineraries/flow-b/">Vietnam to China, overland</a>
-        <a href="/guides/weizhou-island/">Weizhou Island, complete guide</a>
+        <a href="/guides/weizhou-island-complete-guide/">Weizhou Island, complete guide</a>
         <a href="/about/">Who's writing this?</a>
       </div>
     </section>
@@ -126,7 +131,7 @@ const latest = guides.slice(0, 3).map((entry) => ({
             <li><span class="k">Must-see</span><span>Volcanic sea cliffs, Catholic church</span></li>
             <li><span class="k">Pace</span><span>Chill → snorkel</span></li>
           </ul>
-          <a class="open" href="/guides/weizhou-island/">Open guide →</a>
+          <a class="open" href="/guides/weizhou-island-complete-guide/">Open guide →</a>
         </article>
 
         <article class="card" id="card-dongxing">
@@ -225,6 +230,15 @@ const latest = guides.slice(0, 3).map((entry) => ({
     max-width: 20ch;
   }
   .hero h1 .em { color: var(--primary); }
+  .hero .trust {
+    margin-top: 10px;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .hero .trust a {
+    color: var(--primary);
+    font-weight: 600;
+  }
   .hero .sub {
     color: var(--muted);
     font-size: 1.0625rem;
