@@ -848,3 +848,54 @@ F030（375px 无横向溢出）❌ 仍 false（诚实，不标 passing）：
    站长担心的"地图 API key"其实不存在，Leaflet+OpenStreetMap 零密钥。别去申请什么 key。
 3. F047 城市名片、F024 Formspree（站长给 ID 后 5 分钟接好）。
 4. 剩 7 篇初稿（F035/036/037/040/042/043/044）按事实密度重写（同 F034/038/039 待遇）。
+
+[2026-07-08] Session: 视觉打磨（后台会话，站长要求"我要做视觉打磨"）
+---------------------------------------------
+路径：读完本文件后判断已进入实现阶段（/design 已在早前会话收口，DESIGN.md
+方向锁定），不再走 /design 通用三问流程，改为直接对已上线的 Astro 源码做
+真实浏览器截图审计 + 针对性 CSS 修补（无新功能、无新色值，符合项目铁律1/5）。
+方法：本 worktree 起 dev server（4321），Node 直接 require('playwright') 用
+本机捆绑 chromium 截图（--no-sandbox；MCP 版 playwright 工具仍报缺系统 Chrome，
+沿用历史教训的绕过法）。截图 home/guides列表/文章页/行程页/about 各桌面+
+375px，另截深色模式。
+
+发现的真实问题（非臆测，截图可见）：
+1. 全站 10+ 张 PhotoPlaceholder（GuideCard 用）视觉上就是同一块纯色浅蓝矩形
+   反复平铺，读起来像"图裂了"而不是"设计好的占位"——大概率是站长反馈
+   "能打开但不好看"的主因之一（真实照片本身待站长拍，不在本次范围）。
+2. guides.astro 的空状态盒子（"Guides in the works"）背景色跟 PhotoPlaceholder
+   撞色（都用 --primary-soft），导致整页看起来是同一种蓝色块反复拼贴，
+   使用者分不清"没图的文章"和"还没写的分区"。
+
+已改（仅 2 个文件，纯 CSS/装饰性 SVG，零业务逻辑，色值 100% 复用
+global.css 既有令牌，未发明新 hex）：
+- src/components/PhotoPlaceholder.astro：占位块中心加一个简笔"山+点"线条图标
+  （stroke=currentColor，色取 var(--muted)，透明度 0.55），让占位块读作
+  "设计好的占位"而非"缺图报错"。GuideCard.astro / about.astro 两处引用点
+  自动生效，未改 Props 签名。
+- src/pages/guides.astro：.guide-empty 从"主色浅底实心盒"改"透明底+虚线框"，
+  与照片占位在视觉语言上明确区分。
+
+验证（真实浏览器，非猜测）：
+- npm run build exit 0，18 页正常产出。
+- 桌面 1440px + 深色模式：截图确认图标清晰可读、空状态虚线框与照片卡片
+  一眼可分辨（此前二者几乎同色块，现在语言不同）。
+- 375px 三页（首页/guides列表/about）scrollWidth===clientWidth===375，
+  零横向溢出回归。
+- git diff 仅 2 个文件、纯 CSS+装饰 SVG，未碰其余源码/feature_list.json/
+  内容 Markdown。
+
+未做（记录不是偷懒，是范围克制，避免像早前会话犯过的"设计蔓延"）：
+- 首页 SVG 路线地图未动（技术图纸感明显，但整图重做工作量大、有回归
+  F019/F030 的风险，需要单独一个会话专门做，不在本次"轻量视觉打磨"范围）。
+- guides 列表某分区卡片数不整除 3 列时最后一行留白（CSS Grid auto-fill 的
+  自然行为，非本次改动引入）——如果站长觉得难看，可另开会话调整分栏策略。
+- 真实照片：仍等站长拍照替换 PhotoPlaceholder，非本会话可解决。
+- 未 git push（铁律7）；已提交（若本会话结束前提交），worktree
+  feature+F001-astro-scaffold 待站长后续 push。
+
+下一步建议：
+→ 站长过目截图/或本地 npm run dev → http://127.0.0.1:4321 看效果，回"可以"
+  或指出还想改哪块。
+→ 若想继续深挖视觉（如地图重做、分区留白），单独开会话处理，避免这次
+  越改越大。

@@ -74,10 +74,11 @@ const sections = Array.from(grouped.entries()).map(([region, items]) => ({ regio
     gap: 24px;
   }
 
-  /* 空状态：主色浅底盒 + 描边，灰字，无阴影、直角（DESIGN.md 北欧极简）。 */
+  /* 空状态：虚线框 + 透明底，故意不用 primary-soft——避免和照片占位块撞色，
+     导致整页看起来像同一块蓝底重复拼贴（视觉打磨发现）。无阴影、直角（DESIGN.md 北欧极简）。 */
   .guide-empty {
-    background: var(--primary-soft);
-    border: 1px solid var(--border);
+    background: transparent;
+    border: 1px dashed var(--border);
     padding: 24px;
   }
   .guide-empty__title {

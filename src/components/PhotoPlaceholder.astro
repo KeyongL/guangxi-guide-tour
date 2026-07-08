@@ -16,18 +16,34 @@ const { caption, region, flush } = Astro.props;
   role="img"
   aria-label={region ? `Photo of ${region}` : caption}
 >
+  <svg class="photo-placeholder__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+    <circle cx="7.5" cy="7.5" r="1.6"></circle>
+    <path d="M3 17.5l5.5-6 4 3.7 3-3.2L21 17.5"></path>
+  </svg>
   <span class="photo-placeholder__caption">{caption}</span>
 </div>
 
 <style>
-  /* 扁平照片占位：主色浅底 + 描边 + 灰字图注（DESIGN.md「扁平照片占位」） */
+  /* 扁平照片占位：主色浅底 + 描边 + 居中简笔图标 + 灰字图注（DESIGN.md「扁平照片占位」）。
+     加图标是为了让占位块读作"设计好的占位"而非"图裂了"——只用既有令牌，无新色值。 */
   .photo-placeholder {
+    position: relative;
     display: flex;
     align-items: flex-end;
     aspect-ratio: 3 / 2;
     background: var(--primary-soft);
     border: 1px solid var(--border);
     padding: 10px 12px;
+  }
+  .photo-placeholder__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 28px;
+    color: var(--muted);
+    opacity: 0.55;
+    transform: translate(-50%, -50%);
   }
   .photo-placeholder--flush {
     border: none;
