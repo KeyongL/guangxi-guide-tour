@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers 部署配置（F006）。纯静态站：只托管 dist/ 产物，无服务端代码。
+  // 名字必须与 Cloudflare 账号里已建的 Worker 项目一致，否则 wrangler 拒绝更新。
+  "name": "guangxi-guide-tour",
+  "compatibility_date": "2026-07-08",
+  "assets": {
+    "directory": "./dist"
+  }
+}
