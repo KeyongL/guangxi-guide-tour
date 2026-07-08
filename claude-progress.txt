@@ -938,3 +938,28 @@ Cloudflare Worker 改名需站长手动。
 最终执行顺序：① F052+F055 文案 → ② F050 品牌定名 → ②.5 设计调研+
 方向稿（/design）→ ③ F053+F054 导航/服务页 → ④ F051+F046+F028+F048
 真地图首页 → ⑤ /verify 回归 + F030/F031。
+
+[2026-07-08] Session: F050 品牌重命名调研 + 站长终选
+---------------------------------------------
+纯调研，未落地改代码。用 RDAP（rdap.org，免费无需 key）逐个核查候选
+域名注册状态（whois/dig 本机不可用，改用 curl -L 打 RDAP，200=已注册，
+404=可注册，429 需加 sleep 重试）。
+两轮共产出 16 个候选（第一轮 6 个搜索意图型 + 第二轮站长要求"少词"的
+10 个短域名），已确认可注册的：FreeTransitChina.com / ChinaBorderCrossing.
+com / GuangxiVisaFree.com / WalkIntoVietnam.com / EnterChinaFree.com /
+240HourChina.com / NoVisaChina.com / SkipVisa.com / QuickBorder.com /
+TwovChina.com（含术语，不建议）/ ChinaHop.co / BorderHop.co。
+已占用（放弃）：chinavisafree/visafreechina/chinatransitvisa/
+visafreetransit/chinatwov/chinaoverland/freetransit/transitchina/
+chinapass/visahop/hopchina/borderhop/chinahop/freeborder/openborder/
+walkborder/borderfree/chinaskip/walkfree/freewalk/govisafree/nvisa/
+fastvisa（均 .com）。
+站长终选：**NoVisaChina.com**（"no visa china"贴近真实口语搜索习惯，
+比 visa-free 更短更直白，且带 China 保留搜索精准度）。
+下一步（未做，留给后续会话）：
+→ F050 落地：全站 grep "Guangxi Bound" 替换为新品牌名；DESIGN.md 品牌
+  占位更新；Cloudflare Worker 改名需站长本人在 Cloudflare 手动操作
+  （SPEC 已注明）。
+→ 域名注册本身是站长本人操作（不涉及代码，未做）。
+→ 按既定顺序，F050 完成后进入 ②.5 设计调研会话（/design，对标3–5个
+  商业化旅游站出方向稿）。
