@@ -835,3 +835,16 @@ F030（375px 无横向溢出）❌ 仍 false（诚实，不标 passing）：
 验证：npm run build 18 页通过；dist 断言＝0 折叠、信任线在、断链 0 残留。
 决策记录：不做 admin 后台、不上数据库、不上 LLM（纯静态+Markdown 即站长后台）。
 待站长：拍照片（劝退主因#1，等他有空）、Reddit 发帖收集真实问题、给 GitHub 仓库/Formspree ID。
+
+2026-07-08 | 🚀 首次上线成功（F006 标 passing）
+- GitHub: git@github.com:KeyongL/guangxi-guide-tour.git（SSH deploy key 认证）
+- 线上: https://guangxi-guide-tour.linkeyong2023.workers.dev（Cloudflare Worker，非 Pages）
+- 验收: 首页/攻略/行程/sitemap 全 200，信任线在，德天签证框在。功能正常，外观待打磨。
+- 部署 playbook 已存 CLAUDE.md 历史教训（下次推送=站长 `! git push origin HEAD:main`，Cloudflare 自动重建）
+- 本地已提交未推：2bd9a87（本条 progress 之前的 CLAUDE/feature_list）——站长下次 push 时一并上去
+下一阶段（建议开新会话做，本会话已很长）：
+1. 视觉打磨——站长觉得"能打开但不好看"。首页/文章页/配色反复迭代。开新会话可用 /design。
+2. F046 交互路线地图（Leaflet+OSM）。⚠️ 注意：SPEC 明确此地图=自托管 OSM 瓦片、**无需 API key**；
+   站长担心的"地图 API key"其实不存在，Leaflet+OpenStreetMap 零密钥。别去申请什么 key。
+3. F047 城市名片、F024 Formspree（站长给 ID 后 5 分钟接好）。
+4. 剩 7 篇初稿（F035/036/037/040/042/043/044）按事实密度重写（同 F034/038/039 待遇）。
