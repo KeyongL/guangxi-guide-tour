@@ -45,7 +45,7 @@
     "milestone": "V1",
     "description": "Cloudflare Pages 部署：构建命令+输出目录配置正确，站点经 HTTPS 全球 CDN 可访问",
     "steps": ["Pages 项目构建命令=npm run build、输出=dist", "一次预览部署成功", "部署 URL 经 HTTPS 打开首页正常"],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F007",
