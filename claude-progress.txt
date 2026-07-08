@@ -963,3 +963,36 @@ fastvisa（均 .com）。
 → 域名注册本身是站长本人操作（不涉及代码，未做）。
 → 按既定顺序，F050 完成后进入 ②.5 设计调研会话（/design，对标3–5个
   商业化旅游站出方向稿）。
+
+[2026-07-08] Session: ②.5 设计调研会话（同日续做，站长"just proceed"授权自主执行）
+---------------------------------------------
+用 general-purpose 子代理跑 WebSearch，对标 3 类商业旅游站取具体真实案例
+（非泛泛建议）：Lonely Planet 首页（编辑/发现型，图片主导，多入口分散CTA，
+横滑卡片导航）/ Intrepid Travel Tailor-Made（定制行程型，沉浸大图Hero+单一
+CTA、表单延后不前置）/ Kilimanjaro Routes（单一目的地深耕型，文字权威型信
+任，KiliPeak系quiz式资格前置）。交叉结论：站长产品的用户意图更接近
+Kilimanjaro climber（高意图"我行不行"精准问题）但要 Intrepid 的简洁（单
+CTA、不堆表单）——避开 Lonely Planet 的"先逛后答"横滑卡片模式。
+
+产出 mockups/08/09/10 三份首页方向稿（品牌已用 NoVisaChain.com→显示名
+"No Visa China"；均遵守 SPEC 红线：UI 纯英文/仅地名双语、术语人话化
+F052、渐进增强、单一CTA F054）：
+- 08 方向A·北欧极简改良版：在07号旧稿基础上演进，零JS护照资格速查
+  （radio+CSS，:checked显隐，关JS仍是纯静态单选，不违反渐进增强）、
+  扁平地图、文案按F052人话对照表精简。离现有DESIGN.md方向最近。
+- 09 方向B·沉浸式照片Hero：对标Intrepid，全宽照片占位Hero+Hero内单
+  CTA、地图退到第二屏、信任条一行制（非堆叠）、底部二次CTA横幅、卡片
+  改大图占位。视觉冲击力更强，偏"情感先行"。
+- 10 方向C·问答资格前置：对标Kilimanjaro/KiliPeak，Hero本身就是护照
+  选择器（零图零地图），内容深度事实清单代替图片建立信任，地图与CTA
+  都压到最后。最贴合"高意图精准问题"用户但视觉最朴素。
+00-index.html 已登记三份 + 标注07为"pre-V1.2旧品牌，仅供参考"。
+验证：Playwright bundled chromium，375px 视口，三份 overflow 均 0px，
+h1 渲染正确；未做深色模式/桌面态复检（调研方向稿，非生产实现，站长
+终选后落地会话再做全套深浅+多断点验证）。
+
+未做：未改 DESIGN.md（方向未定，不能替站长选）；未动任何 src/ 代码；
+mockups/ 本身被 .gitignore 排除不入库（既有规则）。
+下一步：站长看 mockups/00-index.html 选 08/09/10 之一（或要求出第4版/
+混合版），选定后开新会话把方向写进 DESIGN.md，再做 F051（真地图首页）
++ F053（导航重构）落地实现。
