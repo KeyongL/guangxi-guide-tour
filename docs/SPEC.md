@@ -147,8 +147,46 @@
 - 面向的是"25–45 岁欧美自由行背包客偏好冒险"这一**人群特征**，不作任何肤色/种族层面的表述。
 - "冒险"仅限合法、安全的户外/体验玩法；**严禁**引导走非正规口岸、越区、拍摄边防/军事管理区、或任何触碰 SPEC 既有红线（翻墙、非法越境）的行为。与签证分区标注同属合规要求。
 
+## V1.2 游客视角改版（2026-07-08 /change 新增）
+
+> 背景：站长验收上线站点后判定"从总体设计到内容填充都没有从旅游者角度出发，最多 30 分"。本章为纠偏方案，对应 feature_list F050–F055；本章与旧「UI 设计需求」冲突处以本章为准。
+
+**1. 品牌重命名（F050）**
+- 弃 "Guangxi Bound"，走**搜索意图描述型**命名（老外搜 "china visa free" 类词直接撞上）。
+- 候选清单 + 域名可用性核查后站长终选；全站替换后 grep 旧名 0 命中。
+- ⚠️ Cloudflare Worker 名与线上 URL 绑定，改名由站长在 Cloudflare 手动操作。
+
+**2. 首页重构（F051）：真地图 + 双路线并列**
+- Leaflet + OSM **真实地图**（无 API key）替换 SVG 示意图；A/B 两条路线并列、人话标注。
+- 目标：游客 30 秒看懂"这条路线怎么走、我能不能免签走"。
+- 渐进增强红线不变（JS 关闭降级静态，F028）；性能红线不变（F048）。
+
+**3. 全站文案标准（F052/F055，补充英文文案铁律）——术语人话对照表**
+
+| 禁用（现状） | 改用（人话） |
+|---|---|
+| TWOV-legal / 240h TWOV OK | Visa-free for most passports（细则点开再讲） |
+| 48-country / visa only | Need a visa? Check in 10 seconds → |
+| Not in the transit-visa zone | Requires a visa — plan ahead |
+| Flow A / Flow B | 路线用起终点直呼：Fly in → walk out to Vietnam / Coming from Vietnam |
+| "Written by a Beihai local — PhD, fluent English, four years living in the West" | 一句话：I live here. I check every price in person.（措辞可调，原则=一句、无学历自夸） |
+| "How to Eat Well at ..." 类空泛标题 | 收益/数字前置：Beihai seafood market: real prices, the 加工费 trick, what to order |
+
+- 正文合规引用官方政策名（如 240-hour visa-free transit）不在禁用之列；禁的是把术语当 UI/图例/标题用。
+
+**4. 导航重构（F053）**：The Route / Plan My Trip / Guides 三项；About 收进页脚。取代旧「首页/攻略/行程/About」四段式（F008 已废弃）。
+
+**5. 服务层商业化（F054）：Plan My Trip 人工接单**
+- 商业模式落地（内容永免费，服务层收费）：独立 /plan-my-trip/ 页，表单收 日期/人数/需求，Formspree 送站长邮箱，**人工报价跟进**（订酒店/车票/行程定制）。
+- 不做在线支付、不做自动报价——先验证有没有人付钱，形态成熟后再 /change。
+- 首页与导航均有醒目 CTA 入口。
+
 ## 变更记录
 
+- **2026-07-08 /change**：V1.2 游客视角改版（本文件新增上一章）。
+  - 原因：站长验收判定全站缺游客视角（≤30 分）；要引流+商业化。
+  - 影响：新增 F050–F055；F008 废弃（导航被 F053 取代）；F019/F011/F014/F004/F023 回退重验；F046/F028/F048 提前至 V1.2-revamp 批次。
+  - 边界：**不改变**"按流向组织内容"的框架与签证分区合规要求（F033/F049 不动）；12 篇攻略只重写 title/summary，正文事实与"未核实标记"规矩不变。
 - **2026-07-03 /change**：新增交互路线地图（改用 OpenStreetMap + Leaflet，取代原 Google Maps 嵌入）与城市名片参考层（含预算/美食/天数/活动强度）。
   - 原因：用户希望更直观地展示路线、各城预算与美食，一眼看全。
   - 影响：外部 API 表 Google Maps → OSM/Leaflet；UI 组件加第 6/7 项；新增本章数据模型与合规护栏。

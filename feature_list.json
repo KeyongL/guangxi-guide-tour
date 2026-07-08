@@ -4,7 +4,11 @@
     "category": "infra",
     "milestone": "V1",
     "description": "Astro 项目可构建、可本地预览：npm install 后 npm run build 产出 dist/ 无报错，npm run dev 本地可访问占位首页",
-    "steps": ["运行 npm install", "运行 npm run build 确认无报错且产出 dist/", "运行 npm run dev 确认 http://127.0.0.1:4321 打开占位首页"],
+    "steps": [
+      "运行 npm install",
+      "运行 npm run build 确认无报错且产出 dist/",
+      "运行 npm run dev 确认 http://127.0.0.1:4321 打开占位首页"
+    ],
     "passes": true
   },
   {
@@ -12,7 +16,11 @@
     "category": "infra",
     "milestone": "V1",
     "description": "内容集合 schema：guides 与 cities 两个集合的 frontmatter 有类型定义（title/slug/summary/cover/region/visa_zone/verified 等，city 含 SPEC 城市名片数据模型），非法 frontmatter 使构建失败",
-    "steps": ["定义 src/content 集合 schema（含 SPEC city-card 字段）", "放一条合法 Markdown，构建通过", "故意写错一个必填 frontmatter 字段，确认 npm run build 报错而非静默通过"],
+    "steps": [
+      "定义 src/content 集合 schema（含 SPEC city-card 字段）",
+      "放一条合法 Markdown，构建通过",
+      "故意写错一个必填 frontmatter 字段，确认 npm run build 报错而非静默通过"
+    ],
     "passes": true
   },
   {
@@ -20,7 +28,11 @@
     "category": "infra",
     "milestone": "V1",
     "description": "基础布局 + 设计令牌：全局 CSS 引用 DESIGN.md 深浅两套 hex、系统字体栈、375px 移动优先、深色模式跟随系统且提供手动切换",
-    "steps": ["建 BaseLayout 与令牌 CSS，色值全部取自 DESIGN.md", "系统深色偏好切换时页面配色随之切换", "手动切换按钮可覆盖系统偏好"],
+    "steps": [
+      "建 BaseLayout 与令牌 CSS，色值全部取自 DESIGN.md",
+      "系统深色偏好切换时页面配色随之切换",
+      "手动切换按钮可覆盖系统偏好"
+    ],
     "passes": true
   },
   {
@@ -28,15 +40,23 @@
     "category": "infra",
     "milestone": "V1",
     "description": "SEO 元信息：每页有唯一 title、meta description、Open Graph 标签，由页面/frontmatter 生成（验收标准5）",
-    "steps": ["文章页 head 输出唯一 title/description/og 标签", "查看两个不同页面的源码确认标签不重复", "og:image 有回退默认图"],
-    "passes": true
+    "steps": [
+      "文章页 head 输出唯一 title/description/og 标签",
+      "查看两个不同页面的源码确认标签不重复",
+      "og:image 有回退默认图"
+    ],
+    "passes": false
   },
   {
     "id": "F005",
     "category": "infra",
     "milestone": "V1",
     "description": "/sitemap.xml 与 /robots.txt 可访问（验收标准5）",
-    "steps": ["构建产出 dist/sitemap.xml 含全部页面", "dist/robots.txt 可访问且指向 sitemap", "本地预览请求两个路径均 200"],
+    "steps": [
+      "构建产出 dist/sitemap.xml 含全部页面",
+      "dist/robots.txt 可访问且指向 sitemap",
+      "本地预览请求两个路径均 200"
+    ],
     "passes": true
   },
   {
@@ -44,7 +64,11 @@
     "category": "infra",
     "milestone": "V1",
     "description": "Cloudflare Pages 部署：构建命令+输出目录配置正确，站点经 HTTPS 全球 CDN 可访问",
-    "steps": ["Pages 项目构建命令=npm run build、输出=dist", "一次预览部署成功", "部署 URL 经 HTTPS 打开首页正常"],
+    "steps": [
+      "Pages 项目构建命令=npm run build、输出=dist",
+      "一次预览部署成功",
+      "部署 URL 经 HTTPS 打开首页正常"
+    ],
     "passes": true
   },
   {
@@ -52,7 +76,11 @@
     "category": "infra",
     "milestone": "V1",
     "description": "GA4 注入：measurement id 来自 env（PUBLIC_GA4_MEASUREMENT_ID），缺省时页面仍正常渲染（静默失败）",
-    "steps": ["有 GA4 id 时页面注入 gtag 片段", "清空该 env 后构建与渲染不报错", "确认无 id 时不注入脚本"],
+    "steps": [
+      "有 GA4 id 时页面注入 gtag 片段",
+      "清空该 env 后构建与渲染不报错",
+      "确认无 id 时不注入脚本"
+    ],
     "passes": true
   },
   {
@@ -60,15 +88,25 @@
     "category": "ui",
     "milestone": "V1",
     "description": "顶部导航：品牌名 + Guides / Itineraries / About + 深色切换；375px 下可用（不溢出、可点）",
-    "steps": ["全部页面渲染统一导航", "375px 下导航项可点、不横向溢出", "深色切换按钮生效"],
-    "passes": true
+    "steps": [
+      "全部页面渲染统一导航",
+      "375px 下导航项可点、不横向溢出",
+      "深色切换按钮生效"
+    ],
+    "passes": true,
+    "deprecated": true,
+    "deprecated_reason": "2026-07-08 /change：导航结构变更为 The Route / Plan My Trip / Guides（About 收进页脚），由 F053 取代；旧导航代码由 F053 直接改写，无残留清理项"
   },
   {
     "id": "F009",
     "category": "ui",
     "milestone": "V1",
     "description": "签证徽章 visa-badge：✅ 240h TWOV OK（蓝绿）/ ⚠️ 30-day visa-free or visa holders only（琥珀），配色取自 DESIGN.md 令牌",
-    "steps": ["渲染两种徽章态", "颜色与 DESIGN.md ok/warn 令牌一致", "深浅模式下均可读"],
+    "steps": [
+      "渲染两种徽章态",
+      "颜色与 DESIGN.md ok/warn 令牌一致",
+      "深浅模式下均可读"
+    ],
     "passes": true
   },
   {
@@ -76,7 +114,11 @@
     "category": "ui",
     "milestone": "V1",
     "description": "签证分区提醒框 visa-alert：崇左/百色内容由 frontmatter visa_zone 自动挂载警告框，不靠作者手写记忆（验收标准7，系统强制）",
-    "steps": ["frontmatter visa_zone=non-twov 的页面自动渲染 visa-alert", "visa_zone=twov 的页面不渲染该框", "作者未写任何提醒文字也能自动挂载"],
+    "steps": [
+      "frontmatter visa_zone=non-twov 的页面自动渲染 visa-alert",
+      "visa_zone=twov 的页面不渲染该框",
+      "作者未写任何提醒文字也能自动挂载"
+    ],
     "passes": true
   },
   {
@@ -84,15 +126,23 @@
     "category": "ui",
     "milestone": "V1",
     "description": "攻略卡片：扁平照片占位 + 区域标签 + 标题 + 摘要 + 阅读时长",
-    "steps": ["列表页与首页渲染攻略卡片", "字段齐全且照片为扁平占位块", "hover 态描边变主色"],
-    "passes": true
+    "steps": [
+      "列表页与首页渲染攻略卡片",
+      "字段齐全且照片为扁平占位块",
+      "hover 态描边变主色"
+    ],
+    "passes": false
   },
   {
     "id": "F012",
     "category": "ui",
     "milestone": "V1",
     "description": "行程时间线：day-by-day 竖向时间线，每天含交通 + 住宿",
-    "steps": ["行程页渲染逐日时间线", "每天含交通与住宿信息", "375px 下不溢出"],
+    "steps": [
+      "行程页渲染逐日时间线",
+      "每天含交通与住宿信息",
+      "375px 下不溢出"
+    ],
     "passes": true
   },
   {
@@ -100,7 +150,11 @@
     "category": "ui",
     "milestone": "V1",
     "description": "文章目录 TOC：数字序号锚点列表，primary-soft 底盒",
-    "steps": ["文章页渲染 TOC", "点击锚点跳到对应小节", "无 JS 时仍是可用锚点链接"],
+    "steps": [
+      "文章页渲染 TOC",
+      "点击锚点跳到对应小节",
+      "无 JS 时仍是可用锚点链接"
+    ],
     "passes": true
   },
   {
@@ -108,15 +162,23 @@
     "category": "ui",
     "milestone": "V1",
     "description": "作者信任条：头像占位 + \"PhD, based in Beihai\" + 实地核实日期（Last verified on the ground）",
-    "steps": ["文章页与 About 渲染信任条", "核实日期来自 frontmatter", "无核实日期时不显示假日期"],
-    "passes": true
+    "steps": [
+      "文章页与 About 渲染信任条",
+      "核实日期来自 frontmatter",
+      "无核实日期时不显示假日期"
+    ],
+    "passes": false
   },
   {
     "id": "F015",
     "category": "ui",
     "milestone": "V1",
     "description": "联系表单组件：姓名/邮箱/留言 + 提交成功态（UI 层，真实转发见 F024）",
-    "steps": ["行程页与 About 渲染表单", "必填校验生效", "提交后显示成功提示占位态"],
+    "steps": [
+      "行程页与 About 渲染表单",
+      "必填校验生效",
+      "提交后显示成功提示占位态"
+    ],
     "passes": true
   },
   {
@@ -124,7 +186,11 @@
     "category": "ui",
     "milestone": "V1",
     "description": "空状态：区域暂无文章时显示 \"Guides in the works\" 占位",
-    "steps": ["列表页某区域无文章时渲染空状态", "有文章后空状态消失", "空状态文案纯英文"],
+    "steps": [
+      "列表页某区域无文章时渲染空状态",
+      "有文章后空状态消失",
+      "空状态文案纯英文"
+    ],
     "passes": true
   },
   {
@@ -132,7 +198,11 @@
     "category": "ui",
     "milestone": "V1",
     "description": "页脚：政策免责声明（policies change, verify with NIA）+ 站点地图链接",
-    "steps": ["全部页面渲染页脚", "含免责声明与官方来源链接", "站点地图链接可达"],
+    "steps": [
+      "全部页面渲染页脚",
+      "含免责声明与官方来源链接",
+      "站点地图链接可达"
+    ],
     "passes": true
   },
   {
@@ -140,7 +210,11 @@
     "category": "ui",
     "milestone": "V1",
     "description": "扁平照片占位块：primary-soft 底 + 1px 描边 + 灰字图注，可在文章/卡片复用（禁止 AI 生成图充当实拍）",
-    "steps": ["占位块组件可复用", "含图注说明该放什么照片", "无外部图片请求"],
+    "steps": [
+      "占位块组件可复用",
+      "含图注说明该放什么照片",
+      "无外部图片请求"
+    ],
     "passes": true
   },
   {
@@ -148,15 +222,23 @@
     "category": "ui",
     "milestone": "V1",
     "description": "着陆/枢纽页（地图为主角）：答案式大标题 → 地图英雄第一屏 → 点城市弹极简名片 → Start here 链接；签证复杂度点击展开（渐进披露），参照 mockups/07-map-first.html",
-    "steps": ["首页首屏是答案式标题+大地图英雄", "点城市标记弹极简名片", "签证分区不进英雄图、点击才展开；375px 无横向滚动"],
-    "passes": true
+    "steps": [
+      "首页首屏是答案式标题+大地图英雄",
+      "点城市标记弹极简名片",
+      "签证分区不进英雄图、点击才展开；375px 无横向滚动"
+    ],
+    "passes": false
   },
   {
     "id": "F020",
     "category": "ui",
     "milestone": "V1",
     "description": "攻略列表页：按区域分组（Beihai & Weizhou / Border Towns / Inland Karst），含无文章区域的空状态",
-    "steps": ["列表页按区域分组渲染卡片", "百色等暂无文章区域显示空状态", "移动端单列不溢出"],
+    "steps": [
+      "列表页按区域分组渲染卡片",
+      "百色等暂无文章区域显示空状态",
+      "移动端单列不溢出"
+    ],
     "passes": true
   },
   {
@@ -164,7 +246,11 @@
     "category": "ui",
     "milestone": "V1",
     "description": "文章页：答案式开头（先给\"你这护照行不行\"结论）+ 正文折叠 + TOC + 相关文章 + 咨询 CTA + 自动 visa-alert，参照 mockups/03-article.html 新方向",
-    "steps": ["首屏先给签证结论再折叠展开正文", "崇左/百色文章自动挂 visa-alert（F010）", "含 TOC/相关文章/单个 accent CTA"],
+    "steps": [
+      "首屏先给签证结论再折叠展开正文",
+      "崇左/百色文章自动挂 visa-alert（F010）",
+      "含 TOC/相关文章/单个 accent CTA"
+    ],
     "passes": true
   },
   {
@@ -172,7 +258,11 @@
     "category": "ui",
     "milestone": "V1",
     "description": "行程页：流向A（3–5天海岸线+出境越南）与流向B（7–10天边境大环线）；每条标注适用签证类型 + 联系表单",
-    "steps": ["两条流向各有行程页并标注适用签证类型", "流向B页开头讲清仅48国免签/持签证适用", "页内含联系表单"],
+    "steps": [
+      "两条流向各有行程页并标注适用签证类型",
+      "流向B页开头讲清仅48国免签/持签证适用",
+      "页内含联系表单"
+    ],
     "passes": true
   },
   {
@@ -180,15 +270,23 @@
     "category": "ui",
     "milestone": "V1",
     "description": "About + Contact 页：站长故事信任页（博士/北海本地/英语流利/欧美生活4年）+ 联系表单，是转化核心",
-    "steps": ["About 呈现站长背书故事", "含联系表单与信任条", "移动端可读不溢出"],
-    "passes": true
+    "steps": [
+      "About 呈现站长背书故事",
+      "含联系表单与信任条",
+      "移动端可读不溢出"
+    ],
+    "passes": false
   },
   {
     "id": "F024",
     "category": "functional",
     "milestone": "V1",
     "description": "联系表单提交 → Formspree → 站长邮箱收到含姓名/邮箱/留言的邮件；页面不刷新即显示 \"Thanks, I'll reply within 24h.\"（验收标准4）",
-    "steps": ["填表提交后 Formspree 转发到站长邮箱", "页面不整页刷新即显示成功提示", "端到端收到真实测试邮件"],
+    "steps": [
+      "填表提交后 Formspree 转发到站长邮箱",
+      "页面不整页刷新即显示成功提示",
+      "端到端收到真实测试邮件"
+    ],
     "passes": false
   },
   {
@@ -196,7 +294,11 @@
     "category": "functional",
     "milestone": "V1",
     "description": "内容发布流程跑通：站长在 content/ 写一篇 Markdown → 构建 → 新攻略自动出现在列表页与站点（站长只写 Markdown、不碰代码）",
-    "steps": ["在 content/guides 新增一篇 Markdown", "构建后该文出现在列表页且有独立 URL", "站长全程只编辑 Markdown 与 frontmatter"],
+    "steps": [
+      "在 content/guides 新增一篇 Markdown",
+      "构建后该文出现在列表页且有独立 URL",
+      "站长全程只编辑 Markdown 与 frontmatter"
+    ],
     "passes": true
   },
   {
@@ -204,7 +306,11 @@
     "category": "functional",
     "milestone": "V1",
     "description": "双语范围落地：仅地名/菜名/地址显示 EN + 中文（如 Weizhou 涠洲岛）；UI 标签/导航/正文一律纯英文（DESIGN.md 现行方向）",
-    "steps": ["地名/菜名/地址处成对显示英文+中文", "导航/按钮/正文无中文", "抽查一页确认双语只落在名词层"],
+    "steps": [
+      "地名/菜名/地址处成对显示英文+中文",
+      "导航/按钮/正文无中文",
+      "抽查一页确认双语只落在名词层"
+    ],
     "passes": true
   },
   {
@@ -212,15 +318,23 @@
     "category": "error-handling",
     "milestone": "V1",
     "description": "Formspree 不可用/提交失败 → 表单降级显示 mailto: 链接（PUBLIC_CONTACT_EMAIL）（验收标准4）",
-    "steps": ["模拟 Formspree 失败/无 id", "表单降级为 mailto: 链接", "链接指向站长邮箱且可点"],
+    "steps": [
+      "模拟 Formspree 失败/无 id",
+      "表单降级为 mailto: 链接",
+      "链接指向站长邮箱且可点"
+    ],
     "passes": true
   },
   {
     "id": "F028",
     "category": "error-handling",
-    "milestone": "V1.1",
+    "milestone": "V1.2-revamp",
     "description": "路线地图加载失败或关闭 JS → 路线/城市信息仍以静态 HTML 呈现 + 静态占位图 + 文字路线（SEO 红线：不依赖地图）",
-    "steps": ["关闭 JS 后行程页路线信息仍完整可读", "地图加载失败时降级为静态占位图+文字路线 chips", "静态路线由构建期 frontmatter 生成"],
+    "steps": [
+      "关闭 JS 后行程页路线信息仍完整可读",
+      "地图加载失败时降级为静态占位图+文字路线 chips",
+      "静态路线由构建期 frontmatter 生成"
+    ],
     "passes": false
   },
   {
@@ -228,7 +342,11 @@
     "category": "error-handling",
     "milestone": "V1",
     "description": "缺失 GA4 / Formspree 等 env 变量时站点仍能构建与渲染（不硬崩），相关功能优雅降级",
-    "steps": ["清空 .env 后 npm run build 成功", "页面正常渲染", "缺 id 的集成走各自降级路径而非报错"],
+    "steps": [
+      "清空 .env 后 npm run build 成功",
+      "页面正常渲染",
+      "缺 id 的集成走各自降级路径而非报错"
+    ],
     "passes": true
   },
   {
@@ -236,7 +354,11 @@
     "category": "boundary",
     "milestone": "V1",
     "description": "375px 宽访问任一页型均无横向滚动、正文可读、导航可用（验收标准3）",
-    "steps": ["375px 逐页检查首页/列表/文章/行程/About", "横向溢出=0px", "正文行宽与导航在窄屏可用"],
+    "steps": [
+      "375px 逐页检查首页/列表/文章/行程/About",
+      "横向溢出=0px",
+      "正文行宽与导航在窄屏可用"
+    ],
     "passes": false
   },
   {
@@ -244,7 +366,11 @@
     "category": "boundary",
     "milestone": "V1",
     "description": "Lighthouse 移动端：首页与任一文章页 Performance ≥ 85、SEO ≥ 90（验收标准6）",
-    "steps": ["对首页跑 Lighthouse 移动端", "对一篇文章页跑 Lighthouse 移动端", "两页 Performance≥85 且 SEO≥90"],
+    "steps": [
+      "对首页跑 Lighthouse 移动端",
+      "对一篇文章页跑 Lighthouse 移动端",
+      "两页 Performance≥85 且 SEO≥90"
+    ],
     "passes": false
   },
   {
@@ -252,7 +378,11 @@
     "category": "boundary",
     "milestone": "V1.1",
     "description": "city-card 预算无 budget_verified_on 时显示\"未核实/宁缺毋滥\"态，不展示可能过期的数字（数据完整性）",
-    "steps": ["frontmatter 缺 budget_verified_on 的城市卡显示未核实态", "有核实日期时正常显示预算+日期", "过期数据不冒充有效数据"],
+    "steps": [
+      "frontmatter 缺 budget_verified_on 的城市卡显示未核实态",
+      "有核实日期时正常显示预算+日期",
+      "过期数据不冒充有效数据"
+    ],
     "passes": false
   },
   {
@@ -260,7 +390,11 @@
     "category": "boundary",
     "milestone": "V1",
     "description": "签证分区内容标准：崇左/百色相关页面必须显著展示签证分区提醒框，缺失则不可发布（验收标准7 的强制校验）",
-    "steps": ["崇左/百色内容页均显示 visa-alert", "尝试发布缺提醒框的此类页面被拦截/构建校验报错", "提醒框文案含\"仅30天免签国籍或持签证者\"要点"],
+    "steps": [
+      "崇左/百色内容页均显示 visa-alert",
+      "尝试发布缺提醒框的此类页面被拦截/构建校验报错",
+      "提醒框文案含\"仅30天免签国籍或持签证者\"要点"
+    ],
     "passes": true
   },
   {
@@ -268,7 +402,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）流向A旗舰指南 \"Fly into Guangxi, leave overland to Vietnam\"：240h 过境免签实操；东兴陆路出境标⚠️待核实 hedge，核实不通过则降级为原机场飞离版本",
-    "steps": ["文章覆盖飞入→玩→东兴陆路出境越南全流程", "东兴陆路段带\"待核实\"提醒框且给出降级方案", "站长人工改写定稿（非 AI 腔）"],
+    "steps": [
+      "文章覆盖飞入→玩→东兴陆路出境越南全流程",
+      "东兴陆路段带\"待核实\"提醒框且给出降级方案",
+      "站长人工改写定稿（非 AI 腔）"
+    ],
     "passes": false
   },
   {
@@ -276,7 +414,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）流向B旗舰指南 \"Vietnam to China overland\"：芒街→东兴 + 河内→南宁两线，开头即讲清过境免签不支持陆路入境、仅48国免签/持签证适用；东兴段实地核实后发布",
-    "steps": ["开头明确签证适用性（仅48国免签/持签证）", "覆盖芒街→东兴与河内→南宁两条线", "经崇左段落带签证分区标注"],
+    "steps": [
+      "开头明确签证适用性（仅48国免签/持签证）",
+      "覆盖芒街→东兴与河内→南宁两条线",
+      "经崇左段落带签证分区标注"
+    ],
     "passes": false
   },
   {
@@ -284,7 +426,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）攻略：外卡绑微信/支付宝支付实操指南",
-    "steps": ["覆盖外卡绑定微信/支付宝步骤", "含常见失败点与替代方案", "人工核实后定稿"],
+    "steps": [
+      "覆盖外卡绑定微信/支付宝步骤",
+      "含常见失败点与替代方案",
+      "人工核实后定稿"
+    ],
     "passes": false
   },
   {
@@ -292,7 +438,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）攻略：国际 eSIM 选购（仅事实性介绍，不含任何翻墙/VPN 内容——SPEC 合规红线）",
-    "steps": ["对比可选 eSIM 方案（事实性）", "明确不含 VPN/翻墙内容", "人工定稿"],
+    "steps": [
+      "对比可选 eSIM 方案（事实性）",
+      "明确不含 VPN/翻墙内容",
+      "人工定稿"
+    ],
     "passes": false
   },
   {
@@ -300,7 +450,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）攻略：涠洲岛完全指南（Weizhou 涠洲岛）",
-    "steps": ["覆盖上岛交通/门票/住宿/玩法", "地名双语（Weizhou 涠洲岛）", "含实地核实日期"],
+    "steps": [
+      "覆盖上岛交通/门票/住宿/玩法",
+      "地名双语（Weizhou 涠洲岛）",
+      "含实地核实日期"
+    ],
     "passes": false
   },
   {
@@ -308,7 +462,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）攻略：北海老街与骑楼（Beihai Old Street）",
-    "steps": ["覆盖老街骑楼历史与逛法", "地名双语", "人工定稿含核实日期"],
+    "steps": [
+      "覆盖老街骑楼历史与逛法",
+      "地名双语",
+      "人工定稿含核实日期"
+    ],
     "passes": false
   },
   {
@@ -316,7 +474,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）攻略：海鲜市场怎么吃（含菜名双语与大致价格）",
-    "steps": ["覆盖买+加工流程与避坑", "菜名双语 + 价格带核实日期", "人工定稿"],
+    "steps": [
+      "覆盖买+加工流程与避坑",
+      "菜名双语 + 价格带核实日期",
+      "人工定稿"
+    ],
     "passes": false
   },
   {
@@ -324,7 +486,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（首发批·生死线）行程（流向A）：3–5 天海岸线（北海—涠洲—东兴—出境越南）",
-    "steps": ["逐日行程含交通+住宿", "标注适用签证类型（240h TWOV / 48国免签）", "与 F034 旗舰文交叉链接"],
+    "steps": [
+      "逐日行程含交通+住宿",
+      "标注适用签证类型（240h TWOV / 48国免签）",
+      "与 F034 旗舰文交叉链接"
+    ],
     "passes": false
   },
   {
@@ -332,7 +498,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（第二批·首月）攻略：德天瀑布 + 友谊关（崇左，非过境免签区，强制签证分区提醒 F010/F033）",
-    "steps": ["覆盖德天瀑布+友谊关玩法与交通", "页面自动挂签证分区提醒框", "明确过境免签者不可前往、仅30天免签/持签证适用"],
+    "steps": [
+      "覆盖德天瀑布+友谊关玩法与交通",
+      "页面自动挂签证分区提醒框",
+      "明确过境免签者不可前往、仅30天免签/持签证适用"
+    ],
     "passes": false
   },
   {
@@ -340,7 +510,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（第二批·首月）攻略：乐业天坑（百色，非过境免签区，强制签证分区提醒）",
-    "steps": ["覆盖乐业天坑玩法与交通", "页面自动挂签证分区提醒框", "签证适用性标注正确"],
+    "steps": [
+      "覆盖乐业天坑玩法与交通",
+      "页面自动挂签证分区提醒框",
+      "签证适用性标注正确"
+    ],
     "passes": false
   },
   {
@@ -348,7 +522,11 @@
     "category": "content",
     "milestone": "V1",
     "description": "（第二批·首月）攻略：巴马长寿乡（河池，过境免签区内，无签证分区限制）",
-    "steps": ["覆盖巴马长寿乡玩法与交通", "签证徽章标 240h TWOV OK", "人工定稿含核实日期"],
+    "steps": [
+      "覆盖巴马长寿乡玩法与交通",
+      "签证徽章标 240h TWOV OK",
+      "人工定稿含核实日期"
+    ],
     "passes": false
   },
   {
@@ -356,15 +534,23 @@
     "category": "content",
     "milestone": "V1",
     "description": "（第二批·首月）行程（流向B）：7–10 天边境大环线（越南入境→东兴/南宁→崇左→百色→河池，仅48国免签/持签证适用）",
-    "steps": ["逐日环线行程含交通+住宿", "开头讲清仅48国免签/持签证适用", "经崇左/百色段带签证分区提醒"],
+    "steps": [
+      "逐日环线行程含交通+住宿",
+      "开头讲清仅48国免签/持签证适用",
+      "经崇左/百色段带签证分区提醒"
+    ],
     "passes": false
   },
   {
     "id": "F046",
     "category": "ui",
-    "milestone": "V1.1",
+    "milestone": "V1.2-revamp",
     "description": "交互路线地图 route-map（Leaflet + OSM）：行程页画流向A/B折线 + 可点击城市标记，点击弹城市名片；渐进增强、自托管、无密钥",
-    "steps": ["行程页叠加 Leaflet+OSM 路线地图", "点城市标记弹出 city-card", "关闭 JS 时降级（见 F028）"],
+    "steps": [
+      "行程页叠加 Leaflet+OSM 路线地图",
+      "点城市标记弹出 city-card",
+      "关闭 JS 时降级（见 F028）"
+    ],
     "passes": false
   },
   {
@@ -372,15 +558,23 @@
     "category": "ui",
     "milestone": "V1.1",
     "description": "城市名片 city-card：城市名 + 复用 visa-badge + 天数/日预算（带核实日期）/必吃/景点/活动强度评级 + 冒险亮点；原生 <details> 折叠、零 JS；参照 mockups/06",
-    "steps": ["名片字段与 SPEC frontmatter 数据模型一一对应", "默认折叠、点开见详情（零 JS）", "崇左/百色卡自动挂签证警告（复用 F010）"],
+    "steps": [
+      "名片字段与 SPEC frontmatter 数据模型一一对应",
+      "默认折叠、点开见详情（零 JS）",
+      "崇左/百色卡自动挂签证警告（复用 F010）"
+    ],
     "passes": false
   },
   {
     "id": "F048",
     "category": "boundary",
-    "milestone": "V1.1",
+    "milestone": "V1.2-revamp",
     "description": "route-map 性能：Leaflet 与瓦片懒加载、仅在含地图页面加载，守住 Lighthouse 移动端 Performance ≥ 85",
-    "steps": ["地图资源仅在行程页加载", "瓦片/库懒加载", "含地图行程页 Lighthouse 移动端 Performance≥85"],
+    "steps": [
+      "地图资源仅在行程页加载",
+      "瓦片/库懒加载",
+      "含地图行程页 Lighthouse 移动端 Performance≥85"
+    ],
     "passes": false
   },
   {
@@ -388,7 +582,86 @@
     "category": "infra",
     "milestone": "V1.1",
     "description": "\"冒险\"内容合规护栏：内容审核强制不引导走非正规口岸/越区/拍摄边防军事管理区/翻墙非法越境（SPEC 硬约束，与签证分区同属合规要求）",
-    "steps": ["建立发布前合规检查清单/脚本", "冒险玩法仅限合法安全的户外体验", "抽查内容不触碰 SPEC 红线"],
+    "steps": [
+      "建立发布前合规检查清单/脚本",
+      "冒险玩法仅限合法安全的户外体验",
+      "抽查内容不触碰 SPEC 红线"
+    ],
     "passes": true
+  },
+  {
+    "id": "F050",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "品牌重命名（搜索意图描述型，弃 Guangxi Bound）：候选清单+域名可用性核查后由站长终选；全站品牌名/title/OG/页脚统一替换，无旧名残留",
+    "steps": [
+      "产出 ≥5 个搜索意图描述型候选名并核查域名可用性，站长终选",
+      "全站（导航/title/OG/页脚/wrangler name 注记）替换为新名，grep 旧名 0 命中",
+      "⚠️ Cloudflare Worker 改名与线上 URL 绑定，由站长在 Cloudflare 手动操作"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F051",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "首页重构（真地图+双路线并列）：Leaflet+OSM 真实地图（自托管样式、无 API key）替换 SVG 示意图；A/B 两条路线并列人话标注；游客 30 秒看懂路线",
+    "steps": [
+      "首页英雄区为真实地图，两条路线折线+城市标记清晰可辨",
+      "路线标签用人话（无 TWOV-legal / 48-country 类术语）",
+      "JS 关闭时降级为静态图+文字路线（F028），375px 无横向溢出",
+      "Lighthouse 移动端 Performance ≥ 85（F048 懒加载守住）"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F052",
+    "category": "content",
+    "milestone": "V1.2-revamp",
+    "description": "全站文案重写（游客视角去术语）：标题/副标/地图图例/信任条全部人话化；TWOV/48-country 等术语按 SPEC 术语对照表替换；信任条砍到一句",
+    "steps": [
+      "首页 H1/副标重写：一眼看懂'我能不能免签来+能玩什么'",
+      "地图图例与徽章文案替换为人话（对照 SPEC 术语表）",
+      "信任条一句化，无冗余修饰词",
+      "全站 grep 旧术语 0 命中（正文合规引用官方政策名除外）"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F053",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "导航重构（任务导向）：The Route / Plan My Trip / Guides 三项；About 收进页脚；375px 可用",
+    "steps": [
+      "全部页面渲染新导航三项，路由真实可达",
+      "About 从顶部导航移除、页脚保留入口",
+      "375px 下不溢出、可点，深色切换保留"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F054",
+    "category": "functional",
+    "milestone": "V1.2-revamp",
+    "description": "Plan My Trip 服务页（商业化入口，人工接单）：日期/人数/需求表单，提交走 Formspree 到站长邮箱，站长人工报价跟进；页面明示服务内容（订酒店/车票/行程定制）",
+    "steps": [
+      "独立 /plan-my-trip/ 页：服务说明 + 表单（dates/party size/needs 必填）",
+      "提交经 Formspree 送达站长邮箱（依赖 F024 的 PUBLIC_FORMSPREE_ID）",
+      "Formspree 缺失时降级 mailto（复用 F027 模式）",
+      "首页与导航均有醒目入口 CTA"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F055",
+    "category": "content",
+    "milestone": "V1.2-revamp",
+    "description": "12 篇攻略标题+摘要重写（旅行者收益导向）：具体数字/结论前置，删'How to Eat Well'类空泛句式；只改 frontmatter title/summary，不动正文事实",
+    "steps": [
+      "逐篇重写 title+summary：首句给结论或具体数字",
+      "对照英文文案铁律：短句、主动语态、无营销腔",
+      "构建通过，列表页/文章页/OG 标签同步更新"
+    ],
+    "passes": false
   }
 ]
