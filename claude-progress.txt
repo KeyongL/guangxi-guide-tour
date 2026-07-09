@@ -1228,6 +1228,39 @@ commit（本条与 DESIGN.md 一并提交）。
 feature_list：total 55→56，passing 28 不变。本条以 change: commit 单独提交
 （与 F051 代码返工的 feat: commit 分开，保持 /verify 审计轨迹）。
 
+[2026-07-09] /design B3「Two-page」终选 + /change 第2批（F053/F051→F057/F058）
+---------------------------------------------
+B2 落地后站长仍判"不够极简、用词不明确、页面太多（两个页面是不是就可以
+了）、标题不吸引人"，要求"先规划好，然后再修复"。/design 迭代：
+- 冗余审计：The Route 中转页（纯中转，首页已直连两条路线）、Guides 导航
+  项、styleguide 页、速查行解释句、"240 hours"术语、页脚长句。
+- 站长终选（AskUserQuestion 两问 + 追问澄清）：
+  ① IA =「感知两页」——导航只剩 Plan My Trip；11 篇攻略+2 条路线日程保留
+    为叶子页（SEO 引流引擎，明确不砍）。
+  ② 标题两轮迭代："Skip the visa. See China." 被否（"这是宣传推广广西旅
+    游的"）→ 站长定位"走越南/柬埔寨/老挝环线的人顺路来广西" → 终选
+    H1 "Vietnam, Laos, Cambodia — and Guangxi." 副标 "Detour into
+    China's south. 10 days, no visa."
+  ③ 站长"可以"确认后追加两点：背景图/照片后期必须换真实有冲击力实拍
+    （当前占位不吸引人，已记 DESIGN.md 照片待办）；"NO VISA CHINA 这三
+    个用词是废话"→ 负面清单#8：品牌词退出页面 UI，只留域名+<title>
+    后缀，header 用无字 home 图标。
+- 样张：mockups/12-b3-home-two-page.html（首页，已换终选标题）+
+  13-b3-plan-my-trip.html（表单页）；00-index 登记；词预算 H1≤6/副标≤12/
+  速查行≤10/小字≤12 写进样张与 DESIGN.md。
+- DESIGN.md 顶部加「方向锁定 2026-07-09 B3」块（B2 块降级为演进记录）。
+- /change 第2批（本条 change: commit）：F053（三项导航，passing 保留原值）
+  与 F051（旧首页验收，其 step1"英雄区为真实地图"与 B2/B3 冲突的悬案就此
+  解决）标 deprecated；新增 F057（B3 IA：导航单动作/品牌词退出/中转页
+  /itineraries/ 重定向到 //styleguide 移出生产/页脚一行制）+ F058（B3
+  首页：终选标题/词预算/10 days 术语/真地图第二屏继承 F051+F028+F048
+  要求）。F012/F022 经核实不受影响（时间线与流向页都在 flow-a/b，中转页
+  下线不碰它们）；styleguide 无 feature 条目，删除零影响。
+  feature_list：total 56→58，passing 28 不变。
+下一步（同会话接着做）：F057+F058 实现（BaseLayout 导航/页脚/品牌图标、
+index.astro 终选文案与词预算、astro.config 重定向、删 itineraries.astro
+与 styleguide.astro、plan-my-trip 文案一行化）→ build 验证 → feat commit。
+
 [2026-07-09] F051 首页从方向 B 返工到 B2「Focused」（做减法）
 ---------------------------------------------
 接上条 /change，同会话把首页从方向 B 全量版减法到站长终选的 B2。
