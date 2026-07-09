@@ -1102,3 +1102,79 @@ frontmatter 是真实发布的攻略，slug 指向 visa-free-transit-beihai，di
 先请示站长）；未碰 F053/F054/F051 等其他功能代码。
 下一步：站长确认是否提交 F052+F055；之后按既定顺序进入 F053（导航重构）
 → F051+F046+F028+F048（真地图首页）→ /verify 回归。
+
+[2026-07-08] Session: F051 首页真地图重构 + F053 导航重构（方向B落地）
+---------------------------------------------
+起因：站长预览后反馈"这个设计还是很丑"——此前 F050/F052/F055 只是在旧
+北欧极简 SVG 示意图首页上换文案，没落地已锁定的方向B（沉浸式照片Hero，
+mockups/09）。站长选定本会话把 F051+F053 一起做完。
+
+F053 导航要求「Plan My Trip」为真实可达路由，但对应的 F054 页面本次未
+选——先问站长，站长选"建一个极简 stub 页避免死链"，完整 F054（专属
+文案/定价说明/CTA 打磨）留给下一个独立会话。
+
+落地内容：
+- 新建 src/components/RouteMap.astro：Leaflet + OSM 真实地图（自托管库，
+  瓦片走 OSM 公共瓦片，无 API key，同 config.yaml 既定集成）。IntersectionObserver
+  懒加载（滚入视口才拉库+瓦片，首屏零地图开销）；默认渲染静态占位块+
+  文字站点列表（F028 同款"静态图+文字路线"降级），地图初始化成功才隐藏
+  文字/显示地图，脚本报错或 JS 关闭时文字保持可见。颜色不硬编码，运行时
+  从 CSS 令牌读取（getComputedStyle 取 --primary/--accent/--surface）。
+- 首页（index.astro）按方向B重写：全宽照片Hero占位（单一CTA"Check my
+  passport →"锚定到签证复杂度渐进披露区）→ 一句话信任线 → RouteMap 替
+  换旧 SVG 示意图 → 城市名片改大图占位（PhotoPlaceholder + VisaBadge，
+  非twov区域 Chongzuo/Baise 保留强制 visa-alert，F033/F049 不动）→
+  Latest guides（F011 不动）→ 签证复杂度 <details>（不动，Hero CTA 落点）
+  → 底部二次CTA横幅"Plan My Trip"（方向B新增）。移除旧"Start here"
+  快捷链接小节——方向B mockup 无此模式，入口已被 Hero CTA/城市名片/
+  底部横幅覆盖。
+- 顺手修了两处旧 bug（借这次改同一区块的机会，非新范围）：
+  1) Chongzuo 城市名片"Open guide"原链到 /guides/detian-chongzuo/，
+     但该攻略实际 slug 是 detian-waterfall-friendship-pass——链接从
+     建站起就是死链，现改正。
+  2) Baise 城市名片原是"city card in the works"占位空态，但 Baise/Leye
+     的真实攻略（leye-tiankeng-baise）早已发布——占位早已过期，现换成
+     真卡片（同 Chongzuo 一样挂 non-twov 徽章 + visa-alert）。
+- BaseLayout.astro + global.css：顶部导航改 The Route / Guides / Plan My
+  Trip（CTA样式，描边+主色）三项；About 移出顶部导航，页脚补齐 The
+  Route/Guides/Plan My Trip/About/Sitemap 五项。
+- 新建 src/pages/plan-my-trip.astro：stub 页，复用 ContactForm（F015/F027
+  既有 Formspree/mailto 降级），非专属表单字段。
+- 修 src/pages/itineraries.astro（新导航"The Route"落点页）：原页面混入
+  了一段完全不相关的 Guilin/漓江/龙脊梯田占位 Timeline + 重复 ContactForm
+  ——与本站广西/越南签证故事无关，像是早期脚手架残留，从未清理。既然
+  "The Route"导航要把用户导到这页，留着这段错误内容会直接砸了本次重
+  做的效果，故一并清空，只留两条路线入口卡（Coastline Route / Border
+  Grand Loop），标题同步改"The Route — No Visa China"。
+
+验证：
+- npm run build → exit 0，19 页（新增 /plan-my-trip/）。
+- grep 全站 banned phrases + Guilin/Yangshuo/Longji → dist/ 0 命中。
+- 死链核查：抓首页/The Route页/About页/Plan My Trip页全部 href，逐条比
+  对 dist/ 目录实际存在的路径，无 404。
+- 导航结构：grep 确认首页 <nav class="site-nav"> 精确渲染 The Route/
+  Guides/Plan My Trip 三项且 About 不在其中；footer-nav 含五项。
+- RouteMap 静态降级：确认 dist/index.html 内直接含站点文字列表（非
+  <noscript> 包裹，属默认可见、JS成功后才隐藏的降级设计）+ 占位块文案
+  "Static route map — see stops below"。
+
+未完全验证（本环境限制，如实记录，未替代验证硬点）：
+- Playwright 配置为系统 chrome channel，本机 /opt/google/chrome 缺失
+  （沿用 2026-07-04 教训，未反复重试）；375px 实际横向溢出、深色模式
+  地图配色，均未获得真实浏览器像素级验证，只做了 CSS 静态审查（沿用
+  已验证过的 minmax(260px,1fr) 网格与 clamp() 字号模式，判断风险低）。
+- 无 Lighthouse 工具，F051 验收标准第4条"Lighthouse 移动端 Performance
+  ≥85"未实测，只做了懒加载架构（IntersectionObserver）。
+- 因此 feature_list.json 本次只把 F053 passes → true（导航改动风险低、
+  且死链/结构验证充分）；F051 保持 false，等站长用真机/浏览器预览或
+  跑一次 Lighthouse 确认 375px 与性能达标后再翻 true——铁律#4"没有端到
+  端验证不标 passing"，宁可少标不多标。total 55 / passing 28（原 27）。
+
+未做：F046（行程页交互地图）/F028/F048 未独立打标记（首页这一处已实现
+其精神，但要等地图铺到行程页才算这几个 feature 完整落地）；F054 完整
+版留独立会话。
+
+下一步：站长起 dev server 亲眼看一遍新首页（尤其 375px 手机宽度 + 深色
+模式），确认视觉满意 + 无横向溢出后，我可以把 F051 翻 true；之后按
+既定顺序 F046+F028+F048（行程页真地图）→ F054（Plan My Trip 完整版）
+→ /verify 回归 F019/F011/F014/F004/F023 + F030/F031。

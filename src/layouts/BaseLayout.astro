@@ -30,9 +30,9 @@ const { title, description, image } = Astro.props;
     <header class="site-header">
       <a class="brand" href="/">No Visa China</a>
       <nav class="site-nav" aria-label="Main">
+        <a href="/itineraries/">The Route</a>
         <a href="/guides/">Guides</a>
-        <a href="/itineraries/">Itineraries</a>
-        <a href="/about/">About</a>
+        <a class="site-nav__cta" href="/plan-my-trip/">Plan My Trip</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Dark</button>
     </header>
@@ -44,8 +44,9 @@ const { title, description, image } = Astro.props;
         before you travel.
       </p>
       <nav class="footer-nav" aria-label="Sitemap">
+        <a href="/itineraries/">The Route</a>
         <a href="/guides/">Guides</a>
-        <a href="/itineraries/">Itineraries</a>
+        <a href="/plan-my-trip/">Plan My Trip</a>
         <a href="/about/">About</a>
         <a href="/sitemap.xml">Sitemap</a>
       </nav>

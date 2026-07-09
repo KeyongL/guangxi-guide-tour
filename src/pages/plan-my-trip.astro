@@ -1,0 +1,37 @@
+---
+// Plan My Trip（stub，F053 依赖）：F053 导航要求「Plan My Trip」是真实可达路由，
+// 但完整 F054（专属文案/定价说明/CTA 位置打磨）本会话未选，先建最简页面避免死链。
+// 复用 ContactForm（F015 UI + F027 Formspree/mailto 降级），字段沿用通用 Name/Email/Message。
+// 下一步（F054 单开会话）：换成日期/人数/需求专属字段 + 服务说明文案。
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+<BaseLayout
+  title="Plan My Trip — No Visa China"
+  description="Tell us your dates and what you want to see in Guangxi. We reply with a route and a quote — no online payment, no auto-pricing."
+>
+  <main>
+    <article class="plan">
+      <h1>Plan My Trip</h1>
+      <p class="lead">
+        Tell us your travel dates, group size, and what you want to see. We reply
+        by email with a route and a quote — hotels, tickets, and a day-by-day plan,
+        worked out for you.
+      </p>
+      <ContactForm />
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .plan {
+    max-width: 640px;
+  }
+  .plan h1 {
+    margin-bottom: 12px;
+  }
+  .lead {
+    font-size: 1.0625rem;
+    color: var(--ink);
+  }
+</style>

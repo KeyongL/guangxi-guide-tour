@@ -1,37 +1,16 @@
 ---
-// Itineraries 页（F012）：逐日纵向行程时间线，每日含交通 + 住宿。
+// The Route 页（F012，F053 重命名导航落点）：两条流向的入口枢纽，各标注适用签证类型。
+// 此前误留 Guilin/Yangshuo/Longji 占位 Timeline + 重复 ContactForm——与本站广西/
+// 越南签证故事无关，属早期脚手架残留；随 F053 导航改动一并清理（不新增功能范围）。
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Timeline from '../components/Timeline.astro';
-import ContactForm from '../components/ContactForm.astro';
-
-const days = [
-  {
-    day: 1,
-    title: 'Arrive in Guilin',
-    transport: 'Fly into Guilin Liangjiang (KWL), then airport shuttle to the city centre (~50 min).',
-    lodging: 'Riverside guesthouse near Shanhu Lake.',
-  },
-  {
-    day: 2,
-    title: 'Li River to Yangshuo',
-    transport: 'Morning Li River cruise Guilin → Yangshuo (~4.5 hr), bus back not needed.',
-    lodging: 'West Street boutique inn, Yangshuo.',
-  },
-  {
-    day: 3,
-    title: 'Longji Rice Terraces',
-    transport: 'Bus from Yangshuo to Longsheng (~3 hr), village minibus to Ping\'an trailhead.',
-    lodging: 'Terrace-view lodge in Ping\'an village.',
-  },
-];
 ---
 <BaseLayout
-  title="Itineraries — No Visa China"
-  description="Ready-to-use multi-day Guangxi itineraries built around real transit times."
+  title="The Route — No Visa China"
+  description="Two ways through Guangxi: the coastal route into Vietnam, or the border grand loop. Pick the one your passport allows."
 >
   <main>
-    <h1>Itineraries</h1>
-    <p>A day-by-day plan with transport and lodging worked out for you.</p>
+    <h1>The Route</h1>
+    <p>Two lanes, worked out day by day — pick the one your passport allows.</p>
 
     {/* F022：两条流向的入口，各标注适用签证类型。 */}
     <nav class="routes" aria-label="Route options">
@@ -44,9 +23,6 @@ const days = [
         <span class="route__meta">7–10 days · 30-day visa-free nationals or visa holders only</span>
       </a>
     </nav>
-
-    <Timeline days={days} />
-    <ContactForm />
   </main>
 </BaseLayout>
 

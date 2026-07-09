@@ -1,0 +1,186 @@
+---
+// 真实地图（F051）：Leaflet + OSM 自托管瓦片，无 API key（config.yaml openstreetmap_leaflet）。
+// 渐进增强（F028 同款模式）：默认渲染纯文字站点列表；地图初始化成功才隐藏文字、显示地图。
+// JS 关闭 / 瓦片加载失败 / 脚本报错时，文字列表保持可见 —— 不依赖地图也能看懂路线。
+// 懒加载（F048 同款模式）：IntersectionObserver 滚入视口才拉 Leaflet 库与瓦片，首屏零地图开销。
+interface Stop {
+  name: string;
+  lat: number;
+  lng: number;
+  sub?: string;
+  href?: string;
+}
+interface Route {
+  points: [number, number][];
+  variant: 'primary' | 'accent';
+  dashed?: boolean;
+}
+interface Props {
+  stops: Stop[];
+  routes: Route[];
+  center: [number, number];
+  zoom: number;
+  label: string;
+}
+const { stops, routes, center, zoom, label } = Astro.props;
+---
+<div class="route-map-wrap">
+  <div
+    id="route-map"
+    class="route-map"
+    aria-label={label}
+    hidden
+    data-center={JSON.stringify(center)}
+    data-zoom={zoom}
+    data-stops={JSON.stringify(stops)}
+    data-routes={JSON.stringify(routes)}
+  ></div>
+  <div class="route-map__fallback" id="route-map-fallback">
+    <div class="route-map__placeholder" role="img" aria-label={label}>
+      <svg class="route-map__placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="7.5" cy="7.5" r="1.6"></circle>
+        <path d="M3 17.5l5.5-6 4 3.7 3-3.2L21 17.5"></path>
+      </svg>
+      <span>Static route map — see stops below</span>
+    </div>
+    <ul class="route-map__stops">
+      {stops.map((s) => (
+        <li>
+          {s.href ? <a href={s.href}>{s.name}</a> : <span>{s.name}</span>}
+          {s.sub && <span class="sub"> — {s.sub}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  interface StopData {
+    name: string;
+    lat: number;
+    lng: number;
+    sub?: string;
+  }
+  interface RouteData {
+    points: [number, number][];
+    variant: 'primary' | 'accent';
+    dashed?: boolean;
+  }
+
+  function tokenColor(name: string): string {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function initMap(el: HTMLElement, fallback: HTMLElement) {
+    try {
+      const center = JSON.parse(el.dataset.center ?? '[22.6,108]') as [number, number];
+      const zoom = Number(el.dataset.zoom ?? '7');
+      const stops = JSON.parse(el.dataset.stops ?? '[]') as StopData[];
+      const routes = JSON.parse(el.dataset.routes ?? '[]') as RouteData[];
+
+      const map = L.map(el, { scrollWheelZoom: false }).setView(center, zoom);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+      }).addTo(map);
+
+      const primary = tokenColor('--primary') || '#0E7490';
+      const accent = tokenColor('--accent') || '#F59E0B';
+      const surface = tokenColor('--surface') || '#FFFFFF';
+
+      routes.forEach((r) => {
+        L.polyline(r.points, {
+          color: r.variant === 'accent' ? accent : primary,
+          weight: 3,
+          dashArray: r.dashed ? '7 6' : undefined,
+        }).addTo(map);
+      });
+
+      stops.forEach((s) => {
+        L.circleMarker([s.lat, s.lng], {
+          radius: 8,
+          color: surface,
+          weight: 2,
+          fillColor: accent,
+          fillOpacity: 1,
+        })
+          .addTo(map)
+          .bindPopup(`<strong>${s.name}</strong>${s.sub ? `<br>${s.sub}` : ''}`);
+      });
+
+      el.hidden = false;
+      fallback.hidden = true;
+    } catch {
+      // 地图初始化失败：保持文字列表可见，不隐藏、不抛错到用户界面（F028）。
+    }
+  }
+
+  const mapEl = document.getElementById('route-map');
+  const fallbackEl = document.getElementById('route-map-fallback');
+  if (mapEl && fallbackEl) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            initMap(mapEl, fallbackEl);
+            io.disconnect();
+          }
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    io.observe(mapEl);
+  }
+</script>
+
+<style>
+  .route-map-wrap {
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .route-map {
+    height: 380px;
+  }
+  .route-map :global(.leaflet-popup-content-wrapper) {
+    border-radius: 0;
+    font-family: var(--sans);
+  }
+  .route-map__fallback {
+    font-size: 0.875rem;
+  }
+  .route-map__placeholder {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 160px;
+    background: var(--primary-soft);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8125rem;
+  }
+  .route-map__placeholder-icon {
+    width: 22px;
+    height: 22px;
+    opacity: 0.55;
+  }
+  .route-map__stops {
+    list-style: none;
+    margin: 0;
+    padding: 16px;
+  }
+  .route-map__stops li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .route-map__stops li:last-child {
+    border-bottom: 0;
+  }
+  .route-map__stops .sub {
+    color: var(--muted);
+  }
+</style>
