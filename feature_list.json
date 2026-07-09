@@ -131,7 +131,9 @@
       "字段齐全且照片为扁平占位块",
       "hover 态描边变主色"
     ],
-    "passes": false
+    "passes": false,
+    "deprecated": true,
+    "deprecated_reason": "2026-07-09 /change：站长终选设计方向 B2「Focused」（DESIGN.md 方向锁定块），首页做减法砍 Latest guides（负面清单#3 首页不做内容橱窗）。攻略卡片渲染由「列表页+首页」收窄为「仅列表页」，由 F056 取代。GuideCard 组件本身不变（列表页仍用）；首页渲染代码由 F051 B2 返工一并删除。"
   },
   {
     "id": "F012",
@@ -663,5 +665,17 @@
       "构建通过，列表页/文章页/OG 标签同步更新"
     ],
     "passes": true
+  },
+  {
+    "id": "F056",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "列表页攻略卡片渲染（收窄自 F011，2026-07-09 /change）：/guides/ 列表页渲染攻略卡片（扁平照片占位 + 区域标签 + 标题 + 摘要 + 阅读时长，hover 描边变主色）；首页不再渲染攻略卡片（B2 首页做减法）",
+    "steps": [
+      "/guides/ 列表页渲染攻略卡片，字段齐全、照片为扁平占位块、hover 描边变主色",
+      "首页不含 Latest guides 攻略卡片信息流",
+      "构建通过、列表页无横向溢出"
+    ],
+    "passes": false
   }
 ]

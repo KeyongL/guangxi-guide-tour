@@ -1212,3 +1212,18 @@ here. I check every price in person. / Who's writing this?' 都可删）；
 commit（本条与 DESIGN.md 一并提交）。
 下一步：① /change 收窄 F011（首页→列表页）；② 开实现会话把 F051 首页
 从方向 B 返工到 B2；③ 之后 F046+F028+F048（行程页真地图）→ F054 → /verify。
+
+[2026-07-09] /change: F011 攻略卡片渲染收窄（首页→仅列表页）
+---------------------------------------------
+站长选"现在本会话就做"，先走 /change 正式化 F011 收窄，再返工 F051 首页到 B2。
+按 /change 铁律（不改已有条目 description/steps，只标 deprecated 或追加），
+复用本项目 F008→F053 既有模式：
+- F011 标 deprecated:true + reason（不删，保留审计轨迹）。
+- 新增 F056「列表页攻略卡片渲染」承接收窄后职责（仅 /guides/ 列表页；首页
+  不再渲染），passes:false。
+- SPEC.md 变更记录追加 2026-07-09 条目。
+- 受影响 passing→false：无（F011 本就 false）。GuideCard 组件/列表页不受影响。
+- 清理：F011 首页渲染代码 = index.astro 的 latest-guides 段，由紧接着的
+  F051 B2 返工一并删除，不单列清理条目。
+feature_list：total 55→56，passing 28 不变。本条以 change: commit 单独提交
+（与 F051 代码返工的 feat: commit 分开，保持 /verify 审计轨迹）。
