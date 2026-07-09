@@ -1178,3 +1178,37 @@ F053 导航要求「Plan My Trip」为真实可达路由，但对应的 F054 页
 模式），确认视觉满意 + 无横向溢出后，我可以把 F051 翻 true；之后按
 既定顺序 F046+F028+F048（行程页真地图）→ F054（Plan My Trip 完整版）
 → /verify 回归 F019/F011/F014/F004/F023 + F030/F031。
+
+[2026-07-08] Session: /design 迭代——方向 B2「Focused」终选（站长"可以"）
+---------------------------------------------
+站长预览 F051/F053 落地页后否掉："还是很丑，很多噪音元素（如 'I live
+here. I check every price in person. / Who's writing this?' 都可删）；
+标题 No Visa China 不吸引人；less is more，figure out don'ts，重设计。"
+澄清关键歧义（AskUserQuestion）：站长确认"标题不合适"指**呈现层**——
+品牌名 NoVisaChina.com 不动（不走 /change 重命名），只把品牌名从浏览器
+标题/首屏大标题降为页角小字，标题层换卖点文案。
+
+产出（本 /design 会话只出样张 + 锁方向，未动 src/）：
+- 负面清单（Don'ts）7 条，已写进 DESIGN.md 顶部作裁决依据：①不自夸
+  ②不堆 CTA（删底部二次横幅）③不做内容橱窗（删城市卡片墙+Latest guides）
+  ④首屏给答案、全页≤3屏 ⑤不用喊话式占位 ⑥品牌名不做标题 ⑦政策数字不进
+  Hero（收进护照速查渐进披露）。
+- mockups/11-direction-b2-focused.html：B2 减法样张，3 屏（Hero 单CTA →
+  地图+两条路线 → 护照三行速查 ✓/✓/⚠ → 页脚）。标题改
+  "Fly in visa-free. Walk out to Vietnam — No Visa China"。色彩令牌未动
+  （SPEC 红线）。mockups/00-index.html 登记 11 号 + 顺手改掉残留的旧品牌
+  标题 "Guangxi Bound → No Visa China"。（mockups/ 仍 .gitignore 不入库）
+- DESIGN.md 顶部加"方向锁定 2026-07-08 B2"块（最高优先级，取代紧邻的
+  方向 B 块，后者保留作演进记录）。B2 = 方向 B 的减法迭代，非新方向。
+
+⚠️ 对实现的两点约束（写进 DESIGN.md，落地会话必读）：
+1. 现已 commit 的 F051 首页（ec567ca，方向 B 全量版）需按 B2 **返工做
+   减法**：删 .trust 信任线、删 6 张城市卡片墙、删 Latest guides 段、删
+   底部 CTA 横幅；Hero/地图/护照速查保留。BaseLayout 品牌名改页角小字。
+2. 负面清单#3 砍掉首页 Latest guides → F011「首页渲染攻略卡片」验收项
+   失效，落地 B2 前须走 /change 把 F011 收窄为「列表页渲染」。
+
+未做：未动 src/（等站长再确认无二次修改意见后开实现会话）；未 git
+commit（本条与 DESIGN.md 一并提交）。
+下一步：① /change 收窄 F011（首页→列表页）；② 开实现会话把 F051 首页
+从方向 B 返工到 B2；③ 之后 F046+F028+F048（行程页真地图）→ F054 → /verify。
