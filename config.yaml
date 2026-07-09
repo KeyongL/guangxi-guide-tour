@@ -4,7 +4,7 @@
 # ==============================================================
 
 site:
-  name: "Guangxi Bound"          # 品牌占位名（域名未定；不绑死 "Beihai" 字样）
+  name: "No Visa China"          # 品牌显示名（F050 已定；域名未定，注册/绑定由站长本人操作）
   lang: en                       # 站点仅英文（SPEC 范围外：不做中文/多语言）
   # 双语只出现在“游客会指给本地人看的名词”：地名/菜名/地址。UI/正文一律纯英文。
   bilingual_scope: [place_names, dish_names, addresses]

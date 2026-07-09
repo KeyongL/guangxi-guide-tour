@@ -1012,3 +1012,36 @@ mockups/ 本身被 .gitignore 排除不入库（既有规则）。
 下一步：新会话按 DESIGN.md 新方向实现 F050（品牌全站替换）→F053（导航
 重构）→F051+F046+F028+F048（真地图首页，含二次CTA横幅+大图卡片）→
 /verify 回归 F019/F011/F014/F004/F023 + F030/F031。
+
+[2026-07-08] Session: F050 品牌全站落地替换（UI 显示名 "No Visa China"）
+---------------------------------------------
+仅本功能：grep "Guangxi Bound" 全站找出 9 处 src/ 命中（BaseLayout.astro
+导航品牌链接、index/itineraries/guides/styleguide/flow-a/flow-b/
+guides/[slug] 六个页面的 title、about.astro 的 title+description+正文
+"I write ... because" 一句），逐一替换为 "No Visa China"（显示名，非域名
+字符串）。config.yaml 的 site.name 字段（站点品牌配置，非历史文档）同步
+更新，注释改为反映品牌已定、域名仍待站长注册。
+
+范围边界（按站长指示，未动）：
+- docs/SPEC.md:155、docs/DESIGN.md:24、feature_list.json:596 三处提到
+  "Guangxi Bound" 均为历史决策记录/弃用说明性文字（"弃 Guangxi Bound"
+  "品牌名暂用..."），非现网 UI 文案，保留原文不改写历史。
+- wrangler.jsonc 的 "name": "guangxi-guide-tour" 是已绑定线上 Cloudflare
+  Worker 项目的基础设施标识符，不是品牌显示名，未动（改名需站长在
+  Cloudflare 手动操作，SPEC 已注明）。
+- 未碰 F051/F053/F054（真地图首页/导航重构/Plan My Trip），铁律#2 一个
+  会话一个功能。
+
+验证：
+- grep -rn "Guangxi Bound" src/ config.yaml → 0 命中。
+- npm run build → exit 0，18 个页面全部生成。
+- grep dist/ → 0 处 "Guangxi Bound" 残留；18 个产物 HTML 全部含
+  "No Visa China"；抓取 dist/index.html 确认 <title> 与导航品牌链接、
+  dist/about/index.html 确认 title/OG meta/正文首句均已是新名。
+- feature_list.json：仅改 F050 的 passes 字段 false→true（其余字段未动，
+  符合铁律#3）；total 55 / passing 25（原 24）。
+
+下一步：按既定顺序进入 F053（导航重构 The Route/Plan My Trip/Guides）→
+F051+F046+F028+F048（真地图首页）→ /verify 回归 F019/F011/F014/F004/
+F023 + F030/F031。域名 NoVisaChina.com 注册与 Cloudflare Worker 改名仍
+待站长本人操作。

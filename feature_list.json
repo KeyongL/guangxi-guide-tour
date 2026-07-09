@@ -599,7 +599,7 @@
       "全站（导航/title/OG/页脚/wrangler name 注记）替换为新名，grep 旧名 0 命中",
       "⚠️ Cloudflare Worker 改名与线上 URL 绑定，由站长在 Cloudflare 手动操作"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F051",
