@@ -1,34 +1,16 @@
 ---
-// 首页（F051，方向B·沉浸式照片Hero，对标 mockups/09-direction-b-immersive-photo.html）：
-// 全宽照片 Hero（占位，真实摄影待补）+ 单一CTA → 一句话信任线 → 真实地图（第二屏，F051）
-// → 大图城市名片 → Latest guides（F011）→ 签证复杂度渐进披露 → 底部二次CTA横幅。
-// 走 BaseLayout（F053 新导航 + F003 令牌 + 深色切换），本页产 Hero + <main> 内容。
-// 边界（SPEC V1.2）：不改变按流向组织内容的框架，签证分区合规（F033/F049）不动——
-// 非 twov 区域（Chongzuo/Baise）仍强制渲染 visa-alert 提醒框，不靠作者记忆。
-import { getCollection } from 'astro:content';
+// 首页（F051，方向 B2「Focused」，对标 mockups/11-direction-b2-focused.html）：
+// 站长否掉方向 B 全量版后做减法（DESIGN.md 方向锁定 B2 块 + 7 条负面清单）。
+// 结构砍到 3 屏：全宽照片 Hero（单 CTA "Check my passport →"）→ 真实地图 + 两条
+// 路线入口（F051 红线）→ 护照三行速查（CTA 落点，含 ⚠ 警示态）→ 页脚。
+// 删（相对方向 B）：一句话信任线自夸、6 张城市卡片墙、Latest guides 信息流、
+// 底部二次 CTA 横幅、visa-lanes 详表——负面清单 #1/#2/#3/#7。
+// 保留 SPEC 红线：色彩令牌、纯英文 UI/仅地名双语、术语人话化（F052）、渐进增强
+// （地图 F028 降级见 RouteMap.astro）、Dongxing 陆路出境「未核实」态。
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GuideCard from '../components/GuideCard.astro';
-import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
-import VisaBadge from '../components/VisaBadge.astro';
 import RouteMap from '../components/RouteMap.astro';
 
-// 阅读时长：正文词数 / 200，向上取整，至少 1 分钟（F011 说明，确定性计算）。
-function readingMinutes(body: string): number {
-  const words = (body.replace(/[#*_`>\-\[\]()!]/g, ' ').match(/\S+/g) ?? []).length;
-  return Math.max(1, Math.round(words / 200));
-}
-
-const guides = await getCollection('guides');
-const latest = guides.slice(0, 3).map((entry) => ({
-  title: entry.data.title,
-  summary: entry.data.summary,
-  region: entry.data.region,
-  cover: entry.data.cover,
-  href: `/guides/${entry.data.slug ?? entry.id}/`,
-  readingMinutes: readingMinutes(entry.body ?? ''),
-}));
-
-// 地图站点 + 两条路线（真实经纬度，替换旧 SVG 示意图坐标）。
+// 地图站点 + 两条路线（真实经纬度）。仅供地图，不再渲染城市卡片墙。
 const stops = [
   { name: 'Nanning 南宁', lat: 22.817, lng: 108.3665, sub: 'Hub · entry port', href: '/itineraries/flow-b/' },
   { name: 'Beihai 北海', lat: 21.4733, lng: 109.1209, sub: 'Coast · entry port', href: '/itineraries/flow-a/' },
@@ -44,31 +26,28 @@ const routes = [
 ];
 ---
 <BaseLayout
-  title="No Visa China — Independent travel guides to Guangxi, China"
-  description="Practical, ground-verified travel guides to Guangxi: the map, the visa lanes, and city cards for independent travellers flying in or crossing overland from Vietnam."
+  title="Fly in visa-free. Walk out to Vietnam — No Visa China"
+  description="240 hours across the Guangxi coast on most Western passports — beaches, a volcanic island, then across the land border into Vietnam on foot."
 >
-  <!-- HERO：全宽照片占位 + 单一CTA，不受 main 1100px 约束（方向B） -->
+  <!-- HERO：全宽照片占位 + 一句话主张 + 单一 CTA（负面清单 #1 无信任条、#2 一屏一动作） -->
   <section class="photo-hero">
     <div class="photo-hero__inner">
-      <h1>Fly in visa-free. Walk out to Vietnam.</h1>
+      <h1>Fly in visa-free.<br />Walk out to Vietnam.</h1>
       <p class="sub">
-        Most Western passports get 240 hours, no visa needed, across the Guangxi
-        coast — then cross the land border into Vietnam on foot.
+        240 hours across the Guangxi coast on most Western passports — beaches, a
+        volcanic island, then across the land border into Vietnam on foot.
       </p>
-      <a class="cta-btn" href="#visa-lanes">Check my passport →</a>
+      <a class="cta-btn" href="#check">Check my passport →</a>
     </div>
-  </section>
-
-  <!-- 信任线：一句话，砍到最简（F052） -->
-  <section class="trust">
-    I live here. I check every price in person. <a href="/about/">Who's writing this?</a>
+    <!-- 负面清单 #5：占位不用喊话式大字，降为角落小字 -->
+    <span class="photo-hero__note">photo: coastal cliffs / border gate — real photography required</span>
   </section>
 
   <main>
-    <!-- 真实地图：第二屏（F051），Leaflet+OSM，渐进增强+懒加载见 RouteMap.astro -->
+    <!-- 第二屏：真实地图（F051）+ 两条路线入口。不铺城市卡片墙（负面清单 #3） -->
     <section class="the-route">
       <h2>The route</h2>
-      <p class="hint">Two lanes, one map — tap a stop for details.</p>
+      <p class="hint">Beihai → Weizhou Island → Dongxing → across the border on foot.</p>
       <RouteMap
         stops={stops}
         routes={routes}
@@ -76,176 +55,77 @@ const routes = [
         zoom={7}
         label="Map of Guangxi showing the coastal route and the border loop"
       />
-      <p class="legend-row">
-        <span class="legend"><span class="swatch" style="border-top-color:var(--primary)"></span> Fly in, walk out to Vietnam — visa-free for most passports</span>
-        <span class="legend"><span class="swatch swatch--dashed" style="border-top-color:var(--accent)"></span> Coming from Vietnam — most passports need a visa</span>
-      </p>
+      <ul class="lanes">
+        <li><a href="/itineraries/flow-a/">
+          <span class="name">The coastal route</span>
+          <span class="meta">3–5 days · visa-free for most passports · ends at the Vietnam border</span>
+        </a></li>
+        <li><a href="/itineraries/flow-b/">
+          <span class="name">The border loop</span>
+          <span class="meta">7–10 days · needs a visa for most passports · Detian Falls &amp; the karst west</span>
+        </a></li>
+      </ul>
     </section>
 
-    <!-- 大图城市名片（方向B：大图占位取代密集元数据列表） -->
-    <section class="cards">
-      <h2>Where you'll go</h2>
-      <div class="grid">
-
-        <article class="card">
-          <PhotoPlaceholder caption="Beihai coastline" region="Beihai" flush />
-          <div class="card__body">
-            <h3>Beihai <span class="cn">北海</span></h3>
-            <p class="card__badge"><VisaBadge zone="twov" /></p>
-            <p class="card__hint">Silver Beach oysters, shatian pomelo · 2–3 days</p>
-            <a class="open" href="/itineraries/flow-a/">Open the coastline route →</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <PhotoPlaceholder caption="Weizhou volcanic cliffs" region="Weizhou Island" flush />
-          <div class="card__body">
-            <h3>Weizhou Island <span class="cn">涠洲岛</span></h3>
-            <p class="card__badge"><VisaBadge zone="twov" /></p>
-            <p class="card__hint">Volcanic sea cliffs, coral coast · 1–2 days</p>
-            <a class="open" href="/guides/weizhou-island-complete-guide/">Open guide →</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <PhotoPlaceholder caption="Dongxing border crossing" region="Dongxing" flush />
-          <div class="card__body">
-            <h3>Dongxing <span class="cn">东兴</span></h3>
-            <p class="card__badge"><VisaBadge zone="twov" /></p>
-            <div class="visa-alert">Land exit for transit-visa travellers is still being verified on the ground — confirm before you rely on it.</div>
-            <p class="card__hint">Land/water border to Móng Cái · half day</p>
-            <a class="open" href="/itineraries/flow-a/">Open the coastline route →</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <PhotoPlaceholder caption="Nanning city" region="Nanning" flush />
-          <div class="card__body">
-            <h3>Nanning <span class="cn">南宁</span></h3>
-            <p class="card__badge"><VisaBadge zone="twov" /></p>
-            <p class="card__hint">Lao You rice noodles · hub, 1–2 days</p>
-            <a class="open" href="/itineraries/flow-b/">Open the border loop →</a>
-          </div>
-        </article>
-
-        <!-- 区外分区：自动 visa-alert（DESIGN 原则4，F033/F049 不动） -->
-        <article class="card">
-          <PhotoPlaceholder caption="Detian transnational waterfall" region="Chongzuo" flush />
-          <div class="card__body">
-            <h3>Chongzuo <span class="cn">崇左</span></h3>
-            <p class="card__badge"><VisaBadge zone="non-twov" /></p>
-            <div class="visa-alert">Outside the transit-visa zone. Only the 30-day visa-free program or a valid Chinese visa gets you in — transit-visa travellers cannot.</div>
-            <p class="card__hint">Detian transnational waterfall · 1–2 days</p>
-            <a class="open" href="/guides/detian-waterfall-friendship-pass/">Open guide →</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <PhotoPlaceholder caption="Dashiwei tiankeng sinkholes" region="Baise" flush />
-          <div class="card__body">
-            <h3>Baise <span class="cn">百色</span></h3>
-            <p class="card__badge"><VisaBadge zone="non-twov" /></p>
-            <div class="visa-alert">Outside the transit-visa zone. Only the 30-day visa-free program or a valid Chinese visa gets you in — transit-visa travellers cannot.</div>
-            <p class="card__hint">Dashiwei tiankeng sinkholes · long detour</p>
-            <a class="open" href="/guides/leye-tiankeng-baise/">Open guide →</a>
-          </div>
-        </article>
-
+    <!-- CTA 落点：护照三行速查，政策数字收在这里（负面清单 #7），含 ⚠ 警示态 -->
+    <section class="check" id="check">
+      <h2>Which lane is your passport in?</h2>
+      <div class="lane-row ok">
+        <span class="tick">✓</span>
+        <span><b>US, UK, Canada + ~50 more</b> — 240 hours visa-free. Fly in, leave to a third country. The coastal route fits inside it.</span>
       </div>
-    </section>
-
-    <!-- Latest guides（F011）：保留攻略卡片小节，最多 3 张 -->
-    {latest.length > 0 && (
-      <section class="latest-guides">
-        <h2>Latest guides</h2>
-        <div class="guide-grid">
-          {latest.map((card) => <GuideCard {...card} />)}
-        </div>
-      </section>
-    )}
-
-    <!-- 签证复杂度：渐进披露，不进英雄图；Hero CTA 锚点落点 -->
-    <section class="visa-lanes" id="visa-lanes">
-      <h2>Not sure which lane you're in?</h2>
-      <details>
-        <summary>Show the visa lanes and which regions each one covers</summary>
-        <div class="lane-body">
-          <p>Two lanes decide where you can legally go. Pick your passport's lane:</p>
-          <div class="table-scroll">
-            <table>
-              <thead><tr><th>Region</th><th>240h transit visa-free</th><th>30-day visa-free (48 countries)</th></tr></thead>
-              <tbody>
-                <tr><td>Beihai &amp; Weizhou Island</td><td class="yes">Yes · entry port</td><td class="yes">Yes</td></tr>
-                <tr><td>Dongxing / Fangchenggang</td><td class="yes">Yes*</td><td class="yes">Yes</td></tr>
-                <tr><td>Nanning (hub)</td><td class="yes">Yes · entry port</td><td class="yes">Yes</td></tr>
-                <tr><td>Hechi · Bama</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-                <tr><td>Chongzuo (Detian, Friendship Pass)</td><td class="no">No</td><td class="yes">Yes</td></tr>
-                <tr><td>Baise (Leye karst)</td><td class="no">No</td><td class="yes">Yes</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="unverified lane-note">*Land exit from Dongxing for transit-visa travellers is pending on-the-ground verification. Policies change — verify with the NIA.</p>
-        </div>
-      </details>
-    </section>
-
-    <!-- 底部二次CTA横幅（方向B：强化 Plan My Trip 转化） -->
-    <section class="cta-banner">
-      <h2>Want it planned for you?</h2>
-      <a href="/plan-my-trip/">Plan My Trip →</a>
+      <div class="lane-row ok">
+        <span class="tick">✓</span>
+        <span><b>Most of Europe, Australia, NZ + ~40 more</b> — 30 days visa-free. Everything on this site is open to you.</span>
+      </div>
+      <div class="lane-row warn">
+        <span class="tick">⚠</span>
+        <span><b>Neither?</b> You need a visa — plan ahead before booking anything.</span>
+      </div>
+      <p class="fine">
+        Rules change. Last checked 20 Jun 2026 · always confirm with the
+        <a href="https://en.nia.gov.cn/" target="_blank" rel="noopener noreferrer">NIA</a>.
+        <span class="unverified">Land exit at Dongxing for 240-hour travellers: not yet verified on the ground.</span>
+      </p>
     </section>
   </main>
 </BaseLayout>
 
 <style>
-  /* 北欧极简底色不变：直角、1px 细线、令牌配色全跟随 global.css 深浅切换。
-     方向B 新增：全宽照片 Hero、真地图、大图城市名片、底部CTA横幅。 */
+  /* 方向 B2「Focused」：色彩令牌不变（SPEC 红线），做减法。全宽照片 Hero + 真地图 + 护照速查。 */
 
   /* ── Photo hero（全宽，不受 main 1100px 约束） ── */
   .photo-hero {
     position: relative;
-    min-height: 70vh;
+    min-height: 72svh;
     display: flex;
     align-items: flex-end;
-    background: linear-gradient(180deg, var(--primary-soft) 0%, var(--primary) 140%);
+    background: linear-gradient(180deg, var(--primary-soft) 0%, var(--primary) 150%);
     border-bottom: 1px solid var(--border);
-  }
-  .photo-hero::before {
-    content: "PHOTO PLACEHOLDER — real hero photograph goes here (coastal cliffs / border crossing)";
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--surface);
-    opacity: 0.55;
-    font-size: 0.8125rem;
-    padding: 40px;
-    letter-spacing: 0.02em;
   }
   .photo-hero__inner {
     position: relative;
     z-index: 1;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 48px 20px 44px;
+    width: 100%;
+    padding: 48px 20px 46px;
     color: #fff;
   }
   .photo-hero h1 {
     color: #fff;
     font-weight: 650;
     letter-spacing: -0.01em;
-    line-height: 1.12;
-    font-size: clamp(2rem, 6vw, 3.25rem);
-    margin: 0 0 14px;
-    max-width: 16ch;
+    line-height: 1.1;
+    font-size: clamp(2.125rem, 6.5vw, 3.5rem);
+    margin: 0 0 12px;
+    max-width: 15ch;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
   }
   .photo-hero .sub {
     font-size: 1.0625rem;
-    max-width: 48ch;
-    margin: 0 0 26px;
+    max-width: 44ch;
+    margin: 0 0 24px;
     opacity: 0.94;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
   }
@@ -263,89 +143,51 @@ const routes = [
     background: var(--accent-strong);
     border-color: var(--accent-strong);
   }
-
-  /* ── Trust strip ── */
-  .trust {
-    border-bottom: 1px solid var(--border);
-    background: var(--primary-soft);
-    color: var(--primary-strong);
-    padding: 14px 20px;
-    font-size: 0.875rem;
-    text-align: center;
-  }
-  .trust a {
-    color: var(--primary-strong);
-    font-weight: 600;
+  .photo-hero__note {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    color: #fff;
+    opacity: 0.5;
+    font-size: 0.6875rem;
+    letter-spacing: 0.03em;
   }
 
-  /* ── The route（真地图） ── */
+  /* ── The route（真地图 + 两条路线入口） ── */
   .the-route { margin-top: 8px; }
   .the-route h2 { font-size: 1.375rem; margin: 0 0 6px; }
   .the-route .hint { color: var(--muted); margin: 0 0 18px; }
-  .legend-row {
-    color: var(--muted);
-    font-size: 0.8125rem;
-    padding: 10px 12px;
-    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
-    border: 1px solid var(--border); border-top: none;
+  .lanes { list-style: none; margin: 16px 0 0; padding: 0; }
+  .lanes li { border: 1px solid var(--border); background: var(--surface); margin-bottom: 10px; }
+  .lanes a {
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    padding: 14px 16px; color: var(--text); text-decoration: none;
   }
-  .legend { display: inline-flex; align-items: center; gap: 7px; }
-  .swatch { width: 22px; height: 0; border-top: 3px solid; display: inline-block; }
-  .swatch--dashed { border-top-style: dashed; }
+  .lanes a:hover { border-color: var(--primary); color: var(--primary); }
+  .lanes .name { font-weight: 650; color: var(--ink); }
+  .lanes .meta { color: var(--muted); font-size: 0.875rem; }
 
-  /* ── City cards：大图占位（方向B） ── */
-  .cards { margin-top: 44px; }
-  .cards h2 { font-size: 1.375rem; margin: 0 0 20px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-  .card { border: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; }
-  .card h3 { margin: 0 0 8px; font-size: 1.0625rem; }
-  .card h3 .cn { color: var(--muted); font-weight: 400; font-size: 0.875rem; }
-  .card__body { padding: 14px 16px; }
-  .card__badge { margin: 0 0 10px; }
-  .card__hint { color: var(--text); font-size: 0.875rem; margin: 0 0 10px; }
-  .card a.open { color: var(--primary); font-size: 0.875rem; font-weight: 600; }
-  .card a.open:hover { color: var(--primary-strong); }
-  .card .visa-alert {
+  /* ── Passport quick-check（CTA 落点，3 行） ── */
+  .check { margin-top: 44px; scroll-margin-top: 16px; }
+  .check h2 { font-size: 1.375rem; margin: 0 0 16px; }
+  .lane-row {
+    display: flex; gap: 10px; align-items: flex-start;
+    border: 1px solid var(--border); background: var(--surface);
+    padding: 13px 16px; margin-bottom: 10px; font-size: 0.9375rem;
+  }
+  .lane-row .tick { flex: 0 0 auto; font-weight: 650; }
+  .lane-row.ok .tick { color: var(--ok-text); }
+  .lane-row.warn {
     background: var(--warn-bg); border-left: 3px solid var(--warn-border); color: var(--warn-text);
-    padding: 9px 11px; font-size: 0.8125rem; margin: 0 0 10px;
   }
-
-  /* ── Latest guides（F011） ── */
-  .latest-guides { margin-top: 44px; }
-  .latest-guides h2 { font-size: 1.375rem; margin: 0 0 16px; }
-  .guide-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-  }
-
-  /* ── Visa lanes：渐进披露 ── */
-  .visa-lanes { margin-top: 44px; scroll-margin-top: 16px; }
-  .visa-lanes h2 { font-size: 1.375rem; margin: 0; }
-  details { border: 1px solid var(--border); background: var(--surface); margin-top: 12px; }
-  summary {
-    cursor: pointer; padding: 14px 16px; font-weight: 600; color: var(--ink);
-    list-style: none; font-size: 0.9375rem;
-  }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "  +"; color: var(--muted); float: right; }
-  details[open] summary::after { content: "  –"; }
-  .lane-body { padding: 0 16px 16px; font-size: 0.875rem; }
-  .table-scroll { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.8125rem; }
-  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  th { color: var(--muted); font-weight: 600; }
-  .yes { color: var(--ok-text); font-weight: 600; }
-  .no { color: var(--warn-text); font-weight: 600; }
-  .lane-note { font-size: 0.8125rem; }
-
-  /* ── 底部二次CTA横幅（方向B） ── */
-  .cta-banner { margin-top: 44px; background: var(--accent); color: #231400; padding: 36px 20px; text-align: center; }
-  .cta-banner h2 { margin: 0 0 10px; font-size: 1.375rem; font-weight: 650; color: #231400; }
-  .cta-banner a { display: inline-block; background: #231400; color: var(--accent); text-decoration: none; padding: 12px 24px; font-weight: 650; }
-  .cta-banner a:hover { color: var(--accent-strong); }
+  .lane-row.warn .tick { color: var(--warn-text); }
+  .lane-row b { color: var(--ink); }
+  .lane-row.warn b { color: inherit; }
+  .fine { color: var(--muted); font-size: 0.8125rem; margin: 14px 0 0; }
+  .fine a { color: var(--primary); }
+  .fine .unverified { color: var(--accent-strong); font-style: italic; }
 
   @media (max-width: 768px) {
-    .photo-hero { min-height: 60vh; }
+    .photo-hero { min-height: 62svh; }
   }
 </style>

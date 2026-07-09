@@ -1227,3 +1227,46 @@ commit（本条与 DESIGN.md 一并提交）。
   F051 B2 返工一并删除，不单列清理条目。
 feature_list：total 55→56，passing 28 不变。本条以 change: commit 单独提交
 （与 F051 代码返工的 feat: commit 分开，保持 /verify 审计轨迹）。
+
+[2026-07-09] F051 首页从方向 B 返工到 B2「Focused」（做减法）
+---------------------------------------------
+接上条 /change，同会话把首页从方向 B 全量版减法到站长终选的 B2。
+改动（2 个 src 文件）：
+- src/pages/index.astro 重写为 B2 三屏结构：全宽照片 Hero（单 CTA
+  "Check my passport →" 锚到 #check）→ 真实地图 RouteMap（F051 红线保留，
+  第二屏）+ 两条路线入口（coastal/border，真实路由）→ 护照三行速查
+  （✓ 240h / ✓ 30-day / ⚠ 需签证，政策数字收这里，负面清单#7）→ 页脚。
+  删（相对方向 B）：.trust 一句话信任线自夸（#1）、6 张城市卡片墙（#3）、
+  Latest guides 段（#3，对应 F011 /change）、底部二次 CTA 横幅（#2）、
+  visa-lanes 详表；Hero 喊话式占位改角落小字（#5）。随之删掉孤立 import
+  （GuideCard/PhotoPlaceholder/VisaBadge/getCollection/readingMinutes）。
+  title 改 "Fly in visa-free. Walk out to Vietnam — No Visa China"（#6 卖点
+  开头、品牌降后缀）。
+- src/styles/global.css .brand 改 muted/0.8125rem/uppercase（#6 品牌名页角
+  小字，全站生效）。
+保留 SPEC 红线：色彩令牌未动；纯英文 UI/仅地名双语；术语人话化（F052）；
+渐进增强（地图 RouteMap 的 F028 静态降级不变）；Dongxing 陆路出境仍挂
+「未核实」态。签证合规（F033/F049）：非 twov 区（Chongzuo/Baise）的强制
+提醒不再靠首页城市卡片承载——改由地图标记"visa required" + 护照速查 ⚠ 行
++ 各攻略页 visa-alert 承载；合规组件本身未动，内容页提醒不受影响。
+
+验证：npm run build exit0，19 页；grep dist/ 确认删掉的段（信任线/
+latest-guides/cta-banner/城市卡片墙）0 残留、B2 元素（新 title/护照速查/
+两条路线/地图）在位；首页 11 条 href 全部指向真实存在路由（无死链）。
+
+⚠️ F051 保持 passes:false，两个原因（守铁律#4）：
+1. 本环境无 Chrome/Lighthouse，375px 无横向溢出 + 深色模式 + 移动端
+   Performance≥85 未实测（仅 CSS 静态审查：h1 max-width:15ch 约束换行、
+   clamp 字号、flex-wrap、border-box，判断风险低）。
+2. **措辞冲突**：F051 原验收 step1「首页英雄区为真实地图」与 B2「照片
+   Hero + 地图退第二屏」字面不符（F051 措辞源于更早"地图为主角"方向，
+   已被 V1.2/B/B2 方向取代）。精神（真 Leaflet 替 SVG/两路线/人话标注/
+   30 秒看懂）已满足，但字面需站长定夺是否走 /change 调 F051 的 steps
+   后再翻 true。
+
+未做：F051 未翻 true（待站长真机预览 + 决定 step1 措辞）；F056（列表页
+攻略卡片）本会话未验收（列表页 /guides/ 渲染逻辑未动，仍用 GuideCard，
+待 /verify）；F046/F028/F048 行程页真地图、F054 完整版留后续会话。
+下一步：站长起 npm run dev 看 B2 首页（375px + 深色）；满意则 ① 定 F051
+step1 措辞（/change 或确认精神达标即可）→ 翻 F051 true；② 之后
+F046+F028+F048 → F054 → /verify 回归。

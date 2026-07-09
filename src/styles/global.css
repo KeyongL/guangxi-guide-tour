@@ -117,10 +117,13 @@ main {
   border-bottom: 1px solid var(--border);
 }
 
+/* 品牌名降为页角小字（DESIGN.md 方向锁定 B2 · 负面清单#6：品牌名不做标题）。 */
 .brand {
-  color: var(--ink);
+  color: var(--muted);
   font-weight: 650;
-  letter-spacing: -0.01em;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   padding: 8px 0;
   white-space: nowrap;
 }
