@@ -1,6 +1,6 @@
 ---
 title: "Getting an eSIM for China: What to Buy Before You Land in Guangxi"
-summary: "A plain-English guide to travel eSIMs for a trip to Guangxi — what an eSIM is, whether your phone works, and roughly what a China data plan costs."
+summary: "Buy a travel eSIM online before you fly — the fastest way to get data the moment you land in Guangxi, typically a few US dollars for a week (not yet verified — prices vary by vendor and date)."
 region: "Practical China"
 visa_zone: "twov"
 slug: "international-esim-china"

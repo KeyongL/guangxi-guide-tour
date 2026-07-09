@@ -1,6 +1,6 @@
 ---
-title: "How to Eat Well at a Beihai Seafood Market Without Getting Ripped Off"
-summary: "A plain-English guide to Beihai's buy-then-cook seafood system: how it works, the scams to avoid, what to order with rough prices, and the cooking fee 加工费 explained."
+title: "Beihai Seafood Market: Real Prices, the 加工费 Trick, and What to Order"
+summary: "Beihai's markets sell you raw seafood, then a nearby stall cooks it for a per-jin cooking fee 加工费 — agree the price before the vendor weighs anything, or you pay the tourist markup."
 region: "Beihai & Weizhou"
 visa_zone: "twov"
 slug: "beihai-seafood-market"

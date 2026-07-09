@@ -1,11 +1,12 @@
 ---
 // 签证徽章（F009）：两态配色只取 DESIGN.md ok/warn 令牌（global.css CSS 变量，深浅自动跟随）。
-// 文案（含 ✅/⚠️ 字符）为 feature_list 验收原文，勿改动。
+// 文案（含 ✅/⚠️ 字符）原为 F009 验收原文；F052（V1.2 术语人话化）取代 twov 态文案，
+// 该行 ✅/⚠️ 图标与配色令牌仍保持 F009 原状不变。
 interface Props {
   zone: 'twov' | 'non-twov';
 }
 const { zone } = Astro.props;
-const label = zone === 'twov' ? '✅ 240h TWOV OK' : '⚠️ 30-day visa-free or visa holders only';
+const label = zone === 'twov' ? '✅ Visa-free for most passports' : '⚠️ 30-day visa-free or visa holders only';
 ---
 <span class:list={['visa-badge', zone === 'twov' ? 'visa-badge-ok' : 'visa-badge-warn']}>{label}</span>
 

@@ -1,6 +1,6 @@
 ---
-title: "Beihai Old Street 北海老街: A One-Hour Walk Through a Treaty-Port Arcade"
-summary: "What Beihai Old Street 北海老街 is, why its qilou arcades are worth an hour or two, and how to fit it around Silver Beach and the Weizhou ferry."
+title: "Beihai Old Street 北海老街: Worth 1–2 Hours, Not a Special Trip"
+summary: "Budget 1–2 hours for Beihai Old Street 北海老街 — a free, 1.3 km stretch of treaty-port arcades you can walk in 20–30 minutes and fit around Silver Beach or a Weizhou ferry day."
 region: "Beihai & Weizhou"
 visa_zone: "twov"
 slug: "beihai-old-street-arcades"

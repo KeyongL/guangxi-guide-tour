@@ -1,6 +1,6 @@
 ---
 title: "Fly Into Guangxi, Leave Overland to Vietnam: The 240-Hour Transit Route"
-summary: "How to fly into Beihai or Nanning visa-free under China's 240-hour transit rule, tour the Guangxi coast, and cross into Vietnam by land at Dongxing — with the one policy point you must confirm first."
+summary: "Fly into Beihai or Nanning visa-free, tour the coast for up to 10 days, then walk across the border at Dongxing into Vietnam — but confirm one unresolved policy point before you book."
 region: "Guangxi & Vietnam border"
 visa_zone: "twov"
 slug: "fly-into-guangxi-leave-overland"

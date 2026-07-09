@@ -1,6 +1,6 @@
 ---
 title: "Weizhou Island 涠洲岛: China's Youngest Volcano, Visa-Free"
-summary: "How to reach Weizhou Island 涠洲岛 from Beihai 北海 by ferry, what the volcano park and coast are worth, and where to stay — for 240-hour visa-free travelers."
+summary: "Weizhou Island 涠洲岛 sits 21 nautical miles off Beihai 北海 — budget at least two days and one night for the ferry, volcanic cliffs, and coral coast, visa-free under the 240-hour transit rule."
 region: "Beihai & Weizhou"
 visa_zone: "twov"
 slug: "weizhou-island-complete-guide"

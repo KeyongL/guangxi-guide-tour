@@ -1,5 +1,5 @@
 ---
-title: "Detian Waterfall 德天瀑布 & Friendship Pass 友谊关: Read This Before You Go"
+title: "Detian Waterfall 德天瀑布 & Friendship Pass 友谊关: Outside the Visa-Free Zone — Check First"
 summary: "The Detian 德天瀑布 falls and Friendship Pass 友谊关 sit outside the 240-hour transit visa-free zone. Check your entry status before you plan a trip here."
 region: "Chongzuo border"
 visa_zone: "non-twov"

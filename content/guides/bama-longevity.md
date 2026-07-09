@@ -1,6 +1,6 @@
 ---
-title: "Bama 巴马, China's 'Longevity Village': What's Real and Whether It's Worth the Detour"
-summary: "A plain-English, skeptical look at Bama 巴马 in Hechi 河池 — the caves, the river, the Yao 瑶族 villages, and whether a coastal-route traveller should bother."
+title: "Bama 巴马 'Longevity Village': Is the 3.5-Hour Detour From Nanning Worth It?"
+summary: "Bama 巴马 is a 3.5-hour drive inland from Nanning 南宁 — karst valleys, cave walks, and China's wellness-tourism hype, but nothing else major nearby. Skip it if you're short on time; go for the scenery, not the miracle-air claims."
 region: "Hechi karst"
 visa_zone: "twov"
 slug: "bama-longevity-hechi"

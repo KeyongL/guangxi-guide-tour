@@ -1,6 +1,6 @@
 ---
-title: "How to Visit Beihai Visa-Free: China's 240-Hour Transit Policy Explained"
-summary: "A plain-English walkthrough of the 240-hour transit visa-free rule for travellers flying into Guangxi and leaving overland to Vietnam."
+title: "240-Hour Transit Visa-Free: What It Lets You Do From Beihai"
+summary: "China's 240-hour transit rule lets eligible passport holders fly into Beihai, stay up to 10 days, and continue on to a third country without a Chinese visa."
 region: "Beihai & Weizhou"
 visa_zone: "twov"
 slug: "visa-free-transit-beihai"

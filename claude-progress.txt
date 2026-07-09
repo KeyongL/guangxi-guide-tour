@@ -1045,3 +1045,60 @@ guides/[slug] 六个页面的 title、about.astro 的 title+description+正文
 F051+F046+F028+F048（真地图首页）→ /verify 回归 F019/F011/F014/F004/
 F023 + F030/F031。域名 NoVisaChina.com 注册与 Cloudflare Worker 改名仍
 待站长本人操作。
+
+[2026-07-08] Session: F052+F055 全站文案人话化 + 12 篇攻略标题摘要重写
+---------------------------------------------
+补做原计划①步（此前被 F050/设计调研跳过）。站长选定"下一个做 F052+F055"
+后执行，同会话先补 commit F050（87f2367，未 push）再开始本功能。
+
+F052（对照 SPEC 术语人话对照表）：
+- 首页 H1 保留（已是答案式），副标重写：去掉裸露"240-hour/48 nationalities"
+  政策数字堆砌，改为"Fly into the coast...no Chinese visa needed for most
+  passports"，把政策细节让位给已有的 <details> 渐进披露表格。
+- 信任条砍到一句："Written by a Beihai local — PhD, fluent English, four
+  years living in the West." → "I live here. I check every price in
+  person."（原句去学历自夸，按 SPEC 表建议原文替换）。
+- 地图图例三行 + 两处 SVG marker 子标签："TWOV-legal"/"48-country / visa
+  only"/"Not in the transit-visa zone"/"not TWOV" → 人话替换；SVG
+  <!-- --> 注释里的"Flow A/Flow B"也一并改名（这是真会进 dist/ 输出的
+  HTML 注释，不是被裁剪的 frontmatter JS 注释，故也计入 grep 验收范围）。
+- "Open Flow A/B →" 卡片链接 → 沿用 F050 已定的行程页人话标题，改为
+  "Open the coastline route →"/"Open the border loop →"。
+- VisaBadge.astro 的 twov 态标签 "240h TWOV OK" → "Visa-free for most
+  passports"；同步更新该组件与 flow-a.astro 内两处"F009 验收原文勿改"的
+  过时注释（V1.2/F052 已明确取代该冻结声明）。non-twov 态标签、
+  VisaAlert.astro、行程页正文段落均判定为"正文合规引用官方政策名"或
+  已足够人话，未动（铁律#3 最小改动）。
+
+F055（12 篇攻略重写，实际只有 11 篇——见下方偏差记录）：
+- 8 篇改 title+summary 或仅 summary：bama-longevity、beihai-old-street、
+  beihai-seafood-market（标题命中 SPEC 原文举例的"How to Eat Well"反例，
+  按 SPEC 给的替换范例重写）、detian-chongzuo（仅标题）、
+  fly-into-guangxi-exit-vietnam（仅摘要）、international-esim-china、
+  sample-guide、weizhou-island。
+- 3 篇判定摘要首句已结论/数字前置，未动：foreign-card-wechat-alipay、
+  leye-tiankeng、vietnam-to-china-overland。
+- 只改 frontmatter title/summary，正文事实一字未动。
+
+偏差记录：feature_list.json F055 描述写"12 篇攻略"，但 content/guides/
+实际只有 11 个 .md 文件（含 sample-guide.md——文件名像占位符，但其
+frontmatter 是真实发布的攻略，slug 指向 visa-free-transit-beihai，dist/
+确认已生成并计入 11 篇之一）。未新增第 12 篇凑数，如实按 11 篇执行；
+若站长确认应有 12 篇，需 /change 或另开会话查漏。
+
+验证：
+- grep 全站（src/+content/）banned phrases 精确匹配（TWOV-legal/240h TWOV
+  OK/48-country visa only/Not in the transit-visa zone/Open Flow A|B/
+  How to Eat Well/not TWOV）→ 0 命中；npm run build → exit 0，18 页。
+- 二次 grep dist/ 复核同样 0 命中（含 SVG 注释问题修复后的复测）。
+- 抓取 dist/index.html 确认新副标/信任条/图例/徽章/链接文案；
+  dist/guides/beihai-seafood-market/index.html 与
+  detian-waterfall-friendship-pass/index.html 的 <title> 确认新标题；
+  weizhou-island-complete-guide 的 OG description 确认新摘要。
+- feature_list.json：仅改 F052、F055 的 passes 字段 false→true（其余
+  字段未动，符合铁律#3）；total 55 / passing 27（原 25）。
+
+未做：本会话未 git commit（工作树非本会话自建，按背景任务约定，提交前
+先请示站长）；未碰 F053/F054/F051 等其他功能代码。
+下一步：站长确认是否提交 F052+F055；之后按既定顺序进入 F053（导航重构）
+→ F051+F046+F028+F048（真地图首页）→ /verify 回归。
