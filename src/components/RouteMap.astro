@@ -76,6 +76,10 @@ const { stops, routes, center, zoom, label } = Astro.props;
 
   function initMap(el: HTMLElement, fallback: HTMLElement) {
     try {
+      // 先取消 hidden，让容器拿到 380px 高度再交给 Leaflet——
+      // 对 display:none（高度 0）的容器 L.map() 会渲染出错位/空白地图。
+      el.hidden = false;
+
       const center = JSON.parse(el.dataset.center ?? '[22.6,108]') as [number, number];
       const zoom = Number(el.dataset.zoom ?? '7');
       const stops = JSON.parse(el.dataset.stops ?? '[]') as StopData[];
@@ -111,28 +115,34 @@ const { stops, routes, center, zoom, label } = Astro.props;
           .bindPopup(`<strong>${s.name}</strong>${s.sub ? `<br>${s.sub}` : ''}`);
       });
 
-      el.hidden = false;
+      // 容器刚从 hidden 变可见，强制 Leaflet 重算尺寸，避免瓦片错位。
+      map.invalidateSize();
       fallback.hidden = true;
     } catch {
-      // 地图初始化失败：保持文字列表可见，不隐藏、不抛错到用户界面（F028）。
+      // 地图初始化失败：回退——重新隐藏地图容器，保持文字列表可见（F028）。
+      el.hidden = true;
     }
   }
 
+  // 观察「始终可见」的外层 wrap，而不是 hidden 的地图容器——
+  // 对 display:none 元素 IntersectionObserver 永不触发 isIntersecting，
+  // 这正是此前地图从不初始化、只显示文字回退的根因。
+  const wrap = document.querySelector<HTMLElement>('.route-map-wrap');
   const mapEl = document.getElementById('route-map');
   const fallbackEl = document.getElementById('route-map-fallback');
-  if (mapEl && fallbackEl) {
+  if (wrap && mapEl && fallbackEl) {
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            initMap(mapEl, fallbackEl);
             io.disconnect();
+            initMap(mapEl, fallbackEl);
           }
         }
       },
       { rootMargin: '200px' }
     );
-    io.observe(mapEl);
+    io.observe(wrap);
   }
 </script>
 
