@@ -28,28 +28,29 @@ const { title, description, image } = Astro.props;
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">No Visa China</a>
+      <!-- B3 负面清单#8：品牌词退出 UI——home 用无字地图钉图标，品牌只留 <title> 后缀与域名。 -->
+      <a class="brand" href="/" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="12" cy="10" r="3" />
+          <path d="M12 21c4.5-4.7 7-8 7-11a7 7 0 1 0-14 0c0 3 2.5 6.3 7 11Z" />
+        </svg>
+      </a>
       <nav class="site-nav" aria-label="Main">
-        <a href="/itineraries/">The Route</a>
-        <a href="/guides/">Guides</a>
         <a class="site-nav__cta" href="/plan-my-trip/">Plan My Trip</a>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Dark</button>
     </header>
     <slot />
     <footer class="site-footer">
-      <p class="footer-disclaimer">
-        Visa and entry policies change. Always verify current rules with the
-        <a href="https://en.nia.gov.cn/" target="_blank" rel="noopener noreferrer">National Immigration Administration (NIA)</a>
-        before you travel.
-      </p>
+      <!-- B3 页脚一行制：叶子页入口 + NIA 合规指针（词预算：一行）。 -->
       <nav class="footer-nav" aria-label="Sitemap">
-        <a href="/itineraries/">The Route</a>
         <a href="/guides/">Guides</a>
-        <a href="/plan-my-trip/">Plan My Trip</a>
         <a href="/about/">About</a>
-        <a href="/sitemap.xml">Sitemap</a>
       </nav>
+      <p class="footer-disclaimer">
+        Rules change — verify with the
+        <a href="https://en.nia.gov.cn/" target="_blank" rel="noopener noreferrer">NIA</a>.
+      </p>
     </footer>
     <script>
       const btn = document.getElementById('theme-toggle');
@@ -78,15 +79,19 @@ const { title, description, image } = Astro.props;
       .site-footer {
         max-width: 1100px;
         margin: 0 auto;
-        padding: 32px 24px 48px;
+        padding: 20px 24px 28px;
         border-top: 1px solid var(--border);
         color: var(--muted);
         font-size: 0.8125rem;
         line-height: 1.6;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        justify-content: space-between;
+        align-items: baseline;
       }
       .footer-disclaimer {
-        margin: 0 0 16px;
-        max-width: 700px;
+        margin: 0;
       }
       .site-footer a { color: var(--primary); }
       .site-footer a:hover { color: var(--primary-strong); }

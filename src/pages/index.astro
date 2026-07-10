@@ -1,5 +1,5 @@
 ---
-// 首页（F051，方向 B2「Focused」，对标 mockups/11-direction-b2-focused.html）：
+// 首页（F058，方向 B3「Two-page」，对标 mockups/12-b3-home-two-page.html）：
 // 站长否掉方向 B 全量版后做减法（DESIGN.md 方向锁定 B2 块 + 7 条负面清单）。
 // 结构砍到 3 屏：全宽照片 Hero（单 CTA "Check my passport →"）→ 真实地图 + 两条
 // 路线入口（F051 红线）→ 护照三行速查（CTA 落点，含 ⚠ 警示态）→ 页脚。
@@ -26,17 +26,14 @@ const routes = [
 ];
 ---
 <BaseLayout
-  title="Fly in visa-free. Walk out to Vietnam — No Visa China"
-  description="240 hours across the Guangxi coast on most Western passports — beaches, a volcanic island, then across the land border into Vietnam on foot."
+  title="Vietnam, Laos, Cambodia — and Guangxi | No Visa China"
+  description="Detour into China's south — 10 visa-free days in Guangxi, then walk into Vietnam."
 >
   <!-- HERO：全宽照片占位 + 一句话主张 + 单一 CTA（负面清单 #1 无信任条、#2 一屏一动作） -->
   <section class="photo-hero">
     <div class="photo-hero__inner">
-      <h1>Fly in visa-free.<br />Walk out to Vietnam.</h1>
-      <p class="sub">
-        240 hours across the Guangxi coast on most Western passports — beaches, a
-        volcanic island, then across the land border into Vietnam on foot.
-      </p>
+      <h1>Vietnam, Laos, Cambodia —<br />and Guangxi.</h1>
+      <p class="sub">Detour into China's south. 10 days, no visa.</p>
       <a class="cta-btn" href="#check">Check my passport →</a>
     </div>
     <!-- 负面清单 #5：占位不用喊话式大字，降为角落小字 -->
@@ -47,7 +44,6 @@ const routes = [
     <!-- 第二屏：真实地图（F051）+ 两条路线入口。不铺城市卡片墙（负面清单 #3） -->
     <section class="the-route">
       <h2>The route</h2>
-      <p class="hint">Beihai → Weizhou Island → Dongxing → across the border on foot.</p>
       <RouteMap
         stops={stops}
         routes={routes}
@@ -58,34 +54,34 @@ const routes = [
       <ul class="lanes">
         <li><a href="/itineraries/flow-a/">
           <span class="name">The coastal route</span>
-          <span class="meta">3–5 days · visa-free for most passports · ends at the Vietnam border</span>
+          <span class="meta">3–5 days · no visa</span>
         </a></li>
         <li><a href="/itineraries/flow-b/">
           <span class="name">The border loop</span>
-          <span class="meta">7–10 days · needs a visa for most passports · Detian Falls &amp; the karst west</span>
+          <span class="meta">7–10 days · visa required</span>
         </a></li>
       </ul>
     </section>
 
     <!-- CTA 落点：护照三行速查，政策数字收在这里（负面清单 #7），含 ⚠ 警示态 -->
     <section class="check" id="check">
-      <h2>Which lane is your passport in?</h2>
+      <h2>Do you need a visa?</h2>
       <div class="lane-row ok">
         <span class="tick">✓</span>
-        <span><b>US, UK, Canada + ~50 more</b> — 240 hours visa-free. Fly in, leave to a third country. The coastal route fits inside it.</span>
+        <span><b>US, UK, Canada +50</b> — 10 days, no visa.</span>
       </div>
       <div class="lane-row ok">
         <span class="tick">✓</span>
-        <span><b>Most of Europe, Australia, NZ + ~40 more</b> — 30 days visa-free. Everything on this site is open to you.</span>
+        <span><b>EU, Australia, NZ +40</b> — 30 days, no visa.</span>
       </div>
       <div class="lane-row warn">
         <span class="tick">⚠</span>
-        <span><b>Neither?</b> You need a visa — plan ahead before booking anything.</span>
+        <span><b>Neither</b> — visa required.</span>
       </div>
       <p class="fine">
-        Rules change. Last checked 20 Jun 2026 · always confirm with the
+        Checked 20 Jun 2026 · confirm with the
         <a href="https://en.nia.gov.cn/" target="_blank" rel="noopener noreferrer">NIA</a>.
-        <span class="unverified">Land exit at Dongxing for 240-hour travellers: not yet verified on the ground.</span>
+        <span class="unverified">Dongxing land exit: unverified.</span>
       </p>
     </section>
   </main>
@@ -116,10 +112,10 @@ const routes = [
     color: #fff;
     font-weight: 650;
     letter-spacing: -0.01em;
-    line-height: 1.1;
-    font-size: clamp(2.125rem, 6.5vw, 3.5rem);
+    line-height: 1.12;
+    font-size: clamp(1.875rem, 5.5vw, 3.25rem);
     margin: 0 0 12px;
-    max-width: 15ch;
+    max-width: 24ch;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
   }
   .photo-hero .sub {
@@ -155,8 +151,7 @@ const routes = [
 
   /* ── The route（真地图 + 两条路线入口） ── */
   .the-route { margin-top: 8px; }
-  .the-route h2 { font-size: 1.375rem; margin: 0 0 6px; }
-  .the-route .hint { color: var(--muted); margin: 0 0 18px; }
+  .the-route h2 { font-size: 1.375rem; margin: 0 0 14px; }
   .lanes { list-style: none; margin: 16px 0 0; padding: 0; }
   .lanes li { border: 1px solid var(--border); background: var(--surface); margin-bottom: 10px; }
   .lanes a {

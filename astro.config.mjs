@@ -6,5 +6,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://guangxi-guide.pages.dev',
   // 默认纯静态输出；Cloudflare Pages 直接托管 dist/（无需 adapter）。
+  // B3（F057）：The Route 中转页下线，老 URL 重定向回首页；flow-a/b 不受影响。
+  redirects: {
+    '/itineraries/': '/',
+  },
   integrations: [sitemap()],
 });
