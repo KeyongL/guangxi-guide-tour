@@ -720,5 +720,18 @@
       "JS 关闭降级文字列表不回退（F028）；375px 无溢出；Lighthouse 移动端 ≥85"
     ],
     "passes": true
+  },
+  {
+    "id": "F060",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "首页地图 v3（站长 2026-07-10 反馈：缺越南入境线/时间/口岸/河池；蓝黄不显眼要红色；问大巴与公司；确认路线皆备选）：第三图层『From Vietnam』两条接驳线（河内→友谊关→南宁；河内→下龙湾→芒街→东兴），红色取现有令牌 --error-text（不发明新色）；China 侧路线白描边+加粗提升辨识度；新增 Hanoi/Ha Long Bay/Móng Cái/Friendship Pass 标记；弹窗补时长与大巴信息（未实地核实数字挂 not yet verified，公司名不编造→Plan My Trip 代订）；入境口岸讲清：南宁/北海=飞机入境 10-day transit OK，东兴/友谊关=陆路仅 30 天免签或持签证（10-day transit 不支持陆路入境，合规）；胡志明/下龙湾接驳说明入弹窗；Bama 标记补 Hechi 河池",
+    "steps": [
+      "第三图层红色可开关，两条越南接驳线贴真实公路（静态几何，运行期零 API）",
+      "新增 4 个越南侧/口岸标记，弹窗含时长（未核实挂标）与陆路入境规则一句",
+      "China 侧路线白描边+加粗；图例补红色第三条说明",
+      "JS 关闭降级列表含全部站点；375px 无溢出；Lighthouse 移动端 ≥85"
+    ],
+    "passes": false
   }
 ]
