@@ -732,6 +732,6 @@
       "China 侧路线白描边+加粗；图例补红色第三条说明",
       "JS 关闭降级列表含全部站点；375px 无溢出；Lighthouse 移动端 ≥85"
     ],
-    "passes": false
+    "passes": true
   }
 ]

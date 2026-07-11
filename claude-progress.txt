@@ -1440,3 +1440,47 @@ OSRM 几何是一次性快照，公路改线需手动重抓（重跑同一条 cu
 在本条上方）；行程页 flow-a/b 仍无地图（F046 留后续）。
 下一步：站长预览确认视觉；之后 F046+F028+F048（行程页复用 RouteMap，
 传各自路线的 stops/几何）→ F054 → /verify 回归。
+
+[2026-07-10] F060 首页地图 v3：越南入境接驳线 + 时间/口岸 + 辨识度（站长反馈落地）
+---------------------------------------------
+站长看 v2 反馈：缺从越南入境的线路（芒街等口岸没说清）；时间没说清；
+蓝黄不明显应用红色；河池景点丢了；要显示大巴；哪些口岸能入（东兴还是
+南宁）；胡志明/下龙湾怎么来；联系什么公司；确认路线皆备选（答：是，
+图层开关即备选方案切换）。/change 第4批立项 F060（58fc593）后同会话实现：
+- 新增第三图层「From Vietnam (getting in)」：河内→友谊关→南宁 394km/32
+  点、河内→下龙湾→芒街→东兴 316km/49 点（OSRM 一次性抓取真实公路几何，
+  跨境路段 OSM 路网连通，并入 route-geometry.json 共 4.8KB）。红色取现有
+  令牌 --error-text（浅 #B91C1C/深 #F87171，不发明新色守 SPEC 色彩红线）；
+  越南侧标记同用红色填充。
+- 辨识度（站长"蓝黄很不明显"）：全部路线线宽 3→4 + 白描边 casing（7px
+  白底衬线，interactive:false 不干扰点击；OSM 瓦片恒浅色，#FFFFFF 即浅色
+  --surface 值）。
+- 新增 4 标记：Hanoi（弹窗：Buses to the border · from HCMC fly ~2 h；
+  note：Bus to Nanning ~8 h · to Móng Cái ~5 h — not yet verified；链接
+  /plan-my-trip/——公司名不编造，代订即转化位）、Ha Long Bay（Bus to
+  Móng Cái ~4 h — not yet verified）、Móng Cái（Walk the bridge ~15 min +
+  入境规则句）、Friendship Pass 友谊关（Hanoi–Nanning corridor + 入境规
+  则句）。弹窗新增 note 行样式（accent-strong 斜体，F032 未核实态沿用）。
+- 合规句必带（与 vietnam-to-china-overland 攻略一致）：陆路入境仅 30-day
+  list or visa——10-day transit must fly in；Dongxing 标记补同句 note；
+  Nanning/Beihai sub 改 "Fly-in port"（讲清可入境口岸）。
+- Bama 标记名补 "· Hechi 河池"（站长"河池景点没包括"——巴马攻略即河池
+  内容，标记名点明）。
+- 地图下路线入口列表加第三行 "Getting in from Vietnam"（链
+  vietnam-to-china-overland 攻略；B2/B3 已无图例组件，用既有 lanes 模式，
+  不新增组件）。
+
+真机验证（headless Chromium + 生产构建，v3-desktop.png 留档）：20 交互
+元素=5 线+15 标记（casing 不计）；3 个图层开关（文案含 From Vietnam）；
+红色 stroke 折线 2 条；河内弹窗含时长+not yet verified+Details；关掉
+From Vietnam 层 20→14（-2 线-4 标记）；375px 无溢出；JS 关闭 14 站降级、
+地图保持 hidden；无 pageerror；Lighthouse 移动端 97/100。dist 含
+"Getting in from Vietnam" 入口行。F060 四条验收全实测 → passes:true。
+total 60 / passing 32。
+
+已知限制（如实）：大巴时长（~8h/~5h/~4h）为公开常见区间、未实地核实，
+UI 已挂 not yet verified；运营公司名待站长实地核实后补（现指向 Plan My
+Trip 代订）；胡志明→河内仅弹窗一句（fly ~2 h），不画 1700km 线避免地图
+失焦；fitBounds 含越南后整图 zoom 6 偏远景，属正确取景行为，站长嫌远可
+下轮把地图容器加高或默认只开 China 侧图层。
+下一步：站长预览；之后 F046+F028+F048（行程页真地图）→ F054 → /verify。

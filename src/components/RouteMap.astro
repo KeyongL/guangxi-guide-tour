@@ -12,8 +12,9 @@ interface Stop {
   lng: number;
   sub?: string;
   href?: string;
-  group: 'coastal' | 'border' | 'both';
+  group: 'coastal' | 'border' | 'both' | 'vietnam';
   photo?: string;
+  note?: string;
 }
 interface Props {
   stops: Stop[];
@@ -59,8 +60,9 @@ const { stops, label } = Astro.props;
     lng: number;
     sub?: string;
     href?: string;
-    group: 'coastal' | 'border' | 'both';
+    group: 'coastal' | 'border' | 'both' | 'vietnam';
     photo?: string;
+    note?: string;
   }
 
   function tokenColor(name: string): string {
@@ -73,8 +75,10 @@ const { stops, label } = Astro.props;
       ? `<div class="rm-pop__photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="7.5" cy="7.5" r="1.6"></circle><path d="M3 17.5l5.5-6 4 3.7 3-3.2L21 17.5"></path></svg><span>PHOTO — ${s.photo}</span></div>`
       : '';
     const sub = s.sub ? `<span class="rm-pop__sub">${s.sub}</span>` : '';
+    // 时间/交通/入境规则一行（未实地核实的数字在数据里自带 not yet verified 标记，F032 规矩）。
+    const note = s.note ? `<span class="rm-pop__note">${s.note}</span>` : '';
     const link = s.href ? `<a class="rm-pop__link" href="${s.href}">Details →</a>` : '';
-    return `<div class="rm-pop">${photo}<strong>${s.name}</strong>${sub}${link}</div>`;
+    return `<div class="rm-pop">${photo}<strong>${s.name}</strong>${sub}${note}${link}</div>`;
   }
 
   function initMap(el: HTMLElement, fallback: HTMLElement) {
@@ -88,6 +92,8 @@ const { stops, label } = Astro.props;
       const primary = tokenColor('--primary') || '#0E7490';
       const accent = tokenColor('--accent') || '#F59E0B';
       const surface = tokenColor('--surface') || '#FFFFFF';
+      // 红色 = 现有令牌 --error-text（浅 #B91C1C / 深 #F87171），不发明新色（SPEC 红线）。
+      const red = tokenColor('--error-text') || '#B91C1C';
 
       const map = L.map(el, { scrollWheelZoom: false });
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -100,31 +106,53 @@ const { stops, label } = Astro.props;
           radius: 8,
           color: surface,
           weight: 2,
-          fillColor: accent,
+          fillColor: s.group === 'vietnam' ? red : accent,
           fillOpacity: 1,
         }).bindPopup(popupHtml(s), { maxWidth: 240 });
 
-      // 两条路线 = 两个可开关图层（各含自己的途经标记；Nanning 属 both，两层各有一份）。
+      // 白描边 + 加粗（站长反馈蓝黄不明显；OSM 瓦片恒为浅色底图，#FFFFFF 即浅色 --surface 值）。
+      const casing = (pts: [number, number][]) =>
+        L.polyline(pts, { color: '#FFFFFF', weight: 7, opacity: 0.9, interactive: false });
+      const line = (pts: [number, number][], color: string, dashed?: boolean) =>
+        L.polyline(pts, { color, weight: 4, dashArray: dashed ? '7 6' : undefined });
+      const inGroup = (s: StopData, ...gs: string[]) => gs.includes(s.group);
+
+      // 三个可开关图层 = 三套备选方案（各含自己的途经标记；Nanning 属 both，前两层各一份）。
       const coastal = L.layerGroup([
-        L.polyline(geometry.coastal as [number, number][], { color: primary, weight: 3 }),
+        casing(geometry.coastal as [number, number][]),
+        line(geometry.coastal as [number, number][], primary),
         // 渡轮段（北海→涠洲岛，海路）：点状虚线，制图惯例。
-        L.polyline(geometry.ferry as [number, number][], { color: primary, weight: 3, dashArray: '2 7' }),
-        ...stops.filter((s) => s.group !== 'border').map(marker),
+        L.polyline(geometry.ferry as [number, number][], { color: primary, weight: 4, dashArray: '2 7' }),
+        ...stops.filter((s) => inGroup(s, 'coastal', 'both')).map(marker),
       ]).addTo(map);
       const border = L.layerGroup([
-        L.polyline(geometry.border as [number, number][], { color: accent, weight: 3, dashArray: '7 6' }),
-        ...stops.filter((s) => s.group !== 'coastal').map(marker),
+        casing(geometry.border as [number, number][]),
+        line(geometry.border as [number, number][], accent, true),
+        ...stops.filter((s) => inGroup(s, 'border', 'both')).map(marker),
+      ]).addTo(map);
+      // 从越南入境（F060）：河内→友谊关→南宁；河内→下龙湾→芒街→东兴。红色，含时间/口岸弹窗。
+      const vietnam = L.layerGroup([
+        casing(geometry.vnNanning as [number, number][]),
+        line(geometry.vnNanning as [number, number][], red),
+        casing(geometry.vnDongxing as [number, number][]),
+        line(geometry.vnDongxing as [number, number][], red),
+        ...stops.filter((s) => inGroup(s, 'vietnam')).map(marker),
       ]).addTo(map);
 
       L.control.layers(
         undefined,
-        { 'The coastal route': coastal, 'The border loop': border },
+        { 'The coastal route': coastal, 'The border loop': border, 'From Vietnam (getting in)': vietnam },
         { collapsed: false }
       ).addTo(map);
 
       // 容器刚从 hidden 变可见，强制重算尺寸后按全部路线取景。
       map.invalidateSize();
-      const all = (geometry.coastal as [number, number][]).concat(geometry.border as [number, number][]);
+      const all = ([] as [number, number][]).concat(
+        geometry.coastal as [number, number][],
+        geometry.border as [number, number][],
+        geometry.vnNanning as [number, number][],
+        geometry.vnDongxing as [number, number][]
+      );
       map.fitBounds(L.latLngBounds(all), { padding: [24, 24] });
 
       fallback.hidden = true;
@@ -207,6 +235,11 @@ const { stops, label } = Astro.props;
   .route-map :global(.rm-pop__sub) {
     color: var(--muted);
     font-size: 0.8125rem;
+  }
+  .route-map :global(.rm-pop__note) {
+    color: var(--accent-strong);
+    font-style: italic;
+    font-size: 0.75rem;
   }
   .route-map :global(.rm-pop__link) {
     color: var(--primary);

@@ -13,18 +13,23 @@ import RouteMap from '../components/RouteMap.astro';
 // 地图途经点（F059）：真实经纬度，按行程顺序补齐两条路线的途经站；
 // group 决定归属哪个可开关图层；photo 是弹窗照片占位槽的图注（待站长实拍替换）。
 // 路线折线几何在 src/data/route-geometry.json（真实公路，OSRM 一次性抓取）。
-type StopGroup = 'coastal' | 'border' | 'both';
-const stops: { name: string; lat: number; lng: number; sub?: string; href?: string; group: StopGroup; photo?: string }[] = [
-  { name: 'Nanning 南宁', lat: 22.817, lng: 108.3665, sub: 'Hub · entry port', href: '/itineraries/flow-a/', group: 'both', photo: 'Yongjiang riverside' },
-  { name: 'Beihai 北海', lat: 21.4733, lng: 109.1209, sub: 'Coast · entry port · 2–3 days', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Silver Beach' },
+type StopGroup = 'coastal' | 'border' | 'both' | 'vietnam';
+const stops: { name: string; lat: number; lng: number; sub?: string; href?: string; group: StopGroup; photo?: string; note?: string }[] = [
+  { name: 'Nanning 南宁', lat: 22.817, lng: 108.3665, sub: 'Fly-in port · 10-day transit OK', href: '/itineraries/flow-a/', group: 'both', photo: 'Yongjiang riverside' },
+  { name: 'Beihai 北海', lat: 21.4733, lng: 109.1209, sub: 'Fly-in port · coast · 2–3 days', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Silver Beach' },
   { name: 'Weizhou Island 涠洲岛', lat: 21.0333, lng: 109.1167, sub: 'Ferry from Beihai · 1–2 days', href: '/guides/weizhou-island-complete-guide/', group: 'coastal', photo: 'Volcanic sea cliffs' },
   { name: 'Fangchenggang 防城港', lat: 21.6867, lng: 108.3547, sub: 'Harbour coast · day stop', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Fishing harbour' },
-  { name: 'Dongxing 东兴', lat: 21.5433, lng: 108.0064, sub: 'Border · walk to Móng Cái', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Border gate' },
+  { name: 'Dongxing 东兴', lat: 21.5433, lng: 108.0064, sub: 'Border bridge · walk across ~15 min', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Border gate', note: 'Entry here: 30-day list or visa — 10-day transit must fly in' },
   { name: 'Detian Falls 德天瀑布', lat: 22.8564, lng: 106.7204, sub: 'Transnational waterfall · visa required', href: '/guides/detian-waterfall-friendship-pass/', group: 'border', photo: 'Detian waterfall' },
   { name: 'Jingxi 靖西', lat: 23.1347, lng: 106.4173, sub: 'Tongling canyon · visa required', href: '/itineraries/flow-b/', group: 'border', photo: 'Tongling Grand Canyon' },
   { name: 'Baise 百色', lat: 23.9022, lng: 106.6183, sub: 'Karst west hub · visa required', href: '/itineraries/flow-b/', group: 'border', photo: 'Riverside old quarter' },
   { name: 'Leye 乐业', lat: 24.7833, lng: 106.5611, sub: 'Dashiwei sinkholes · visa required', href: '/guides/leye-tiankeng-baise/', group: 'border', photo: 'Dashiwei tiankeng' },
-  { name: 'Bama 巴马', lat: 24.1414, lng: 107.2547, sub: 'Longevity karst', href: '/guides/bama-longevity-hechi/', group: 'border', photo: 'Karst valleys' },
+  { name: 'Bama 巴马 · Hechi 河池', lat: 24.1414, lng: 107.2547, sub: 'Longevity karst · caves', href: '/guides/bama-longevity-hechi/', group: 'border', photo: 'Karst valleys' },
+  // 从越南过来（F060）：时长/班次未实地核实的一律挂 not yet verified；公司名不编造——代订走 Plan My Trip。
+  { name: 'Hanoi', lat: 21.0285, lng: 105.8542, sub: 'Buses to the border · from HCMC fly ~2 h', note: 'Bus to Nanning ~8 h · to Móng Cái ~5 h — not yet verified', href: '/plan-my-trip/', group: 'vietnam' },
+  { name: 'Ha Long Bay', lat: 20.9517, lng: 107.0805, sub: 'Cruise hub · on the Móng Cái road', note: 'Bus to Móng Cái ~4 h — not yet verified', group: 'vietnam' },
+  { name: 'Móng Cái', lat: 21.5333, lng: 107.9667, sub: 'Walk the bridge into Dongxing ~15 min', note: 'Entry: 30-day list or visa — 10-day transit must fly in', href: '/guides/vietnam-to-china-overland/', group: 'vietnam' },
+  { name: 'Friendship Pass 友谊关', lat: 21.9743, lng: 106.7146, sub: 'Hanoi–Nanning road crossing', note: 'Entry: 30-day list or visa — 10-day transit must fly in', href: '/guides/detian-waterfall-friendship-pass/', group: 'vietnam' },
 ];
 ---
 <BaseLayout
@@ -58,6 +63,10 @@ const stops: { name: string; lat: number; lng: number; sub?: string; href?: stri
         <li><a href="/itineraries/flow-b/">
           <span class="name">The border loop</span>
           <span class="meta">7–10 days · visa required</span>
+        </a></li>
+        <li><a href="/guides/vietnam-to-china-overland/">
+          <span class="name">Getting in from Vietnam</span>
+          <span class="meta">Hanoi / Ha Long buses · land entry: 30-day list or visa</span>
         </a></li>
       </ul>
     </section>
