@@ -1,28 +1,25 @@
 ---
-// 真实地图（F051）：Leaflet + OSM 自托管瓦片，无 API key（config.yaml openstreetmap_leaflet）。
-// 渐进增强（F028 同款模式）：默认渲染纯文字站点列表；地图初始化成功才隐藏文字、显示地图。
-// JS 关闭 / 瓦片加载失败 / 脚本报错时，文字列表保持可见 —— 不依赖地图也能看懂路线。
-// 懒加载（F048 同款模式）：IntersectionObserver 滚入视口才拉 Leaflet 库与瓦片，首屏零地图开销。
+// 真实地图 v2（F059，继承 F051/F058 要求）：Leaflet + OSM 瓦片，无 API key。
+// 路线折线 = 真实公路几何（src/data/route-geometry.json，OSRM 开发期一次性抓取，
+// 运行期零路由 API）；渡轮段虚线；图层控件按路线开关（不同路线 = 不同游玩方案）；
+// 标记弹窗 = 景点卡片（照片占位槽——站长实拍素材到位后替换，禁 AI 图红线）。
+// 渐进增强（F028）：默认渲染文字站点列表；地图初始化成功才隐藏文字。
+// 懒加载（F048）：IntersectionObserver 观察外层可见 wrap——勿观察 hidden 容器，
+// display:none 元素永不触发 isIntersecting（907d951 教训）。
 interface Stop {
   name: string;
   lat: number;
   lng: number;
   sub?: string;
   href?: string;
-}
-interface Route {
-  points: [number, number][];
-  variant: 'primary' | 'accent';
-  dashed?: boolean;
+  group: 'coastal' | 'border' | 'both';
+  photo?: string;
 }
 interface Props {
   stops: Stop[];
-  routes: Route[];
-  center: [number, number];
-  zoom: number;
   label: string;
 }
-const { stops, routes, center, zoom, label } = Astro.props;
+const { stops, label } = Astro.props;
 ---
 <div class="route-map-wrap">
   <div
@@ -30,10 +27,7 @@ const { stops, routes, center, zoom, label } = Astro.props;
     class="route-map"
     aria-label={label}
     hidden
-    data-center={JSON.stringify(center)}
-    data-zoom={zoom}
     data-stops={JSON.stringify(stops)}
-    data-routes={JSON.stringify(routes)}
   ></div>
   <div class="route-map__fallback" id="route-map-fallback">
     <div class="route-map__placeholder" role="img" aria-label={label}>
@@ -57,21 +51,30 @@ const { stops, routes, center, zoom, label } = Astro.props;
 <script>
   import L from 'leaflet';
   import 'leaflet/dist/leaflet.css';
+  import geometry from '../data/route-geometry.json';
 
   interface StopData {
     name: string;
     lat: number;
     lng: number;
     sub?: string;
-  }
-  interface RouteData {
-    points: [number, number][];
-    variant: 'primary' | 'accent';
-    dashed?: boolean;
+    href?: string;
+    group: 'coastal' | 'border' | 'both';
+    photo?: string;
   }
 
   function tokenColor(name: string): string {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  // 景点卡片弹窗：照片占位槽（站长实拍到位后替换）+ 双语地名 + 一句话 + 链接。
+  function popupHtml(s: StopData): string {
+    const photo = s.photo
+      ? `<div class="rm-pop__photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="7.5" cy="7.5" r="1.6"></circle><path d="M3 17.5l5.5-6 4 3.7 3-3.2L21 17.5"></path></svg><span>PHOTO — ${s.photo}</span></div>`
+      : '';
+    const sub = s.sub ? `<span class="rm-pop__sub">${s.sub}</span>` : '';
+    const link = s.href ? `<a class="rm-pop__link" href="${s.href}">Details →</a>` : '';
+    return `<div class="rm-pop">${photo}<strong>${s.name}</strong>${sub}${link}</div>`;
   }
 
   function initMap(el: HTMLElement, fallback: HTMLElement) {
@@ -80,43 +83,50 @@ const { stops, routes, center, zoom, label } = Astro.props;
       // 对 display:none（高度 0）的容器 L.map() 会渲染出错位/空白地图。
       el.hidden = false;
 
-      const center = JSON.parse(el.dataset.center ?? '[22.6,108]') as [number, number];
-      const zoom = Number(el.dataset.zoom ?? '7');
       const stops = JSON.parse(el.dataset.stops ?? '[]') as StopData[];
-      const routes = JSON.parse(el.dataset.routes ?? '[]') as RouteData[];
-
-      const map = L.map(el, { scrollWheelZoom: false }).setView(center, zoom);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 18,
-      }).addTo(map);
 
       const primary = tokenColor('--primary') || '#0E7490';
       const accent = tokenColor('--accent') || '#F59E0B';
       const surface = tokenColor('--surface') || '#FFFFFF';
 
-      routes.forEach((r) => {
-        L.polyline(r.points, {
-          color: r.variant === 'accent' ? accent : primary,
-          weight: 3,
-          dashArray: r.dashed ? '7 6' : undefined,
-        }).addTo(map);
-      });
+      const map = L.map(el, { scrollWheelZoom: false });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+      }).addTo(map);
 
-      stops.forEach((s) => {
+      const marker = (s: StopData) =>
         L.circleMarker([s.lat, s.lng], {
           radius: 8,
           color: surface,
           weight: 2,
           fillColor: accent,
           fillOpacity: 1,
-        })
-          .addTo(map)
-          .bindPopup(`<strong>${s.name}</strong>${s.sub ? `<br>${s.sub}` : ''}`);
-      });
+        }).bindPopup(popupHtml(s), { maxWidth: 240 });
 
-      // 容器刚从 hidden 变可见，强制 Leaflet 重算尺寸，避免瓦片错位。
+      // 两条路线 = 两个可开关图层（各含自己的途经标记；Nanning 属 both，两层各有一份）。
+      const coastal = L.layerGroup([
+        L.polyline(geometry.coastal as [number, number][], { color: primary, weight: 3 }),
+        // 渡轮段（北海→涠洲岛，海路）：点状虚线，制图惯例。
+        L.polyline(geometry.ferry as [number, number][], { color: primary, weight: 3, dashArray: '2 7' }),
+        ...stops.filter((s) => s.group !== 'border').map(marker),
+      ]).addTo(map);
+      const border = L.layerGroup([
+        L.polyline(geometry.border as [number, number][], { color: accent, weight: 3, dashArray: '7 6' }),
+        ...stops.filter((s) => s.group !== 'coastal').map(marker),
+      ]).addTo(map);
+
+      L.control.layers(
+        undefined,
+        { 'The coastal route': coastal, 'The border loop': border },
+        { collapsed: false }
+      ).addTo(map);
+
+      // 容器刚从 hidden 变可见，强制重算尺寸后按全部路线取景。
       map.invalidateSize();
+      const all = (geometry.coastal as [number, number][]).concat(geometry.border as [number, number][]);
+      map.fitBounds(L.latLngBounds(all), { padding: [24, 24] });
+
       fallback.hidden = true;
     } catch {
       // 地图初始化失败：回退——重新隐藏地图容器，保持文字列表可见（F028）。
@@ -155,8 +165,53 @@ const { stops, routes, center, zoom, label } = Astro.props;
     height: 380px;
   }
   .route-map :global(.leaflet-popup-content-wrapper) {
+    background: var(--surface);
+    color: var(--text);
     border-radius: 0;
     font-family: var(--sans);
+  }
+  .route-map :global(.leaflet-popup-tip) {
+    background: var(--surface);
+  }
+  .route-map :global(.leaflet-control-layers) {
+    border-radius: 0;
+    font-family: var(--sans);
+  }
+  /* 景点卡片弹窗（HTML 由脚本注入，需 :global） */
+  .route-map :global(.rm-pop) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .route-map :global(.rm-pop__photo) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 84px;
+    background: var(--primary-soft);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+  }
+  .route-map :global(.rm-pop__photo svg) {
+    width: 18px;
+    height: 18px;
+    opacity: 0.55;
+  }
+  .route-map :global(.rm-pop strong) {
+    color: var(--ink);
+    font-size: 0.9375rem;
+  }
+  .route-map :global(.rm-pop__sub) {
+    color: var(--muted);
+    font-size: 0.8125rem;
+  }
+  .route-map :global(.rm-pop__link) {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.8125rem;
   }
   .route-map__fallback {
     font-size: 0.875rem;
