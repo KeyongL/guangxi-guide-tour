@@ -733,5 +733,18 @@
       "JS 关闭降级列表含全部站点；375px 无溢出；Lighthouse 移动端 ≥85"
     ],
     "passes": true
+  },
+  {
+    "id": "F061",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "首页地图 v4（站长 2026-07-10 反馈：缺河池，河池很多县都有——都安/天峨/南丹）：河池是地级市非单县，v3 把巴马误贴『· Hechi 河池』相当于河池=巴马。修正：新增第四图层『Hechi karst (visa-free)』（markers-only 无路线，河池诸县是散布喀斯特区非单条路线），含金城江区(河池市区 hub)+都安+天峨+南丹；巴马标记去掉『· Hechi』后缀（仍留边境环线，因 flow-b 行程含巴马）。合规：河池全域在 240h 过境免签区（巴马攻略已核实 twov），故 Hechi 层标 visa-free（与需签证的德天/乐业相反，是卖点）。诚实：县级景点无实地核实攻略，用百科级事实一句话（南丹白裤瑶/天峨红水河/都安瑶族喀斯特）并挂 not yet verified，链接 Plan My Trip",
+    "steps": [
+      "第四图层 Hechi karst 可开关，含 河池市区/都安/天峨/南丹 真实坐标标记",
+      "巴马标记去 Hechi 后缀；Hechi 层弹窗标 visa-free + 一句话 + not yet verified + Plan My Trip 链接",
+      "图例/入口列表体现河池是免签可达的独立区域",
+      "JS 关闭降级列表含新增站点；375px 无溢出；Lighthouse 移动端 ≥85"
+    ],
+    "passes": false
   }
 ]
