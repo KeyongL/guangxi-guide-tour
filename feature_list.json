@@ -707,5 +707,18 @@
       "375px 无横向溢出；Lighthouse 移动端 Performance ≥ 85"
     ],
     "passes": true
+  },
+  {
+    "id": "F059",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "首页地图 v2（站长 2026-07-09 反馈：直线连接『乱来』，要真实道路+景点照片+点击详情+多路线方案）：路线折线贴真实公路几何（OSRM dev 时一次性抓取存静态 JSON src/data/route-geometry.json，运行期零 API/零 key）；渡轮段虚线；Leaflet 图层控件按路线开关两方案；标记弹窗升级景点卡片（照片占位槽+图注+双语地名+一句话+链接，真实照片素材到位后直接替换）；标记补齐行程途经点并校正坐标（Detian 瀑布正位/Bama 巴马正位/新增 Fangchenggang·Jingxi·Leye）",
+    "steps": [
+      "两条路线折线贴合真实公路（静态几何，无运行期路由 API），渡轮 Beihai→Weizhou 虚线",
+      "图层控件可分别开关两条路线（各含途经标记），默认全开",
+      "点击标记弹景点卡片：照片占位槽+名称+一句话+链接",
+      "JS 关闭降级文字列表不回退（F028）；375px 无溢出；Lighthouse 移动端 ≥85"
+    ],
+    "passes": false
   }
 ]
