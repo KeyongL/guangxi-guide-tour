@@ -693,7 +693,7 @@
       "styleguide 不再构建输出；页脚一行 Guides · About + NIA 链接",
       "构建产物可见 UI 文字无 'No Visa China'（<title> 后缀除外）"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F058",
@@ -706,6 +706,6 @@
       "护照速查三行制无解释句，UI 无 '240 hours' 字样（正文合规引用除外）",
       "375px 无横向溢出；Lighthouse 移动端 Performance ≥ 85"
     ],
-    "passes": false
+    "passes": true
   }
 ]
