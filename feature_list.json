@@ -758,6 +758,6 @@
       "Getting in from Vietnam 红线单独图层、不编号；四色均取现有令牌无新色",
       "入口列表用 Route 1/2/3 命名；JS 关闭降级含河池环线站点；375px 无溢出；Lighthouse 移动端 ≥85"
     ],
-    "passes": false
+    "passes": true
   }
 ]

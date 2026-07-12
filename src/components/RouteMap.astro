@@ -94,6 +94,8 @@ const { stops, label } = Astro.props;
       const surface = tokenColor('--surface') || '#FFFFFF';
       // 红色 = 现有令牌 --error-text（浅 #B91C1C / 深 #F87171），不发明新色（SPEC 红线）。
       const red = tokenColor('--error-text') || '#B91C1C';
+      // 绿色 = 现有令牌 --success-text（浅 #15803D / 深 #4ADE80），Route 3 河池自然线（F062）。
+      const green = tokenColor('--success-text') || '#15803D';
 
       const map = L.map(el, { scrollWheelZoom: false });
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -106,7 +108,7 @@ const { stops, label } = Astro.props;
           radius: 8,
           color: surface,
           weight: 2,
-          fillColor: s.group === 'vietnam' ? red : s.group === 'hechi' ? primary : accent,
+          fillColor: s.group === 'vietnam' ? red : s.group === 'hechi' ? green : accent,
           fillOpacity: 1,
         }).bindPopup(popupHtml(s), { maxWidth: 240 });
 
@@ -139,19 +141,21 @@ const { stops, label } = Astro.props;
         ...stops.filter((s) => inGroup(s, 'vietnam')).map(marker),
       ]).addTo(map);
 
-      // 河池喀斯特（F061）：markers-only——河池诸县是散布的喀斯特区，非单条路线；
-      // primary 蓝绿色标记 = 240h 过境免签可达（与需签证的边境环线区分，是卖点）。
-      const hechi = L.layerGroup(
-        stops.filter((s) => inGroup(s, 'hechi')).map(marker)
-      ).addTo(map);
+      // 河池喀斯特 Route 3（F062）：真实公路环线连起原散布的 6 个河池标记；
+      // 绿色（success 令牌）= 免签自然线，与蓝绿海岸线/琥珀边境线三色分明。
+      const hechi = L.layerGroup([
+        casing(geometry.hechiLoop as [number, number][]),
+        line(geometry.hechiLoop as [number, number][], green),
+        ...stops.filter((s) => inGroup(s, 'hechi')).map(marker),
+      ]).addTo(map);
 
       L.control.layers(
         undefined,
         {
-          'The coastal route': coastal,
-          'The border loop': border,
-          'From Vietnam (getting in)': vietnam,
-          'Hechi karst (visa-free)': hechi,
+          'Route 1 · The Coast (visa-free)': coastal,
+          'Route 2 · Border Karst (visa needed)': border,
+          'Route 3 · Hechi Nature (visa-free)': hechi,
+          'Getting in from Vietnam': vietnam,
         },
         { collapsed: false }
       ).addTo(map);
