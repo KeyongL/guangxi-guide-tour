@@ -12,7 +12,7 @@ interface Stop {
   lng: number;
   sub?: string;
   href?: string;
-  group: 'coastal' | 'border' | 'both' | 'vietnam';
+  group: 'coastal' | 'border' | 'both' | 'vietnam' | 'hechi';
   photo?: string;
   note?: string;
 }
@@ -60,7 +60,7 @@ const { stops, label } = Astro.props;
     lng: number;
     sub?: string;
     href?: string;
-    group: 'coastal' | 'border' | 'both' | 'vietnam';
+    group: 'coastal' | 'border' | 'both' | 'vietnam' | 'hechi';
     photo?: string;
     note?: string;
   }
@@ -106,7 +106,7 @@ const { stops, label } = Astro.props;
           radius: 8,
           color: surface,
           weight: 2,
-          fillColor: s.group === 'vietnam' ? red : accent,
+          fillColor: s.group === 'vietnam' ? red : s.group === 'hechi' ? primary : accent,
           fillOpacity: 1,
         }).bindPopup(popupHtml(s), { maxWidth: 240 });
 
@@ -139,19 +139,31 @@ const { stops, label } = Astro.props;
         ...stops.filter((s) => inGroup(s, 'vietnam')).map(marker),
       ]).addTo(map);
 
+      // 河池喀斯特（F061）：markers-only——河池诸县是散布的喀斯特区，非单条路线；
+      // primary 蓝绿色标记 = 240h 过境免签可达（与需签证的边境环线区分，是卖点）。
+      const hechi = L.layerGroup(
+        stops.filter((s) => inGroup(s, 'hechi')).map(marker)
+      ).addTo(map);
+
       L.control.layers(
         undefined,
-        { 'The coastal route': coastal, 'The border loop': border, 'From Vietnam (getting in)': vietnam },
+        {
+          'The coastal route': coastal,
+          'The border loop': border,
+          'From Vietnam (getting in)': vietnam,
+          'Hechi karst (visa-free)': hechi,
+        },
         { collapsed: false }
       ).addTo(map);
 
-      // 容器刚从 hidden 变可见，强制重算尺寸后按全部路线取景。
+      // 容器刚从 hidden 变可见，强制重算尺寸后按全部路线+河池标记取景。
       map.invalidateSize();
       const all = ([] as [number, number][]).concat(
         geometry.coastal as [number, number][],
         geometry.border as [number, number][],
         geometry.vnNanning as [number, number][],
-        geometry.vnDongxing as [number, number][]
+        geometry.vnDongxing as [number, number][],
+        stops.filter((s) => inGroup(s, 'hechi')).map((s) => [s.lat, s.lng] as [number, number])
       );
       map.fitBounds(L.latLngBounds(all), { padding: [24, 24] });
 

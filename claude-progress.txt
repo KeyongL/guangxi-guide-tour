@@ -1484,3 +1484,38 @@ Trip 代订）；胡志明→河内仅弹窗一句（fly ~2 h），不画 1700km
 失焦；fitBounds 含越南后整图 zoom 6 偏远景，属正确取景行为，站长嫌远可
 下轮把地图容器加高或默认只开 China 侧图层。
 下一步：站长预览；之后 F046+F028+F048（行程页真地图）→ F054 → /verify。
+
+[2026-07-10] F061 首页地图 v4：补齐河池地区（都安/天峨/南丹）
+---------------------------------------------
+站长指出河池缺失——「河池很多县都有」，点名都安/天峨/南丹。诊断：河池
+是地级市（下辖金城江/都安/天峨/南丹/凤山/东兰/罗城/环江/宜州等十来个县
+区），v3 只有巴马一点且误贴「· Hechi 河池」后缀＝把河池缩成一个县，确
+是疏忽。/change 第5批立项 F061。
+- RouteMap.astro：group 联合加 'hechi'；新增第四图层「Hechi karst
+  (visa-free)」——markers-only（河池诸县是散布喀斯特区，非单条公路，故
+  不画线，不抓 OSRM）；河池标记用 primary 蓝绿填色（与需签证边境环线的
+  琥珀标记区分，视觉上点明「免签可达」是卖点）；fitBounds 并入河池坐标。
+- index.astro：巴马标记去「· Hechi 河池」后缀（仍留 border 组，因 flow-b
+  行程含巴马 Day7）；新增 4 个真实县城坐标标记——金城江区(河池市区 hub
+  24.696,108.062)/都安(23.932,108.104)/天峨(24.995,107.174)/南丹
+  (24.979,107.545)；地图下入口列表加第 4 行「Hechi karst 河池」（链巴马
+  攻略，注明 visa-free/240h transit OK）。
+- 合规与诚实：河池全域 240h 免签（巴马攻略已核实 twov），Hechi 层标
+  visa-free；县级景点无实地核实攻略——用百科级事实一句话（南丹白裤瑶/
+  天峨红水河 Hongshui River/都安瑶族喀斯特），并一律挂 not yet verified、
+  链接 Plan My Trip（不编造具体景点/时长；河池市区 hub 那句「Gateway to
+  Du'an, Tian'e, Nandan」是纯地理事实故不挂标）。
+
+真机验证（headless Chromium + 生产构建，v4-desktop.png 留档）：4 个图层
+开关（文案含 Hechi karst (visa-free)）；24 交互元素（5 线+19 标记）；河池
+4 个蓝绿标记（fill #0E7490）；关 Hechi 层 24→20（-4 精确）；南丹弹窗
+「White Trouser Yao 白裤瑶 · visa-free / Yao culture — not yet verified /
+Details」逐字对；375px 无溢出；JS 关闭 18 站降级（14+4）含南丹；无
+pageerror；Lighthouse 移动端 95/100。F061 四条验收全实测 → passes:true。
+total 61 / passing 33。
+
+已知限制（如实）：只补了站长点名的 3 县 + 河池市区 hub；河池其余县（凤山
+世界地质公园/东兰/环江毛南族/宜州刘三姐等）未加——待站长确认还要哪些再
+补（避免一次性堆太多未核实点）；县级景点全挂 not yet verified，等站长实
+地核实或写攻略后摘标；无独立河池攻略文章，入口暂链巴马攻略/Plan My Trip。
+下一步：站长预览确认；之后 F046+F028+F048（行程页真地图）→ F054 → /verify。

@@ -745,6 +745,6 @@
       "图例/入口列表体现河池是免签可达的独立区域",
       "JS 关闭降级列表含新增站点；375px 无溢出；Lighthouse 移动端 ≥85"
     ],
-    "passes": false
+    "passes": true
   }
 ]
