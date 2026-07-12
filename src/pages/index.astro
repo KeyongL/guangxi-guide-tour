@@ -31,6 +31,9 @@ const stops: { name: string; lat: number; lng: number; sub?: string; href?: stri
   { name: 'Du\'an 都安', lat: 23.932, lng: 108.104, sub: 'Yao karst county · visa-free', note: 'Karst geopark — not yet verified', href: '/plan-my-trip/', group: 'hechi' },
   { name: 'Tian\'e 天峨', lat: 24.995, lng: 107.174, sub: 'Hongshui River 红水河 karst · visa-free', note: 'Longtan gorge — not yet verified', href: '/plan-my-trip/', group: 'hechi' },
   { name: 'Nandan 南丹', lat: 24.979, lng: 107.545, sub: 'White Trouser Yao 白裤瑶 · visa-free', note: 'Yao culture — not yet verified', href: '/plan-my-trip/', group: 'hechi' },
+  // 站长补：只加自然风光县（人文景点如刘三姐不加）。环江=世界自然遗产喀斯特，凤山=世界地质公园——头衔是硬事实，具体景点仍挂 not yet verified。
+  { name: 'Huanjiang 环江', lat: 24.831, lng: 108.259, sub: 'World Heritage karst 木论 · visa-free', note: 'Mulun old-growth karst — not yet verified', href: '/plan-my-trip/', group: 'hechi' },
+  { name: 'Fengshan 凤山', lat: 24.543, lng: 107.048, sub: 'World Geopark · caves & sky-windows 天窗 · visa-free', note: 'Chuanlong karst — not yet verified', href: '/plan-my-trip/', group: 'hechi' },
   // 从越南过来（F060）：时长/班次未实地核实的一律挂 not yet verified；公司名不编造——代订走 Plan My Trip。
   { name: 'Hanoi', lat: 21.0285, lng: 105.8542, sub: 'Buses to the border · from HCMC fly ~2 h', note: 'Bus to Nanning ~8 h · to Móng Cái ~5 h — not yet verified', href: '/plan-my-trip/', group: 'vietnam' },
   { name: 'Ha Long Bay', lat: 20.9517, lng: 107.0805, sub: 'Cruise hub · on the Móng Cái road', note: 'Bus to Móng Cái ~4 h — not yet verified', group: 'vietnam' },
@@ -76,7 +79,7 @@ const stops: { name: string; lat: number; lng: number; sub?: string; href?: stri
         </a></li>
         <li><a href="/guides/bama-longevity-hechi/">
           <span class="name">Hechi karst 河池</span>
-          <span class="meta">Du'an · Tian'e · Nandan · Bama — visa-free, 240-hour transit OK</span>
+          <span class="meta">Huanjiang · Fengshan · Du'an · Tian'e · Nandan — visa-free, 240-hour transit OK</span>
         </a></li>
       </ul>
     </section>

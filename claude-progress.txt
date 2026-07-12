@@ -1519,3 +1519,24 @@ total 61 / passing 33。
 补（避免一次性堆太多未核实点）；县级景点全挂 not yet verified，等站长实
 地核实或写攻略后摘标；无独立河池攻略文章，入口暂链巴马攻略/Plan My Trip。
 下一步：站长预览确认；之后 F046+F028+F048（行程页真地图）→ F054 → /verify。
+
+[2026-07-10] F061 续：河池补自然风光县（环江/凤山，站长筛选）
+---------------------------------------------
+站长定筛选标准：「刘三姐不好看，不加。自然风光好的要加」——只加自然
+景观县，排除人文景点（刘三姐=宜州人文，不加）。AskUserQuestion 多选，
+站长选定 环江 + 凤山（东兰未选，它带革命老区人文色彩）。属 F061 河池
+图层的数据补充（非新功能，不动 feature_list 验收文字，F061 仍 passing）。
+- index.astro hechi 组加 2 标记（真实县城坐标）：环江 Huanjiang
+  (24.831,108.259)「World Heritage karst 木论 · visa-free」note「Mulun
+  old-growth karst — not yet verified」；凤山 Fengshan (24.543,107.048)
+  「World Geopark · caves & sky-windows 天窗 · visa-free」note「Chuanlong
+  karst — not yet verified」。两县头衔（世界自然遗产/世界地质公园）是硬
+  事实故 sub 直述，具体景点仍挂 not yet verified，链接 Plan My Trip。
+- 入口列表第 4 行 Hechi karst 更新为 Huanjiang · Fengshan · Du'an ·
+  Tian'e · Nandan。
+真机验证：河池蓝绿标记 4→6、关 Hechi 层交互元素精确 -6、375px 无溢出、
+JS 关闭 20 站含 Fengshan、产物含两县 sub/note 文案、无 pageerror、
+Lighthouse 移动端 98/100。（弹窗逐字复核沿用 F061 已验证的同一代码路径。）
+已知：河池其余县（东兰/罗城/宜州等）按站长筛法未加（人文或风光不突出）；
+环江/凤山具体景点待站长实地核实后摘 not yet verified 标。
+下一步：站长预览；之后 F046+F028+F048（行程页真地图）→ F054 → /verify。
