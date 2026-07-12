@@ -746,5 +746,18 @@
       "JS 关闭降级列表含新增站点；375px 无溢出；Lighthouse 移动端 ≥85"
     ],
     "passes": true
+  },
+  {
+    "id": "F062",
+    "category": "ui",
+    "milestone": "V1.2-revamp",
+    "description": "首页地图 v5（站长 2026-07-10 反馈：河池景点没连线；三条路线应分 路线1/2/3 用不同颜色、侧重点不同）：三条『玩乐路线』编号+主题+分色——Route 1·The Coast（primary 蓝绿，免签，海岛出越南）/ Route 2·Border Karst（accent 琥珀，需签证，瀑布边境）/ Route 3·Hechi Nature（success 绿，免签，喀斯特自然）；河池升级为真正 Route 3——OSRM 抓真实公路环线（南宁→都安→河池→环江→南丹→天峨→凤山→南宁 807km）连起原散布的河池标记，河池标记改绿；『Getting in from Vietnam』红线单独一层不编号（入境方式非玩乐路线，AI 建议站长采纳）；四色全取现有令牌（primary/accent/success/error，不发明新色）；入口列表同步 Route 1/2/3 命名",
+    "steps": [
+      "三条玩乐路线图层名为 Route 1·The Coast / Route 2·Border Karst / Route 3·Hechi Nature，三色分明（蓝绿/琥珀/绿）",
+      "河池 Route 3 有真实公路环线连起 6 个河池标记，标记与线同为绿色",
+      "Getting in from Vietnam 红线单独图层、不编号；四色均取现有令牌无新色",
+      "入口列表用 Route 1/2/3 命名；JS 关闭降级含河池环线站点；375px 无溢出；Lighthouse 移动端 ≥85"
+    ],
+    "passes": false
   }
 ]
