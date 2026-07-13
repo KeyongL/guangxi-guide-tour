@@ -771,7 +771,7 @@
       "保存后 npm run build 通过；schema 校验含崇左/百色 visa_zone 护栏仍生效（非法值构建失败）",
       "全程零数据库、零 OAuth、零服务器；非技术人员不手写 Markdown 语法即可改正文"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F064",

@@ -8,12 +8,16 @@
     "check:compliance": "node scripts/check-compliance.mjs",
     "prebuild": "npm run check:compliance",
     "build": "astro build",
-    "preview": "astro preview --host 127.0.0.1"
+    "preview": "astro preview --host 127.0.0.1",
+    "cms:proxy": "decap-server"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@types/leaflet": "^1.9.21",
     "astro": "^5",
     "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "decap-server": "^3.9.1"
   }
 }

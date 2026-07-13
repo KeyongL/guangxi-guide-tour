@@ -1606,3 +1606,63 @@ OAuth）待验证后再 /change。② 不加数据库。
 下一步：本命令只立项不实现。开新对话 /work 实现 F063→F064。（原队列
 F046+F028+F048 行程页真地图 / F054 Plan My Trip / /verify 回归仍在，
 优先级由站长定。）
+
+[2026-07-12] F063：CMS 表单后台落地（Decap CMS，local backend）
+---------------------------------------------
+选型：Decap 还是 Sveltia，站长留了口子（"Decap 或 Sveltia"）。查了两边
+文档后选 Decap，不选 Sveltia，理由是环境约束而非偏好：Sveltia 已经砍掉
+了旧版 local_backend/decap-server 代理这条路，改成纯靠浏览器 File System
+Access API（需要真机 Chrome 里一次目录选择器授权），本沙箱是无桌面的
+headless 环境，这条路径没法自动化验证；Decap 的 local_backend 走 HTTP
+代理（`npx decap-server`），/admin 页面的交互和保存都是普通 DOM 操作+
+HTTP 请求，headless Chromium 能全程跑通，端到端验证才有着落。两者
+config.yml 语法兼容，以后站长真到桌面上编辑、想换 Sveltia 的更好体验，
+配置基本不用改，只换 admin/index.html 里的一行 script src。
+
+实现：
+- public/admin/config.yml：guides+cities 两个 folder collection，字段
+  逐一对齐 src/content.config.ts 的 zod schema（不是随手照抄，几个坑
+  是查 Decap 官方文档确认的：number 组件默认存成字符串会炸 z.number()，
+  必须显式 value_type: int；date/datetime 组件默认存 Day.js 格式，显式
+  format/date_format: "YYYY-MM-DD" 才能保证 z.coerce.date() 能解析；无
+  fields 的 list 组件底层仍存正经 YAML 数组，不是逗号字符串）。visa_zone
+  用 select 给了人话选项，并在 hint 里直接提示"崇左/百色必须 non-twov，
+  否则构建失败"——CMS 端不复刻 superRefine 逻辑，构建期校验仍是唯一真正
+  的强制点。cover 字段本批仍是纯字符串（图片上传是 F064 的事），但
+  media_folder: public/uploads、public_folder: /uploads 已经预先配好，
+  F064 直接接图片组件即可。
+- public/admin/index.html：Decap CMS 官方 CDN 起步模板（unpkg 加载
+  decap-cms@^3.0.0），未额外定制。
+- package.json 加 decap-server 到 devDependencies + 新增
+  `npm run cms:proxy` 脚本（本地跑代理，配合 dev/preview 使用）。
+
+验证（headless Chromium，Playwright 自带二进制，真跑 npm run preview +
+npm run cms:proxy，非模拟）：
+- /admin 打开→点一次 Login（local backend 的固定手势，不是真登录/无
+  OAuth）→侧栏正确显示 Guides、Cities 两个集合；Guides 列表 11 篇真实
+  文章标题全部对上 content/guides/*.md。
+- 打开示例文章条目，字段渲染与 schema 完全对齐（TITLE/SUMMARY/REGION/
+  VISA ZONE 下拉/URL SLUG/COVER IMAGE PATH/VERIFIED ON/BODY），hint 文案
+  正确显示（含 F033 护栏提示、F064 预告）。
+- 改 Summary 并点 Publish（这版 Decap 的持久化按钮叫 Publish 不是
+  Save）→ "Entry saved/CHANGES SAVED/Published"；content/guides/
+  sample-guide.md 的 frontmatter 真被写回、git diff 可见；npm run build
+  通过；dist/ 产物里能 grep 到改动内容——全链路打通后手动 revert 掉这条
+  测试改动（只是验证用，非真实内容）。
+- 回归测试 F033 护栏：临时把 detian-chongzuo.md 的 visa_zone 改成非法值
+  "twov"，npm run build 按预期报错拦截（错误文案就是 content.config.ts
+  里那句崇左/百色强制提示），确认 CMS 改动没有绕过构建期校验；随后
+  revert。
+- 全程零数据库、零 OAuth；唯一的本地进程是 decap-server 这一个 HTTP
+  代理，符合"零服务器"里"零额外后端服务"的原意（浏览器到代理是
+  localhost 内部调用）。截图存于 ~/previews/20260712-173531-
+  guangxi-guide-f063/。
+
+已知边界（不变，写在 F063/F064 立项时已列明，本批未动）：远程浏览器
+编辑（F065）未做；index.astro/RouteMap.astro 里硬编码的地图 marker
+文案 CMS 碰不到；cover 字段的图片上传/媒体库留给 F064。decap-server 的
+npm audit 报 2 个漏洞（1 low/1 high）——纯本地开发依赖，不进 Cloudflare
+构建产物，本批未处理。
+
+F063 四条验收全部真实跑通 → passes:true。total 64 / passing 35。
+下一步：新会话 /work 实现 F064（图片上传/媒体库，media_folder 已预留）。
