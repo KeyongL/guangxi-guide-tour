@@ -1895,3 +1895,71 @@ F027 验收标准 1/2/3 全部真实跑通 → passes:true。total 64 / passing 
 
 📍 下一步：F054（Plan My Trip 商业化入口）/ F065 等仍在队列，优先级由
 站长定。本 session 未 push（铁律#7，push 由站长人工执行）。
+
+[2026-07-13] /work（续）：F051 复核 + F054 落地 —— Plan My Trip 专属表单
+---------------------------------------------
+站长选"先复核 F051，再做 F054"。复核结果：F051/F011 均已带
+deprecated:true + deprecated_reason（分别被 F058/F056 取代），且原因
+经交叉核对属实（首页 hero 现为照片而非地图、首页确不再渲染攻略卡片）；
+F058 本就 passes:true。=> 三条记录本来就是对的，本 session 未改动
+feature_list.json 里任何 F051/F011/F058 字段——先前怀疑"该翻正"是我
+没读全字段（只查了 passes，漏看 deprecated），读全之后确认无需动作，
+特此纠正，避免下次会话重复怀疑。（F056 顺带发现结构上大概率已满足，
+但不在本次授权范围内，未验证/未改 passes，留给未来会话。）
+
+F054 实现（新增 1 文件、改动 3 文件）：
+- 新增 src/components/TripPlanForm.astro：dates / party size（数字，
+  min=1）/ needs（textarea）三个必填字段 + Name/Email（供站长回邮报
+  价，spec 未列名但报价必须有联系方式，判断后补上）。fetch 提交/
+  mailto 回退逻辑与 ContactForm（F027）完全一致（有意复制而非抽共享
+  模块——两处控制流现在 100%相同，但刻意不碰已上线的 ContactForm.astro
+  去做共享抽象，只为服务新功能而重构已验证代码不算"必须改动"）。复用
+  同一份 PUBLIC_FORMSPREE_ID/PUBLIC_CONTACT_EMAIL，未新增 env 变量。
+- src/pages/plan-my-trip.astro：ContactForm 换成 TripPlanForm；lead 文案
+  按验收标准明示服务内容（hotels/tickets/custom route 三项，此前只有
+  笼统"wishes"）；stub 期注释清空。
+- src/pages/index.astro：路线列表下加一行纯文字 CTA"Want it planned for
+  you? Plan My Trip →"（非按钮/无色块）。
+- src/layouts/BaseLayout.astro：全站页脚导航加 Plan My Trip 链接。
+  （两处 CTA 放法是站长会话中用 AskUserQuestion 选的"both"——因为首页
+  自己的负面清单#7 明确删过"底部二次 CTA 横幅"，需要先问范围而非默认
+  实现，属于我记忆里"设计口味冲突先问范围"的适用场景。导航头部 CTA
+  是 F053 就建好的，本次未改。）
+
+验证（headless Chromium 真实填表提交 + 网络请求监听，沿用 F027 同一套
+方法，另加 375px 溢出检查）：
+- npm run build 全程无报错。
+- /plan-my-trip/ 页面 5 个字段（name/email/dates/party_size/needs）均
+  渲染且 name 属性正确；服务说明文案（hotels/tickets/custom route）
+  确认在页面可见文本中出现。
+- State 1（当前生产状态：email 配了、formspree id 未配）：提交后 0
+  个网络请求、成功态保持 hidden、回退段落显示 mailto:86604065@qq.com
+  ——不会假装成功。
+- 临时设 PUBLIC_FORMSPREE_ID=testF054（测完已改回空值+rebuild 恢复，
+  dist/ grep 确认无残留）：Playwright route 拦截真实发出的 POST
+  https://formspree.io/f/testF054，验证 200→成功态显示+回退隐藏、
+  500→成功态隐藏+回退显示、abort（模拟网络错误）→同 500，三种场景下
+  两个状态区从未同时可见。
+- 375px 视口下 /plan-my-trip/ 与首页 scrollWidth==clientWidth，均无
+  横向溢出（新加的 number 输入框与 CTA 文字行都没有撑破布局）。
+- 回归烟测（本次动了共享文件 BaseLayout.astro / index.astro）：首页
+  RouteMap 脚本 chunk、4 条路线入口、护照速查三行、导航头部原有 Plan
+  My Trip CTA 均未受影响；页脚在 index/about/guides 三页均正确出现新
+  链接。
+- 测试用的 preview server 用完已 kill，未留驻留进程。
+
+未闭环部分（如实记录，非本 session 能力范围）：F054 step2"提交经
+Formspree 送达站长邮箱"里"真实送达"这半句，同 F024 一样卡在站长本人
+去 formspree.io 注册拿真实 PUBLIC_FORMSPREE_ID——本 session 只能验证到
+"给了 id 就会真 POST 且按响应正确分支"，无法验证真实邮件到达station
+长收件箱（因为没有真实 id 可测）。这不是本功能的缺陷，是 F024 那条
+已知阻塞的自然延伸，验收标准 1/3/4 三条已完整闭环。
+
+F054 四条验收标准中 1/3/4 完整验证通过，第 2 条在"给定真实 id 会正确
+工作"层面验证通过（同 F024 阻塞项一致，非本功能缺陷）→ passes:true。
+total 64 / passing 40（F054 由 false→true；F051/F011/F058 无变动）。
+
+📍 下一步：F024 仍卡站长注册 Formspree；其余 failing 功能里最大的一块
+是 F034–F045 + F056（旅游攻略/行程内容撰写，需要事实核查，与本次编码
+性质不同）；小而独立的 UI/边界项还有 F004/F014/F019/F030-F032/F047。
+优先级由站长定。本 session 未 push（铁律#7，push 由站长人工执行）。

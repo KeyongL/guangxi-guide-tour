@@ -656,7 +656,7 @@
       "Formspree 缺失时降级 mailto（复用 F027 模式）",
       "首页与导航均有醒目入口 CTA"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F055",

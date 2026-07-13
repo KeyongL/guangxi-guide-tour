@@ -1,20 +1,22 @@
 ---
-// Plan My Trip（stub，F053 依赖）：F053 导航要求「Plan My Trip」是真实可达路由，
-// 但完整 F054（专属文案/定价说明/CTA 位置打磨）本会话未选，先建最简页面避免死链。
-// 复用 ContactForm（F015 UI + F027 Formspree/mailto 降级），字段沿用通用 Name/Email/Message。
-// 下一步（F054 单开会话）：换成日期/人数/需求专属字段 + 服务说明文案。
+// Plan My Trip 服务页（F054，商业化入口，人工接单）：dates/party size/needs 专属表单，
+// 提交/降级逻辑见 TripPlanForm（同 ContactForm 的 F027 Formspree/mailto 模式）。
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ContactForm from '../components/ContactForm.astro';
+import TripPlanForm from '../components/TripPlanForm.astro';
 ---
 <BaseLayout
   title="Plan My Trip — No Visa China"
-  description="Tell us your dates and what you want to see in Guangxi. We reply with a route and a quote — no online payment, no auto-pricing."
+  description="Tell us your dates and what you want in Guangxi — hotels, tickets, a custom route. We reply with a quote, no online payment."
 >
   <main>
     <article class="plan">
       <h1>Plan My Trip</h1>
-      <p class="lead">Dates, group size, wishes — we reply with route + quote.</p>
-      <ContactForm />
+      <p class="lead">
+        Tell us your dates, group size, and what you want. We help with hotels,
+        tickets, and a custom route — then reply with a plan and a price.
+      </p>
+      <p class="note">No online payment, no auto-pricing — a real reply from a real person.</p>
+      <TripPlanForm />
     </article>
   </main>
 </BaseLayout>
@@ -29,5 +31,10 @@ import ContactForm from '../components/ContactForm.astro';
   .lead {
     font-size: 1.0625rem;
     color: var(--ink);
+  }
+  .note {
+    margin-top: 8px;
+    font-size: 0.875rem;
+    color: var(--muted);
   }
 </style>

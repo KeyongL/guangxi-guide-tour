@@ -1,0 +1,153 @@
+---
+// Plan My Trip 专属表单（F054）：dates / party size / needs 必填，Name/Email 供站长回复报价。
+// 提交/降级逻辑与 ContactForm（F027）一致——复用同一份 Formspree env，非新表单不建新 id。
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
+const formspreeEndpoint = formspreeId ? `https://formspree.io/f/${formspreeId}` : '';
+---
+<form class="trip-form" data-formspree-endpoint={formspreeEndpoint} novalidate={false}>
+  <label class="field">
+    <span>Name</span>
+    <input type="text" name="name" required />
+  </label>
+  <label class="field">
+    <span>Email</span>
+    <input type="email" name="email" required />
+  </label>
+  <label class="field">
+    <span>Dates</span>
+    <input type="text" name="dates" placeholder="e.g. 12–18 Oct, or flexible" required />
+  </label>
+  <label class="field">
+    <span>Party size</span>
+    <input type="number" name="party_size" min="1" step="1" required />
+  </label>
+  <label class="field">
+    <span>What do you want?</span>
+    <textarea
+      name="needs"
+      rows="4"
+      placeholder="Hotels, train/bus tickets, a custom route, anything else"
+      required
+    ></textarea>
+  </label>
+  <button type="submit">Send request</button>
+</form>
+<div class="trip-success" hidden>
+  <p>Thanks — I'll reply with a route and a quote.</p>
+</div>
+{contactEmail ? (
+  <p class="trip-fallback" hidden>
+    Prefer email? Reach me at <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+  </p>
+) : (
+  <p class="trip-fallback" hidden>
+    Sorry — this form isn't available right now.
+  </p>
+)}
+
+<script>
+  // 同 ContactForm（F027）：有 endpoint 才 fetch POST；无 endpoint/网络错误/非 2xx 都回退。
+  const form = document.querySelector<HTMLFormElement>('.trip-form');
+  const success = document.querySelector<HTMLElement>('.trip-success');
+  const fallback = document.querySelector<HTMLElement>('.trip-fallback');
+
+  function showSuccess() {
+    if (form) form.hidden = true;
+    if (success) success.hidden = false;
+  }
+
+  function showFallback() {
+    if (form) form.hidden = true;
+    if (fallback) fallback.hidden = false;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const endpoint = form.dataset.formspreeEndpoint;
+    if (!endpoint) {
+      showFallback();
+      return;
+    }
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      if (res.ok) {
+        showSuccess();
+      } else {
+        showFallback();
+      }
+    } catch {
+      showFallback();
+    }
+  });
+</script>
+
+<style>
+  /* 字段/按钮样式与 ContactForm 一致，保持全站表单视觉统一。 */
+  .trip-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .field input,
+  .field textarea {
+    font: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 10px 12px;
+  }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  .field textarea {
+    resize: vertical;
+  }
+  button[type='submit'] {
+    align-self: flex-start;
+    background: var(--primary);
+    color: var(--surface);
+    border: 1px solid var(--primary);
+    border-radius: 0;
+    font: 600 0.875rem/1 var(--sans);
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  button[type='submit']:hover {
+    background: var(--primary-strong);
+    border-color: var(--primary-strong);
+  }
+  .trip-success {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--success-bg);
+    color: var(--success-text);
+    font-size: 0.875rem;
+  }
+  .trip-fallback {
+    margin-top: 16px;
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+  .trip-fallback a {
+    color: var(--primary);
+  }
+</style>
