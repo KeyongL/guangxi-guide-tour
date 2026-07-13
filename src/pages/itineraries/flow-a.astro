@@ -8,7 +8,9 @@ import Timeline from '../../components/Timeline.astro';
 import VisaBadge from '../../components/VisaBadge.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import RouteMap from '../../components/RouteMap.astro';
+import CityCard from '../../components/CityCard.astro';
 import { stops } from '../../data/stops';
+import { getCollection } from 'astro:content';
 
 // F046：只要这条路线自己的站（Nanning 是 both，两条路线共用）。涠洲岛是可选的
 // 渡轮支线，不在这 4 天行程里——标记和渡轮虚线（showFerry=false）都要一并排除，
@@ -43,6 +45,12 @@ const days = [
     lodging: 'Onward in Móng Cái, Vietnam.',
   },
 ];
+
+// F047：本路线沿途城市名片（按行程顺序显式选取；缺失则安全跳过）。
+const allCities = await getCollection('cities');
+const routeCities = ['beihai', 'dongxing']
+  .map((id) => allCities.find((c) => c.id === id))
+  .filter(Boolean);
 ---
 <BaseLayout
   title="Coastline Route to Vietnam (3–5 days) — No Visa China"
@@ -69,6 +77,12 @@ const days = [
         label="Map of the coastline route from Nanning to the Dongxing border crossing"
       />
       <Timeline days={days} />
+      {routeCities.length > 0 && (
+        <section class="route-cities">
+          <h2>Cities on this route</h2>
+          {routeCities.map((c) => <CityCard city={c.data} />)}
+        </section>
+      )}
     </article>
     <ContactForm />
   </main>
@@ -94,5 +108,12 @@ const days = [
   }
   .flow :global(.timeline) {
     margin-top: 24px;
+  }
+  .route-cities {
+    margin-top: 40px;
+  }
+  .route-cities h2 {
+    font-size: 1.375rem;
+    margin: 0 0 16px;
   }
 </style>

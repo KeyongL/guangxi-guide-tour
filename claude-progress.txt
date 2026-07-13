@@ -1963,3 +1963,73 @@ total 64 / passing 40（F054 由 false→true；F051/F011/F058 无变动）。
 是 F034–F045 + F056（旅游攻略/行程内容撰写，需要事实核查，与本次编码
 性质不同）；小而独立的 UI/边界项还有 F004/F014/F019/F030-F032/F047。
 优先级由站长定。本 session 未 push（铁律#7，push 由站长人工执行）。
+
+[2026-07-13] /work（续²）：UI 批次 —— F014 复核 + F047/F032 城市名片落地
+---------------------------------------------
+站长选"Build remaining UI"批次（F014 信任条 / F047 城市名片 / F032 预算
+未核实态）。先分类清点：22 条真 failing（去掉 F011/F051 两条已 deprecated
+bookkeeping），按类分 infra1/ui5/functional1/boundary3/content12。
+
+【F014 作者信任条 —— 已建，复核通过】
+AuthorTrust.astro 早已存在且正确接线（about.astro 无 verified prop、
+guides/[slug].astro 传 entry.data.verified）。实测 dist：About 渲染信任条
+且 0 条 "Last verified" 日期行（无假日期）；visa-free-transit-beihai
+（sample-guide.md 带 verified:2026-06-20）渲染 "Last verified on the
+ground · 20 Jun 2026"；11 篇攻略全渲染信任条，仅 1 篇有日期行、其余 10
+篇无假日期。三条验收全过 → passes:true。（属"早建未标"，本次仅复核。）
+
+【F047 城市名片 + F032 预算未核实态 —— 新建 1 组件 + 3 内容 + 接线 2 页】
+现状核查：cities 集合 schema 早已完整定义（含 F047 全字段 +
+budget_verified_on），但无 CityCard 组件、集合零消费、只有 beihai.md 一条
+（带已核实预算）。地图点标记弹的"city-card"是 RouteMap 里的 Leaflet JS
+popup，与 F047 要求的"原生 <details> 零 JS 名片"是两回事，不复用。
+渲染位置是设计面决策（原 F019 地图为主角落地页已被 B3 照片 Hero 取代，
+B3 负面清单#3 删过首页卡片墙）——按记忆"设计口味冲突先问范围"，用
+AskUserQuestion 让站长选，站长选"itinerary 页内上下文"（非新建
+/destinations/ 页，避免又造一堵卡片墙）。
+
+- 新增 src/components/CityCard.astro：原生 <details>（默认折叠、零 JS）；
+  summary=城市名+VisaBadge+天数；body=F032 预算逻辑 + 必吃/景点/活动强度/
+  冒险亮点 + flow_links；non-twov 城市 body 内自动挂 VisaAlert（与
+  [slug].astro 同一数据驱动写法，复用 F010）。F032 逻辑：budgetVerified =
+  Boolean(budget_verified_on)——有核实日期才渲染 daily_budget+日期，否则
+  一律"Not yet verified"且 else 分支根本不引用 daily_budget（present-but-
+  unverified 的数字结构上无法泄漏）。
+- 新增 3 条诚实城市 fixture（真地理/文化事实，预算一律省略=诚实未核实态，
+  不编数字）：dongxing（flow-a, twov）、detian（flow-b, non-twov/崇左→
+  触发签证警告）、bama（flow-b, twov）。beihai（已存在，带已核实预算）作
+  已核实态对照。
+- flow-a/flow-b 各加"Cities on this route"段：显式按 id 列表选城市
+  （flow-a=[beihai,dongxing]、flow-b=[detian,bama]），.filter(Boolean)
+  安全跳过缺失项——与两页已有的 days/routeStops 硬编码风格一致，不改
+  schema。
+
+验证（headless Chromium 真实渲染，非读代码）：
+- npm run build 全程无报错（3 条新 city frontmatter 通过 schema 校验）。
+- F047 step1 字段：flow-a 2 卡（Beihai/Dongxing）、flow-b 2 卡
+  （Detian/Bama），字段均从 frontmatter 渲染。
+- F047 step2 折叠/零 JS：两页各 2 张 <details> 默认无 open（收起）；
+  javaScriptEnabled:false 与 true 结果完全一致（cardCount/collapsed/
+  body 内容在 DOM 均相同）——原生 details 零 JS 可展开可读。
+- F047 step3 签证警告：flow-b "Outside the 240-hour transit zone" 出现
+  2 次（页级 1 + Detian 非免签卡内 1），Bama(twov) 卡内 0；flow-a（全
+  twov）全页 0。数据驱动自动挂载成立。
+- F032 step1/2：Beihai(有核实日期)显示 "¥250–400 (~$35–55) · checked
+  20 Jun 2026"；Dongxing/Detian/Bama(无核实日期)显示 "Not yet verified"，
+  无任何数字。
+- F032 step3（过期数据不冒充）：临时给 dongxing 加
+  daily_budget:"SENTINEL999..."（无 budget_verified_on）rebuild → 渲染
+  HTML 中 SENTINEL999 出现 0 次（数字被抑制），卡仍显示 "Not yet
+  verified"；测后已删 sentinel + rebuild，dist grep 确认无残留。
+- 375px：flow-a/flow-b scrollWidth==clientWidth==375，无横向溢出（新
+  卡片 summary flex-wrap、窄屏 row 单列，未撑破）。
+- 测试用 preview server 已 kill。
+
+F047 三步 + F032 三步全部端到端跑通 → 双双 passes:true。
+total 64 / passing 43（F014+F032+F047 由 false→true）。
+
+📍 下一步：boundary 里 F030（375px 全页型）/F031（Lighthouse）多为跨页
+核对，可能已大体满足，适合下次 /verify 扫一遍；F004（SEO 元信息）待查；
+F019（地图为主角落地页）疑似同 F051 已被 B3 取代、待定 deprecate；最大
+未动块仍是 F034–F045 内容撰写（需站长在地数据/事实核查）。F024 仍卡
+Formspree 注册。本 session 未 push（铁律#7，push 由站长人工执行）。

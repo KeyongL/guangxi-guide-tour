@@ -1,0 +1,175 @@
+---
+// 城市名片（F047）：原生 <details> 折叠、零 JS；字段与 cities 集合 frontmatter 一一对应。
+// 复用 VisaBadge（F009）；non-twov 城市自动挂 VisaAlert 提醒框（F010/F033，与文章页同一数据驱动逻辑）。
+// F032：仅当有 budget_verified_on 才显示日预算数字 + 核实日期；缺核实日期 → 显示「未核实」态，
+// 绝不展示可能过期的数字（过期数据不冒充有效数据）。
+import type { CollectionEntry } from 'astro:content';
+import VisaBadge from './VisaBadge.astro';
+import VisaAlert from './VisaAlert.astro';
+
+interface Props {
+  city: CollectionEntry<'cities'>['data'];
+}
+const { city } = Astro.props;
+const {
+  name_en,
+  name_local,
+  visa_zone,
+  days,
+  daily_budget,
+  budget_verified_on,
+  must_eat,
+  attractions,
+  activity_level,
+  adventure_hook,
+  flow_links,
+} = city;
+
+// F032：核实日期存在才认定预算有效；否则一律走未核实态（即便 daily_budget 有值也不显示数字）。
+const budgetVerified = Boolean(budget_verified_on);
+const budgetDate = budget_verified_on
+  ? budget_verified_on.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })
+  : null;
+---
+<details class="city-card">
+  <summary>
+    <span class="title">{name_en} <span class="local">{name_local}</span></span>
+    <VisaBadge zone={visa_zone} />
+    <span class="days">{days} day{days === 1 ? '' : 's'}</span>
+  </summary>
+  <div class="body">
+    {visa_zone === 'non-twov' && <VisaAlert />}
+    <dl>
+      <div class="row">
+        <dt>Daily budget</dt>
+        <dd>
+          {budgetVerified ? (
+            <span>{daily_budget} <span class="checked">· checked {budgetDate}</span></span>
+          ) : (
+            <span class="unverified">Not yet verified — no figure shown</span>
+          )}
+        </dd>
+      </div>
+      <div class="row">
+        <dt>Must eat</dt>
+        <dd><ul>{must_eat.map((m) => <li>{m}</li>)}</ul></dd>
+      </div>
+      <div class="row">
+        <dt>Sights</dt>
+        <dd><ul>{attractions.map((a) => <li>{a}</li>)}</ul></dd>
+      </div>
+      <div class="row">
+        <dt>Pace</dt>
+        <dd>{activity_level}</dd>
+      </div>
+      <div class="row">
+        <dt>Adventure</dt>
+        <dd>{adventure_hook}</dd>
+      </div>
+      {flow_links && flow_links.length > 0 && (
+        <div class="row">
+          <dt>Guides</dt>
+          <dd>
+            <ul>{flow_links.map((href) => <li><a href={href}>{href.replace('/guides/', '').replace(/\/$/, '')}</a></li>)}</ul>
+          </dd>
+        </div>
+      )}
+    </dl>
+  </div>
+</details>
+
+<style>
+  /* 北欧极简：直角、1px 细线、留白；折叠默认收起，零 JS（原生 <details>）。 */
+  .city-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 10px;
+  }
+  summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '+';
+    margin-left: auto;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .city-card[open] summary::after {
+    content: '−';
+  }
+  .title {
+    font-weight: 650;
+    color: var(--ink);
+  }
+  .title .local {
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .days {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .body {
+    padding: 0 16px 16px;
+  }
+  .body :global(.visa-alert) {
+    margin-bottom: 14px;
+  }
+  dl {
+    margin: 0;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 8px 12px;
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+  }
+  .row:first-child {
+    border-top: none;
+  }
+  dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--text);
+  }
+  dd ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  dd li {
+    margin: 2px 0;
+  }
+  .checked {
+    color: var(--muted);
+    font-size: 0.8125rem;
+  }
+  .unverified {
+    color: var(--accent-strong);
+    font-style: italic;
+  }
+  dd a {
+    color: var(--primary);
+  }
+  @media (max-width: 420px) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>

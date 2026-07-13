@@ -9,7 +9,9 @@ import VisaBadge from '../../components/VisaBadge.astro';
 import VisaAlert from '../../components/VisaAlert.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import RouteMap from '../../components/RouteMap.astro';
+import CityCard from '../../components/CityCard.astro';
 import { stops } from '../../data/stops';
+import { getCollection } from 'astro:content';
 
 // F046：只要这条路线自己的站（Nanning 是 both，两条路线共用）。Mingshi 明仕田园
 // （Day 3）暂无仓库里已核实的经纬度，不编造坐标——地图上不点它，但真实公路几何
@@ -60,6 +62,13 @@ const days = [
     lodging: 'Return to Nanning, or extend to 10 days at your own pace.',
   },
 ];
+
+// F047：本路线沿途城市名片（按行程顺序显式选取；缺失则安全跳过）。
+// Detian(崇左/non-twov) 自动挂签证警告；Bama(河池/twov) 展示环线内的免签段。
+const allCities = await getCollection('cities');
+const routeCities = ['detian', 'bama']
+  .map((id) => allCities.find((c) => c.id === id))
+  .filter(Boolean);
 ---
 <BaseLayout
   title="Border Grand Loop (7–10 days) — No Visa China"
@@ -84,6 +93,12 @@ const days = [
         label="Map of the border grand loop through Detian, Jingxi, Baise, and Leye"
       />
       <Timeline days={days} />
+      {routeCities.length > 0 && (
+        <section class="route-cities">
+          <h2>Cities on this route</h2>
+          {routeCities.map((c) => <CityCard city={c.data} />)}
+        </section>
+      )}
     </article>
     <ContactForm />
   </main>
@@ -112,5 +127,12 @@ const days = [
   }
   .flow :global(.timeline) {
     margin-top: 24px;
+  }
+  .route-cities {
+    margin-top: 40px;
+  }
+  .route-cities h2 {
+    font-size: 1.375rem;
+    margin: 0 0 16px;
   }
 </style>
