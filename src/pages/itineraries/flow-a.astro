@@ -7,6 +7,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Timeline from '../../components/Timeline.astro';
 import VisaBadge from '../../components/VisaBadge.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import RouteMap from '../../components/RouteMap.astro';
+import { stops } from '../../data/stops';
+
+// F046：只要这条路线自己的站（Nanning 是 both，两条路线共用）。涠洲岛是可选的
+// 渡轮支线，不在这 4 天行程里——标记和渡轮虚线（showFerry=false）都要一并排除，
+// 否则地图/静态列表会暗示这趟没有的行程包含涠洲岛。
+const routeStops = stops.filter(
+  (s) => (s.group === 'coastal' || s.group === 'both') && s.name !== 'Weizhou Island 涠洲岛'
+);
 
 const days = [
   {
@@ -53,6 +62,12 @@ const days = [
         another (the Dongxing land border to Móng Cái). Confirm your nationality
         and current port list with the NIA before you travel.
       </p>
+      <RouteMap
+        stops={routeStops}
+        routes={['coastal']}
+        showFerry={false}
+        label="Map of the coastline route from Nanning to the Dongxing border crossing"
+      />
       <Timeline days={days} />
     </article>
     <ContactForm />

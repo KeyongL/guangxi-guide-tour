@@ -337,7 +337,7 @@
       "地图加载失败时降级为静态占位图+文字路线 chips",
       "静态路线由构建期 frontmatter 生成"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F029",
@@ -553,7 +553,7 @@
       "点城市标记弹出 city-card",
       "关闭 JS 时降级（见 F028）"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F047",
@@ -577,7 +577,7 @@
       "瓦片/库懒加载",
       "含地图行程页 Lighthouse 移动端 Performance≥85"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F049",

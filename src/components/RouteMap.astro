@@ -16,11 +16,17 @@ interface Stop {
   photo?: string;
   note?: string;
 }
+// F046：行程页复用本组件时只需自己的一条路线——routes 缺省=四层全开（首页原样，
+// 不传就是没变过）；传子集时只建对应图层，且 >1 层才画可切换控件（1 层没什么好切）。
+type RouteKey = 'coastal' | 'border' | 'hechi' | 'vietnam';
 interface Props {
   stops: Stop[];
   label: string;
+  routes?: RouteKey[];
+  showFerry?: boolean;
 }
-const { stops, label } = Astro.props;
+const { stops, label, routes, showFerry = true } = Astro.props;
+const activeRoutes: RouteKey[] = routes ?? ['coastal', 'border', 'hechi', 'vietnam'];
 ---
 <div class="route-map-wrap">
   <div
@@ -29,6 +35,8 @@ const { stops, label } = Astro.props;
     aria-label={label}
     hidden
     data-stops={JSON.stringify(stops)}
+    data-routes={JSON.stringify(activeRoutes)}
+    data-show-ferry={showFerry ? '1' : '0'}
   ></div>
   <div class="route-map__fallback" id="route-map-fallback">
     <div class="route-map__placeholder" role="img" aria-label={label}>
@@ -88,6 +96,9 @@ const { stops, label } = Astro.props;
       el.hidden = false;
 
       const stops = JSON.parse(el.dataset.stops ?? '[]') as StopData[];
+      const activeRoutes = JSON.parse(el.dataset.routes ?? '["coastal","border","hechi","vietnam"]') as string[];
+      const showFerry = el.dataset.showFerry !== '0';
+      const hasRoute = (r: string) => activeRoutes.includes(r);
 
       const primary = tokenColor('--primary') || '#0E7490';
       const accent = tokenColor('--accent') || '#F59E0B';
@@ -119,57 +130,66 @@ const { stops, label } = Astro.props;
         L.polyline(pts, { color, weight: 4, dashArray: dashed ? '7 6' : undefined });
       const inGroup = (s: StopData, ...gs: string[]) => gs.includes(s.group);
 
-      // 三个可开关图层 = 三套备选方案（各含自己的途经标记；Nanning 属 both，前两层各一份）。
-      const coastal = L.layerGroup([
-        casing(geometry.coastal as [number, number][]),
-        line(geometry.coastal as [number, number][], primary),
-        // 渡轮段（北海→涠洲岛，海路）：点状虚线，制图惯例。
-        L.polyline(geometry.ferry as [number, number][], { color: primary, weight: 4, dashArray: '2 7' }),
-        ...stops.filter((s) => inGroup(s, 'coastal', 'both')).map(marker),
-      ]).addTo(map);
-      const border = L.layerGroup([
-        casing(geometry.border as [number, number][]),
-        line(geometry.border as [number, number][], accent, true),
-        ...stops.filter((s) => inGroup(s, 'border', 'both')).map(marker),
-      ]).addTo(map);
-      // 从越南入境（F060）：河内→友谊关→南宁；河内→下龙湾→芒街→东兴。红色，含时间/口岸弹窗。
-      const vietnam = L.layerGroup([
-        casing(geometry.vnNanning as [number, number][]),
-        line(geometry.vnNanning as [number, number][], red),
-        casing(geometry.vnDongxing as [number, number][]),
-        line(geometry.vnDongxing as [number, number][], red),
-        ...stops.filter((s) => inGroup(s, 'vietnam')).map(marker),
-      ]).addTo(map);
+      // 四个可开关图层 = 四套备选方案（各含自己的途经标记；Nanning 属 both，前两层各一份）。
+      // F046：routes 缺省时四层全建（首页原样）；行程页传子集时只建自己那一层。
+      const layers: Record<string, L.Layer> = {};
+      const boundsPts: [number, number][] = [];
+
+      if (hasRoute('coastal')) {
+        const coastalLayers = [
+          casing(geometry.coastal as [number, number][]),
+          line(geometry.coastal as [number, number][], primary),
+        ];
+        // 渡轮段（北海→涠洲岛，海路）：点状虚线，制图惯例。行程页若不含涠洲岛这段
+        // 支线（如 flow-a 的 4 天海岸线），showFerry=false 跳过，地图只画实际会走的路。
+        if (showFerry) {
+          coastalLayers.push(L.polyline(geometry.ferry as [number, number][], { color: primary, weight: 4, dashArray: '2 7' }));
+        }
+        coastalLayers.push(...stops.filter((s) => inGroup(s, 'coastal', 'both')).map(marker));
+        layers['Route 1 · The Coast (visa-free)'] = L.layerGroup(coastalLayers).addTo(map);
+        boundsPts.push(...(geometry.coastal as [number, number][]));
+      }
+
+      if (hasRoute('border')) {
+        layers['Route 2 · Border Karst (visa needed)'] = L.layerGroup([
+          casing(geometry.border as [number, number][]),
+          line(geometry.border as [number, number][], accent, true),
+          ...stops.filter((s) => inGroup(s, 'border', 'both')).map(marker),
+        ]).addTo(map);
+        boundsPts.push(...(geometry.border as [number, number][]));
+      }
 
       // 河池喀斯特 Route 3（F062）：真实公路环线连起原散布的 6 个河池标记；
       // 绿色（success 令牌）= 免签自然线，与蓝绿海岸线/琥珀边境线三色分明。
-      const hechi = L.layerGroup([
-        casing(geometry.hechiLoop as [number, number][]),
-        line(geometry.hechiLoop as [number, number][], green),
-        ...stops.filter((s) => inGroup(s, 'hechi')).map(marker),
-      ]).addTo(map);
+      if (hasRoute('hechi')) {
+        layers['Route 3 · Hechi Nature (visa-free)'] = L.layerGroup([
+          casing(geometry.hechiLoop as [number, number][]),
+          line(geometry.hechiLoop as [number, number][], green),
+          ...stops.filter((s) => inGroup(s, 'hechi')).map(marker),
+        ]).addTo(map);
+        boundsPts.push(...stops.filter((s) => inGroup(s, 'hechi')).map((s) => [s.lat, s.lng] as [number, number]));
+      }
 
-      L.control.layers(
-        undefined,
-        {
-          'Route 1 · The Coast (visa-free)': coastal,
-          'Route 2 · Border Karst (visa needed)': border,
-          'Route 3 · Hechi Nature (visa-free)': hechi,
-          'Getting in from Vietnam': vietnam,
-        },
-        { collapsed: false }
-      ).addTo(map);
+      // 从越南入境（F060）：河内→友谊关→南宁；河内→下龙湾→芒街→东兴。红色，含时间/口岸弹窗。
+      if (hasRoute('vietnam')) {
+        layers['Getting in from Vietnam'] = L.layerGroup([
+          casing(geometry.vnNanning as [number, number][]),
+          line(geometry.vnNanning as [number, number][], red),
+          casing(geometry.vnDongxing as [number, number][]),
+          line(geometry.vnDongxing as [number, number][], red),
+          ...stops.filter((s) => inGroup(s, 'vietnam')).map(marker),
+        ]).addTo(map);
+        boundsPts.push(...(geometry.vnNanning as [number, number][]), ...(geometry.vnDongxing as [number, number][]));
+      }
 
-      // 容器刚从 hidden 变可见，强制重算尺寸后按全部路线+河池标记取景。
+      // 单路线的行程页没什么好切换的，只在多图层时画控件（首页四层全给，原样不变）。
+      if (Object.keys(layers).length > 1) {
+        L.control.layers(undefined, layers, { collapsed: false }).addTo(map);
+      }
+
+      // 容器刚从 hidden 变可见，强制重算尺寸后按已启用的路线取景。
       map.invalidateSize();
-      const all = ([] as [number, number][]).concat(
-        geometry.coastal as [number, number][],
-        geometry.border as [number, number][],
-        geometry.vnNanning as [number, number][],
-        geometry.vnDongxing as [number, number][],
-        stops.filter((s) => inGroup(s, 'hechi')).map((s) => [s.lat, s.lng] as [number, number])
-      );
-      map.fitBounds(L.latLngBounds(all), { padding: [24, 24] });
+      map.fitBounds(L.latLngBounds(boundsPts), { padding: [24, 24] });
 
       fallback.hidden = true;
     } catch {

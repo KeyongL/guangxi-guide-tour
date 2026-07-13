@@ -8,6 +8,13 @@ import Timeline from '../../components/Timeline.astro';
 import VisaBadge from '../../components/VisaBadge.astro';
 import VisaAlert from '../../components/VisaAlert.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import RouteMap from '../../components/RouteMap.astro';
+import { stops } from '../../data/stops';
+
+// F046：只要这条路线自己的站（Nanning 是 both，两条路线共用）。Mingshi 明仕田园
+// （Day 3）暂无仓库里已核实的经纬度，不编造坐标——地图上不点它，但真实公路几何
+// （border 折线，OSRM 抓取）本就沿途经过大新/明仕一带，Timeline 文字仍完整列出。
+const routeStops = stops.filter((s) => s.group === 'border' || s.group === 'both');
 
 const days = [
   {
@@ -71,6 +78,11 @@ const days = [
         A 7-day core you can stretch to 10 — from the Detian falls on the Vietnam
         border, through Jingxi and Baise, out to the Leye sinkholes.
       </p>
+      <RouteMap
+        stops={routeStops}
+        routes={['border']}
+        label="Map of the border grand loop through Detian, Jingxi, Baise, and Leye"
+      />
       <Timeline days={days} />
     </article>
     <ContactForm />
