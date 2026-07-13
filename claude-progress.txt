@@ -1574,3 +1574,35 @@ Nanning 属 both 两层各一份）；375px 无溢出；无 pageerror；Lighthou
 下一步：站长预览确认；之后按序 F046+F028+F048（行程页真地图，复用
 RouteMap 组件传各自路线）→ F054（Plan My Trip 完整版）→ /verify 回归
 F019/F011/F014/F004/F023 + F030/F031。
+
+[2026-07-12] /change：V1.3 去 AI 化内容后台立项（F063+F064）
+---------------------------------------------
+站长设想：后期不依赖大模型/Claude 即可自行改文案、传图片，可把项目克隆
+到桌面自改，再把文案修订委托给非技术人员。并问"是否更易管理、数据库也
+需要的吧"。
+AI 评估并 push back（获采纳）：
+- 更易管理=对，方式=git-based CMS（Decap/Sveltia）：/admin 网页表单编辑
+  现有 Markdown，保存写回 .md + git 提交 → Cloudflare 自动重建。非技术
+  人员看到的是"填表+拖图"，背后仍是 Markdown+git。
+- 数据库=不加（明确反对）。站长"克隆到桌面自改"这句本身否定数据库：
+  内容进库则克隆下来是空壳；且会失去 CF Pages 免费静态托管、git 版本
+  历史、一句话回滚。内容是"展示内容"非"动态数据"，放文件最合适。CMS
+  尊重 SPEC 原有"内容即文件"原则。
+站长两项确认（AskUserQuestion）：① 编辑范围=先只做本地桌面版（F063+
+F064，零数据库/零 OAuth/零服务器）；远程浏览器编辑（F065，需 CF Worker
+OAuth）待验证后再 /change。② 不加数据库。
+落盘：
+- feature_list.json 追加 F063（CMS 表单后台，映射 guides/cities 集合，
+  构建期 schema 校验含崇左/百色护栏继续生效，本地 backend 模式）、F064
+  （CMS 图片上传/媒体库，替换 PhotoPlaceholder 占位，禁 AI 图）；均
+  passes:false，milestone V1.3-cms。仅新增，不动旧条目。total 62→64。
+- SPEC.md：注解「范围外·无后台管理系统」（V1.3 起有 CMS 但仍"内容即
+  文件、无数据库"）；新增「V1.3 去 AI 化内容后台」章 + 变更记录条目。
+已知边界（本批不做，写进 SPEC）：远程浏览器编辑（F065）；地图 marker
+文案/照片硬编码在 index.astro/RouteMap.astro（是代码非内容集合），CMS
+碰不到，要让非技术人员改地图需先把该数据抽成可编辑文件（独立重构）。
+现有 passing 功能不回退（CMS 纯新增 /admin+配置+media 目录，不改页面
+渲染与内容 schema）。
+下一步：本命令只立项不实现。开新对话 /work 实现 F063→F064。（原队列
+F046+F028+F048 行程页真地图 / F054 Plan My Trip / /verify 回归仍在，
+优先级由站长定。）

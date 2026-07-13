@@ -759,5 +759,31 @@
       "入口列表用 Route 1/2/3 命名；JS 关闭降级含河池环线站点；375px 无溢出；Lighthouse 移动端 ≥85"
     ],
     "passes": true
+  },
+  {
+    "id": "F063",
+    "category": "infra",
+    "milestone": "V1.3-cms",
+    "description": "去 AI 化内容后台（站长 2026-07-12 /change：目标是后期不依赖大模型、非技术人员自行改文案、可克隆到桌面自改）：配置 git-based CMS（Decap 或 Sveltia），/admin 路径打开可视化表单，映射现有 guides+cities 内容集合字段；非技术人员填表改 frontmatter + Markdown 正文，保存写回对应 .md 文件并可 git 提交；构建期 schema 校验（含崇左/百色 visa_zone 强制护栏）继续生效；本地桌面模式（local backend）——零数据库、零 OAuth、零服务器；不覆盖硬编码在 .astro 里的地图 marker 文案（已知边界，本批不做）",
+    "steps": [
+      "/admin 打开 CMS 后台，可见 guides 与 cities 两个集合的可编辑条目列表，字段与 content.config.ts schema 一致（title/summary/region/visa_zone 等）",
+      "本地 backend 模式下编辑一篇 guide 的标题/摘要并保存 → 对应 content/guides/*.md 的 frontmatter 变更、git diff 可见",
+      "保存后 npm run build 通过；schema 校验含崇左/百色 visa_zone 护栏仍生效（非法值构建失败）",
+      "全程零数据库、零 OAuth、零服务器；非技术人员不手写 Markdown 语法即可改正文"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F064",
+    "category": "infra",
+    "milestone": "V1.3-cms",
+    "description": "CMS 图片上传/媒体库（配合 F063，去 AI 化换图）：配置 media_folder（如 public/uploads），非技术人员在 /admin 拖拽上传真实照片，写入文章 cover 字段或正文；替换 PhotoPlaceholder 纯 CSS 占位块显示实拍图；铁律不变——真图由人上传，禁 AI 生成图充数",
+    "steps": [
+      "/admin 媒体库可拖拽上传图片，文件落到约定 media 目录（如 public/uploads）",
+      "上传图片可设为某篇 guide 的 cover 字段，构建后该文章卡片/头图显示实拍图而非 PhotoPlaceholder 占位块",
+      "未设 cover 的文章仍回退显示 PhotoPlaceholder（F018 不回退）",
+      "上传图片经 git 纳管，Cloudflare 重建后线上可见"
+    ],
+    "passes": false
   }
 ]
