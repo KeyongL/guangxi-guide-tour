@@ -1,16 +1,15 @@
 ---
 // 联系表单组件（F015 UI 层 + F027 降级）：Name / Email / Message + 提交成功占位态。
-// F027：Formspree id 缺失/不可用时，降级为可见的 mailto: 链接（站长邮箱来自 env）。
+// F027：Formspree id 缺失/不可用/提交失败时，降级为可见的 mailto: 链接（站长邮箱来自 env）。
 // env 读取遵循 Astro 约定（见 GoogleAnalytics.astro）：import.meta.env.PUBLIC_*。
-// 校验走原生 HTML5 required + type="email"；成功态用极小内联脚本拦截提交切换显隐。
+// 校验走原生 HTML5 required + type="email"；提交用 fetch 拦截，同页面切态（成功/回退二选一）。
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
-// formspree 可用 = id 非空；不可用时立即把 mailto 回退设为可见。
-const formspreeAvailable = Boolean(formspreeId);
+const formspreeEndpoint = formspreeId ? `https://formspree.io/f/${formspreeId}` : '';
 ---
 <section class="contact" aria-labelledby="contact-heading">
   <h2 id="contact-heading">Contact</h2>
-  <form class="contact-form" novalidate={false}>
+  <form class="contact-form" data-formspree-endpoint={formspreeEndpoint} novalidate={false}>
     <label class="field">
       <span>Name</span>
       <input type="text" name="name" required />
@@ -28,26 +27,55 @@ const formspreeAvailable = Boolean(formspreeId);
   <div class="contact-success" hidden>
     <p>Thanks — I'll reply within 24h.</p>
   </div>
-  {contactEmail && (
-    <p class="contact-fallback" hidden={formspreeAvailable}>
+  {contactEmail ? (
+    <p class="contact-fallback" hidden>
       Prefer email? Reach me at <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+    </p>
+  ) : (
+    <p class="contact-fallback" hidden>
+      Sorry — this form isn't available right now.
     </p>
   )}
 </section>
 
 <script>
-  // 极小提交拦截：阻止默认提交 + 无网络请求，仅隐藏表单显示成功占位。
-  // F027：若提交处理失败，兜底显示 mailto 回退链接（若存在），用户仍能联系站长。
-  const form = document.querySelector('.contact-form');
-  const success = document.querySelector('.contact-success');
-  const fallback = document.querySelector('.contact-fallback');
-  form?.addEventListener('submit', (e) => {
+  // F027：有 endpoint 才真正 fetch POST；无 endpoint、网络错误、非 2xx 响应
+  // 都算失败，一律走 mailto 回退（或无邮箱时的诚实占位文案），不假装成功。
+  // 成功/回退二选一，表单先隐藏再二选一显示，不会同屏矛盾。
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  const success = document.querySelector<HTMLElement>('.contact-success');
+  const fallback = document.querySelector<HTMLElement>('.contact-fallback');
+
+  function showSuccess() {
+    if (form) form.hidden = true;
+    if (success) success.hidden = false;
+  }
+
+  function showFallback() {
+    if (form) form.hidden = true;
+    if (fallback) fallback.hidden = false;
+  }
+
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const endpoint = form.dataset.formspreeEndpoint;
+    if (!endpoint) {
+      showFallback();
+      return;
+    }
     try {
-      (form as HTMLFormElement).hidden = true;
-      (success as HTMLElement).hidden = false;
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      if (res.ok) {
+        showSuccess();
+      } else {
+        showFallback();
+      }
     } catch {
-      if (fallback) (fallback as HTMLElement).hidden = false;
+      showFallback();
     }
   });
 </script>

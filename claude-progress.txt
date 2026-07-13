@@ -1837,3 +1837,61 @@ total 64 / passing 38（F027 由 true→false）。
 ContactForm 接真实 Formspree fetch()+失败回退，或至少先补 .env 的
 PUBLIC_CONTACT_EMAIL 并去掉误导性的假成功态；其后 F054/F065 等仍在
 队列，优先级由站长定。）
+
+[2026-07-13] /work：修复 F027 —— Formspree 降级 mailto 真实现
+---------------------------------------------
+背景：上一步 /verify 批次审计打回 F027（历史遗留 gap，非本 session
+引入）——ContactForm.astro 提交处理器只有 e.preventDefault() 后直接切
+成功态，全程无 fetch()、无真实 Formspree POST，"提交失败降级"这条验收
+标准在代码层面根本不存在；且 .env 里 PUBLIC_CONTACT_EMAIL 一直是空的。
+
+改动（只改 src/components/ContactForm.astro 一个文件；about/
+plan-my-trip/flow-a/flow-b 四个引用页零改动，组件级修复全站生效）：
+- <form> 加 data-formspree-endpoint（由 PUBLIC_FORMSPREE_ID 构造
+  https://formspree.io/f/<id>，无 id 则为空字符串）。
+- 提交处理器改为真 fetch POST（Accept: application/json + FormData
+  body，不手设 Content-Type 以保留浏览器自动生成的 multipart
+  boundary）：无 endpoint → 直接回退；有 endpoint 但 fetch 抛错（网络
+  错误）或 res.ok 为假（非 2xx）→ 同样回退；仅 res.ok 为真才显示成功。
+  成功/回退共用"先隐藏表单、再二选一显示"的结构，保证不会同屏矛盾。
+- mailto 回退段落从 {contactEmail && (...)} 改成 contactEmail ?
+  (mailto 文案) : (诚实占位 "Sorry — this form isn't available right
+  now.")——即使站长邮箱也没配，也不会再出现"会收到回复"的假成功文案；
+  未新增任何 env 变量。
+- 移除已死的 formspreeAvailable 变量（原用于 build 期静态 hidden，
+  现改为提交结果驱动的运行期 hidden，不再需要）。
+
+.env：PUBLIC_CONTACT_EMAIL 填入站长真实邮箱 86604065@qq.com（此前一直
+空着）；PUBLIC_FORMSPREE_ID 保持空（站长尚未去 formspree.io 建表单，
+不代其臆造）。
+
+验证（headless Chromium 真实填表提交 + 网络请求监听，非读代码猜；自写
+node 脚本，沿用 verify-f027-contactform.mjs 的 /about/ 探测手法并扩展
+出 mock 场景，脚本本身是 job tmp 目录里的临时脚本，未纳入仓库）：
+- npm run build 全程无报错（含两个 env 变量都空的 State 0，确认没有
+  破坏 F029"缺失 env 仍可构建"）。
+- State 0（两变量都空，即改动前的真实故障状态）：提交后 0 个网络请求、
+  表单隐藏、成功态保持 hidden、回退段落显示诚实占位文案（非 mailto，
+  因为没邮箱）——修复前这里会显示假成功，现在不会了。
+- State 1（仅填 email，最终生产状态）：提交后 0 个网络请求（本来就没
+  配 id，不该发请求）、回退段落显示 mailto 文案，href 精确等于
+  mailto:86604065@qq.com、成功态保持 hidden。
+- State 2（临时设 PUBLIC_FORMSPREE_ID=testF027 测完整回退分支，测后已
+  改回空值 + rebuild 恢复，未留痕）：用 Playwright route 拦截真实发出
+  的 POST https://formspree.io/f/testF027 请求，验证三种响应：
+  · 200 → 成功态显示、回退隐藏，请求确实发出 1 次。
+  · 500 → 成功态保持隐藏、回退（mailto）显示，请求确实发出 1 次。
+  · route.abort（模拟网络错误）→ 结果与 500 分支一致。
+  三种场景下 successHidden 与 fallbackHidden 从未同时为 false，"两者
+  不能同屏"结构性成立（先隐藏表单、二选一显示，非各自独立判断）。
+- 最终 dist/ 全文 grep 确认无 testF027 残留；about/plan-my-trip/
+  flow-a/flow-b 四页 mailto:86604065@qq.com 各恰好出现 1 次；四页
+  <ContactForm /> 均无 props，组件级修复天然覆盖全部引用点。
+- 测试用的 preview server 用完已 kill，未留驻留进程。
+
+F027 验收标准 1/2/3 全部真实跑通 → passes:true。total 64 / passing 39
+（F027 由 false→true，此前 /verify 打回的唯一一条，其余 9 条当时已
+确认，本 session 未重测）。
+
+📍 下一步：F054（Plan My Trip 商业化入口）/ F065 等仍在队列，优先级由
+站长定。本 session 未 push（铁律#7，push 由站长人工执行）。
