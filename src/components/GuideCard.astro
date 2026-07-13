@@ -14,7 +14,11 @@ interface Props {
 const { title, summary, region, href, readingMinutes, cover } = Astro.props;
 ---
 <article class="guide-card">
-  <PhotoPlaceholder caption={cover ?? 'Photo'} region={region} flush />
+  {cover ? (
+    <img class="guide-card__cover" src={cover} alt={title} loading="lazy" />
+  ) : (
+    <PhotoPlaceholder caption="Photo" region={region} flush />
+  )}
   <div class="guide-card__body">
     <span class="guide-card__region">{region}</span>
     <h3 class="guide-card__title">
@@ -35,6 +39,16 @@ const { title, summary, region, href, readingMinutes, cover } = Astro.props;
   }
   .guide-card:hover {
     border-color: var(--primary);
+  }
+
+  /* Real cover photo (F064): same footprint as the flush placeholder it
+     replaces, so the grid doesn't jump between covered/uncovered cards. */
+  .guide-card__cover {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border);
   }
 
   .guide-card__body {

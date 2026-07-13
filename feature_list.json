@@ -784,6 +784,6 @@
       "未设 cover 的文章仍回退显示 PhotoPlaceholder（F018 不回退）",
       "上传图片经 git 纳管，Cloudflare 重建后线上可见"
     ],
-    "passes": false
+    "passes": true
   }
 ]

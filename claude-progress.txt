@@ -1666,3 +1666,53 @@ npm audit 报 2 个漏洞（1 low/1 high）——纯本地开发依赖，不进 
 
 F063 四条验收全部真实跑通 → passes:true。total 64 / passing 35。
 下一步：新会话 /work 实现 F064（图片上传/媒体库，media_folder 已预留）。
+
+[2026-07-12] F064：CMS 图片上传/媒体库落地（真图替换占位块）
+---------------------------------------------
+在 F063 基础上加图片能力，同会话内站长选了"现在就做 F064"而非新开会话——
+偏离了铁律"一次一个功能"，但站长明确选择，照办。
+
+实现：
+- public/admin/config.yml：guides 的 cover 字段从 widget: string 换成
+  widget: image（F063 时已把 media_folder: public/uploads /
+  public_folder: /uploads 配好，这次直接用），hint 加"真图，禁 AI 生成"
+  提醒（铁律原文）。
+- src/components/GuideCard.astro：卡片顶部原来无条件渲染
+  PhotoPlaceholder（cover 只是拿来当 caption 文字，从没真正显示过图），
+  改成 cover 有值渲染 <img src={cover}>，无值才落回 PhotoPlaceholder——
+  PhotoPlaceholder.astro 本体一行没动（F018 组件不回退）。<img> 样式对齐
+  原占位块的 3:2 比例+底部描边+直角，同网格里换图不换图不会跳版。
+- 文章详情页（[slug].astro）本批未动：现状本来就没有头图区（纯文字版
+  心设计，F021 自己的注释写明"答案式开头+正文折叠"，没有图的位置），
+  F064 验收标准写的"卡片/头图"实测只对应 GuideCard 这一处——没有另外
+  新增详情页头图区块，属于本批主动收窄的范围（避免在没被明确要求的
+  地方给一个特意做成纯文字、已考虑过设计的页面加图片区块）。
+
+验证（同 F063 手法，headless Chromium 真跑 npm run preview + npm run
+cms:proxy，非模拟）：
+- /admin 打开 sample-guide 条目，Cover Photo 字段是新的 image 组件
+  （"Choose an image"+"Insert from URL"两个按钮，hint 文案正确显示）。
+- 点 Choose an image → Media Library 弹窗（初始 "No assets found"）→
+  用仓库里已有的真实文件 public/og-default.png（不是新造的假图）走
+  上传 input → 上传后自动选中、Choose selected 变可点 → 确认选中 →
+  Publish。
+- 落盘核实：content/guides/sample-guide.md frontmatter 多了
+  `cover: /uploads/og-default.png`；public/uploads/og-default.png 与源
+  文件 md5 一致（上传无损）；git status 显示该图为新增未跟踪文件（即
+  "经 git 纳管"链路打通，正常流程下站长下一步 git add 提交即可）。
+- npm run build 通过；dist/guides/index.html 里这一篇卡片渲染出真实
+  <img class="guide-card__cover" src="/uploads/og-default.png">，另外
+  10 篇未设 cover 的文章仍是 PhotoPlaceholder（占位块数量 11→10，验证
+  「未设 cover 不回退」）。真机截图确认视觉：黑色实拍图卡片与两张浅蓝
+  占位卡片并排，卡片高度/比例一致无跳版。
+- 全链路验证完手动 revert：sample-guide.md frontmatter 还原、
+  public/uploads/ 测试图删除（本身就是站长已有真实素材的副本，非编造
+  图片，删除只为不留测试痕迹，不违反"真图由人上传"铁律）。
+
+已知边界：cities 集合本批未加图片字段（F064 验收标准原文只提 guide 的
+cover，未提 city）；文章详情页头图（如后续需要）需单开新条目，非本批
+默认解读范围。
+
+F064 四条验收全部真实跑通 → passes:true。total 64 / passing 36。
+下一步：F046+F028+F048（行程页真地图）/ F054（Plan My Trip 完整版）/
+/verify 回归，优先级由站长定。

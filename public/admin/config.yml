@@ -31,7 +31,7 @@ collections:
           - { label: "TWOV — inside the 240h transit visa-free zone", value: "twov" }
           - { label: "Non-TWOV — outside the transit zone (e.g. Chongzuo, Baise)", value: "non-twov" }
       - { label: "URL Slug", name: "slug", widget: "string", required: false, hint: "Routing slug, e.g. detian-waterfall-friendship-pass. Leave blank to fall back to the filename." }
-      - { label: "Cover Image Path", name: "cover", widget: "string", required: false, hint: "Wired up to image upload once F064 ships." }
+      - { label: "Cover Photo", name: "cover", widget: "image", required: false, hint: "Real photo only, no AI-generated images. Drag & drop or pick from the media library. Leave blank to keep the flat placeholder block." }
       - label: "Verified On"
         name: "verified"
         widget: "datetime"
