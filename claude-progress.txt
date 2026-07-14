@@ -2033,3 +2033,64 @@ total 64 / passing 43（F014+F032+F047 由 false→true）。
 F019（地图为主角落地页）疑似同 F051 已被 B3 取代、待定 deprecate；最大
 未动块仍是 F034–F045 内容撰写（需站长在地数据/事实核查）。F024 仍卡
 Formspree 注册。本 session 未 push（铁律#7，push 由站长人工执行）。
+
+[2026-07-13] /work（续³）：Verify/cleanup 扫尾批 —— F004/F023/F030/F031/F056
+---------------------------------------------
+站长选"Verify/cleanup sweep"。逐条真实核对（非读代码猜），全部零代码改动：
+
+【F004 SEO 元信息 —— 已建，复核通过】
+BaseHead.astro 早已完整实现（title/description/canonical/og:*/twitter:card，
+image 缺省回退 /og-default.png，文件已存在）。实测 dist：6 个静态页
+title 各不相同（硬编码 " — No Visa China" 后缀）；guides/[slug].astro
+按 frontmatter 动态生成，11 篇攻略 <title> 去重后仍是 11 个（零重复）；
+首页与 About 两页源码逐一核对 title/description/og:title 均不同。
+三条验收全过 → passes:true。
+
+【F023 About+Contact —— 已建，复核通过】
+about.astro 早已含站长背书故事段落 + AuthorTrust + ContactForm。本次
+375px 实测 /about/ scrollWidth==clientWidth，无横向溢出。三条验收全过
+→ passes:true。
+
+【F030 375px 全页型无溢出 —— 复核通过】
+headless Chromium 375px 视口逐页实测 7 种页型（首页/guides列表/文章/
+flow-a/flow-b/About/plan-my-trip）：scrollWidth==clientWidth 全部
+成立，0px 溢出。导航 CTA 在 375px 下 bounding box 完整落在
+[0,375]内（x:161~275），可见可点。三条验收全过 → passes:true。
+
+【F031 Lighthouse 移动端 —— 复核通过】
+用 npx lighthouse（CHROME_PATH 指向 Playwright 自带 chromium，绕开
+系统无 Chrome 问题）对 npm run preview 的生产构建实测（非 dev
+server，避免 HMR 开销拉低分数失真）：首页 Performance 94 / SEO 100；
+文章页（visa-free-transit-beihai）Performance 100 / SEO 100。此前
+session 只记过 Performance 分数，SEO 分数是本次新增验证维度。两页
+Performance≥85 且 SEO≥90 均达标 → passes:true。
+
+【F056 攻略卡片列表页渲染 —— 复核通过】
+GuideCard.astro 早已完整实现（真封面图或 PhotoPlaceholder 占位，
+footprint 一致不跳动；region/title/summary/meta 四字段；hover
+border-color 变 --primary）。实测：/guides/ 11 张卡片字段零缺失；
+首个卡片 hover 前后 border-color 从 rgb(228,226,219)→rgb(14,116,144)
+确认变化；首页 guide-card 元素数=0（B2 做减法保持）。三条验收全过
+→ passes:true。
+
+【F019 地图为主角落地页 —— 按字面测试，不成立，未改 passes】
+step1"首页首屏是答案式标题+大地图英雄"实测：homepage hero 区
+class="photo-hero"（非地图），hasLeafletInHero=false；真地图在独立的
+".the-route" 第二屏。这与 F051 deprecated_reason 里记录的冲突
+（"B2/B3 终选「照片 Hero + 地图第二屏」"）完全同源同因——F019 很可能
+和 F051 一样已被 B3 取代，但 F019 本身没有 deprecated 标记（不像
+F051/F011 那样已经历过 /change 正式改写）。本命令只许改 passes，不能
+自行加 deprecated 字段/改 description——如实按字面测试后 passes 维持
+false，把"建议走 /change 正式 deprecate"这个判断留给站长决定，不代为
+决定。
+
+验证方式小结：本批全部是"代码早已正确，只是没人跑过端到端测试补标
+passing"——同 F051/F011/F014 模式一致（第 4 次在这个项目里出现）。
+
+total 64 / passing 48（F004+F023+F030+F031+F056 由 false→true；F019
+维持 false，待站长决定是否 /change deprecate）。
+
+📍 下一步：真正剩余、需要新建的只有 F024（卡站长注册 Formspree）+
+F034–F045（12 条旗舰攻略/行程内容撰写，需事实核查/站长在地数据，
+与本次编码性质不同）。F019 建议站长跑 /change 正式 deprecate（同
+F051 一致的理由）。本 session 未 push（铁律#7，push 由站长人工执行）。

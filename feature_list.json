@@ -45,7 +45,7 @@
       "查看两个不同页面的源码确认标签不重复",
       "og:image 有回退默认图"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F005",
@@ -277,7 +277,7 @@
       "含联系表单与信任条",
       "移动端可读不溢出"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F024",
@@ -361,7 +361,7 @@
       "横向溢出=0px",
       "正文行宽与导航在窄屏可用"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F031",
@@ -373,7 +373,7 @@
       "对一篇文章页跑 Lighthouse 移动端",
       "两页 Performance≥85 且 SEO≥90"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F032",
@@ -680,7 +680,7 @@
       "首页不含 Latest guides 攻略卡片信息流",
       "构建通过、列表页无横向溢出"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F057",
