@@ -2152,3 +2152,22 @@ total 64 / passing 50（F041+F045 由 false→true）。
   `grep -rn "not yet verified" content/guides/ | wc -l`。
 - F019：建议站长跑 /change 正式 deprecate（同 F051 一致理由）。
 本 session 未 push（铁律#7，push 由站长人工执行）。
+
+[2026-07-13] /change：F019 标记 deprecated——被 F058 取代
+---------------------------------------------
+站长确认执行。变更影响清单（逐条确认后落盘，按 /change 铁律）：
+- 废弃：F019 → deprecated:true + deprecated_reason（追溯 2026-07-08 V1.2
+  改版"回退重验"批次，同批 F011/F014/F004/F023 均已处理，F019 是最后
+  一条；引用本 session 的实测证据：homepage hero 现为 class=photo-hero，
+  与 F019 step1"大地图英雄"结构性冲突，同 F051 deprecated_reason 同源）。
+- 新增 successor：无——F058（已 passing）已承接首页地图验收职责。
+- 受影响 passing 功能：无（F019 本就是 false）。
+- 清理工作：无（F019 从未有对应实现代码）。
+- SPEC.md：变更记录区追加一条，格式对齐既有 F011/F051 条目。
+
+total 64 / passing 50（无变动——本次只是 deprecated 标记，非 passes）。
+
+📍 下一步：feature_list.json 中真正 failing 的活跃条目现只剩
+F024（卡站长注册 Formspree）+ 10 篇攻略内容（卡站长本人核实
+"not yet verified" 标记，见 docs/EDITING.md）。本 session 到此为止，
+未 push（铁律#7，push 由站长人工执行）。

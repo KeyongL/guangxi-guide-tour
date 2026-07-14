@@ -229,7 +229,9 @@
       "点城市标记弹极简名片",
       "签证分区不进英雄图、点击才展开；375px 无横向滚动"
     ],
-    "passes": false
+    "passes": false,
+    "deprecated": true,
+    "deprecated_reason": "2026-07-13 /change：本条自 2026-07-08 V1.2 改版起即被标记「回退重验」，同批 F011（07-09 已 deprecated）/F014/F004/F023（07-13 已验证 passing）均已处理，本条是最后一条悬而未决。实测确认 step1「首页首屏是答案式标题+大地图英雄」与 B2/B3 终选的「照片 Hero + 地图第二屏」冲突（homepage hero 区 class=photo-hero，真地图在独立的 .the-route 第二屏）——与 F051 deprecated_reason 同源同因。首页验收由 F058 取代（已 passing），无需新增 successor 条目。"
   },
   {
     "id": "F020",
