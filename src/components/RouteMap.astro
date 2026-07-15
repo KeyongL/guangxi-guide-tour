@@ -192,8 +192,12 @@ const activeRoutes: RouteKey[] = routes ?? ['coastal', 'border', 'hechi', 'vietn
       map.fitBounds(L.latLngBounds(boundsPts), { padding: [24, 24] });
 
       fallback.hidden = true;
-    } catch {
+    } catch (err) {
       // 地图初始化失败：回退——重新隐藏地图容器，保持文字列表可见（F028）。
+      // 2026-07-14：站长反馈"部分页面地图不显示"但排查未见代码级根因（build/markup/
+      // 数据/依赖图全部核对通过）；此 catch 此前完全静默，报了错也无从查起——补
+      // console.error 使下次复现时控制台可见具体异常，不改变任何既有回退行为。
+      console.error('[RouteMap] init failed, falling back to static list:', err);
       el.hidden = true;
     }
   }
