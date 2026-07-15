@@ -40,9 +40,10 @@ const days = [
   },
   {
     day: 4,
-    title: 'Dongxing border — exit to Vietnam',
-    transport: 'Bus Fangchenggang → Dongxing (~1.5 hr); walk the Beilun River bridge crossing to Móng Cái, Vietnam — a designated exit port.',
-    lodging: 'Onward in Móng Cái, Vietnam.',
+    title: 'Dongxing border — how you leave depends on your passport',
+    transport:
+      'Bus Fangchenggang → Dongxing (~1.5 hr). 30-day visa-free nationals and visa holders cross the Beilun River to Móng Cái. On 240-hour transit, the overland exit here is not confirmed — plan to fly out from Nanning, your entry port, instead.',
+    lodging: 'Onward in Móng Cái, Vietnam — or back to Nanning for your flight.',
   },
 ];
 
@@ -54,7 +55,7 @@ const routeCities = ['beihai', 'dongxing']
 ---
 <BaseLayout
   title="Coastline Route to Vietnam (3–5 days) — No Visa China"
-  description="A 3–5 day Guangxi coastline itinerary from Nanning through Beihai and Fangchenggang, exiting overland to Vietnam at the Dongxing border."
+  description="A 3–5 day Guangxi coastline itinerary from Nanning through Beihai and Fangchenggang to the Dongxing border — who can cross overland to Vietnam there, and who should fly out instead."
 >
   <main>
     <article class="flow">
@@ -65,12 +66,18 @@ const routeCities = ['beihai', 'dongxing']
         ending with an overland crossing into Vietnam at Dongxing.
       </p>
       <p>
-        This route is built to fit inside China's 240-hour (10-day) visa-free
-        transit window: you enter at a designated port (Nanning Wuxu) and exit at
-        another (the Dongxing land border to Móng Cái). Confirm your nationality
-        and current port list with the NIA before you travel. For exact station
-        names, ticket-booking channels, and the border-crossing walkthrough, see
-        the <a href="/guides/fly-into-guangxi-leave-overland/">full guide</a>.
+        The stops fit inside China's 240-hour (10-day) visa-free transit window:
+        you fly in at a designated port (Nanning Wuxu) and Guangxi is inside the
+        zone throughout. <strong>How you leave is the part that depends on your
+        passport.</strong> Transit travel is tied to a fixed list of designated
+        entry and exit ports, and we have not confirmed that the Dongxing land
+        border is on it — so if you are on the 240-hour transit, plan to fly out
+        from Nanning and treat Dongxing as a day trip to the border rather than a
+        way out. Nationals of the 30-day visa-free list and visa holders can
+        cross there. Confirm your nationality and the current port list with the
+        NIA before you travel. For exact station names, ticket-booking channels,
+        and the border walkthrough, see the
+        <a href="/guides/fly-into-guangxi-leave-overland/">full guide</a>.
       </p>
       <RouteMap
         stops={routeStops}

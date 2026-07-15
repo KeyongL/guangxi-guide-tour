@@ -20,7 +20,7 @@ export const stops: Stop[] = [
   { name: 'Beihai 北海', lat: 21.4733, lng: 109.1209, sub: 'Fly-in port · coast · 2–3 days', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Silver Beach' },
   { name: 'Weizhou Island 涠洲岛', lat: 21.0333, lng: 109.1167, sub: 'Ferry from Beihai · 1–2 days', href: '/guides/weizhou-island-complete-guide/', group: 'coastal', photo: 'Volcanic sea cliffs' },
   { name: 'Fangchenggang 防城港', lat: 21.6867, lng: 108.3547, sub: 'Harbour coast · day stop', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Fishing harbour' },
-  { name: 'Dongxing 东兴', lat: 21.5433, lng: 108.0064, sub: 'Border bridge · walk across ~15 min', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Border gate', note: 'Entry here: 30-day list or visa — 10-day transit must fly in' },
+  { name: 'Dongxing 东兴', lat: 21.5433, lng: 108.0064, sub: 'Border crossing · 30-day list or visa', href: '/itineraries/flow-a/', group: 'coastal', photo: 'Border gate', note: 'Crossing here needs the 30-day list or a visa. On 10-day transit, fly in and out of Nanning — the land exit here is not confirmed' },
   { name: 'Detian Falls 德天瀑布', lat: 22.8564, lng: 106.7204, sub: 'Transnational waterfall · visa required', href: '/guides/detian-waterfall-friendship-pass/', group: 'border', photo: 'Detian waterfall' },
   { name: 'Jingxi 靖西', lat: 23.1347, lng: 106.4173, sub: 'Tongling canyon · visa required', href: '/itineraries/flow-b/', group: 'border', photo: 'Tongling Grand Canyon' },
   { name: 'Baise 百色', lat: 23.9022, lng: 106.6183, sub: 'Karst west hub · visa required', href: '/itineraries/flow-b/', group: 'border', photo: 'Riverside old quarter' },
