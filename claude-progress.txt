@@ -2171,3 +2171,177 @@ total 64 / passing 50（无变动——本次只是 deprecated 标记，非 pass
 F024（卡站长注册 Formspree）+ 10 篇攻略内容（卡站长本人核实
 "not yet verified" 标记，见 docs/EDITING.md）。本 session 到此为止，
 未 push（铁律#7，push 由站长人工执行）。
+
+[2026-07-14] 访谈式核实（AI 查证+站长确认模式）：调研完成，等站长回复
+---------------------------------------------
+站长选"AI 查证 + 你确认"模式（AskUserQuestion 确认），东兴陆路出境
+资格例外——那条不查网络，仍等站长直接回答。
+
+10 篇攻略（F034/F035/F036/F037/F038/F039/F040/F042/F043/F044）68 处
+"not yet verified" 标记全部完成网络调研，每条给出候选答案+来源+可信度，
+编译成一份 fact-check ledger（HTML artifact，已发布：
+https://claude.ai/code/artifact/57bc6ab2-6d74-4daf-b3e7-84ac079befbe，
+本地也可经 python3 -m http.server 走 VPS 隧道看，脚本在
+tmp/serve/report.html，已停用）。
+
+关键发现摘要（详情见 artifact 内 keyfindings 区块）：
+- 东兴口岸桥变了：普通游客现走北仑河二桥（摆渡车，非人行），F034/F035
+  都受影响
+- 海鲜市场沙虫干价格差 2–5 倍（¥80–150 写少了，实际¥200–800+/斤）
+- 乐业大石围深度信源清一色 613m，不是文中 510–610m 区间
+- 涠洲岛老人/学生票优惠暑期(7/1–8/31)不适用
+- 德天班车时刻表信源互相矛盾，建议站长直接打电话问琅东站，不采信
+  网上数字
+
+F044 两条（人口/百魔洞游客量）调研中途撞会话限额被打断，未补完，如实
+标"未核实"，未编造数字（同 F014/F032 一贯原则）。
+
+📍 下一步：
+- 站长尚未回复 ledger 里任何一条，包括最关键的 F034 line 49（240h 陆路
+  出境资格）——AI 不查网络，必须站长直接回答，这条决定 F034 整篇要不要
+  降级成"飞离版"。
+- 站长回复后：按确认结果改对应 content/guides/*.md（删/改 not yet
+  verified 标记）、全篇核实完的加 verified 日期、对应 feature_list.json
+  条目 passes 改 true、跑 npm run build 确认。
+- F024 仍卡站长注册 Formspree，AI 拿不到。
+- 站长反馈"部分页面地图不显示/不可见"，细节未确认（哪个页面/哪条
+  链接、桌面还是移动端、控制台有无报错）——下次会话先问清楚具体页面
+  再排查，本次未动代码、未复现。
+本 session 未 push（铁律#7，push 由站长人工执行）。
+
+[2026-07-14] 地图不显示排查（续上条，本次系统性复现，站长明确不用等）
+---------------------------------------------
+逐页核对三个地图页（/、/itineraries/flow-a/、/itineraries/flow-b/，
+F046/F051/F058/F059/F060/F061/F062）：RouteMap.astro 组件本身、三页
+props 传参、route-geometry.json、stops.ts。本环境无 Chrome，遵守既有
+教训不重试 Playwright/截图，全程 build 产物 + dev server + curl 排查。
+
+查过没问题的：build 干净通过（改动前后各跑一次，17 页全部生成）；三页
+HTML 的 data-stops/data-routes/data-show-ferry 属性值正确、无 404 静态
+资源（leaflet 的 layers.png/marker-icon.png 被 Vite 内联成 base64）；
+dev server 下 RouteMap 脚本/样式及其依赖（leaflet 包、leaflet.css、
+route-geometry.json）逐个 curl 都是 200，无编译错误；initMap() 在三页
+当前配置下逐行核对，boundsPts 四条路线都不为空，fitBounds 不会抛错；
+907d951 那次"IntersectionObserver 观察 hidden 容器"的修复依然正确（观察
+外层 .route-map-wrap，非 hidden 的 #route-map）；首页因 4 条路线会画
+layers control（flow-a/b 各 1 条不画）——查过 leaflet.css，.leaflet-
+container 本身 overflow:hidden 会裁切溢出、control 内 label 是
+display:block 会自然换行，不会撑出横向溢出或把地图整个盖住，排除。
+
+结论：代码层面反复核对未见到会让地图"整个不显示"的根因。initMap() 原
+有 catch{} 完全静默吞掉异常——如果真在浏览器里抛错，此前无从查起，是
+唯一真正盲区。唯一改动（纯诊断、不改变任何现有行为）：catch{} 补
+console.error(err)，build 确认改动后仍 17 页干净通过。
+
+意外收获：改完文件起 dev server 用 curl 验证，终端明明打出了 [watch]
+src/components/RouteMap.astro 检测到变更，但同一 dev 进程持续吐旧编译
+产物（浏览器脚本里没有新加的 console.error 那行）；kill 掉重开一个全新
+进程后才拿到正确内容。即长期不重启的 npm run dev，改 .astro 组件的
+<script> 块后有概率吃 Vite 陈旧编译缓存，哪怯 watcher 日志已确认收到
+变更事件。这是"代码看着没问题、页面表现却对不上"型报告的一个完全合理
+的成因候选——RouteMap.astro 连续被 F059→F060→F061→F062→F046 五次会话
+改动，如果站长期间一直开着同一个未重启的 dev 进程在看，观察到的完全
+可能是某次半路的陈旧缓存，不是当前源码的真实状态。
+
+feature_list.json 复核：F046/F048/F059/F060/F061/F062 六条逐一核对，
+代码/数据/build 均与验收描述一致，未见回归证据，passes 维持 true 不动
+（未改字段——没证据也不能反向瞎标 false）。
+
+附带发现（与本次 bug 无关，顺手记一笔）：astro.config.mjs 里
+site: https://guangxi-guide.pages.dev 这个域名当前 DNS 完全解析不到
+（NXDOMAIN），配置注释也写着"买自定义域名后替换此处"——像是占位符还
+没换成真实 Cloudflare Pages 地址。站长应该是走本地 dev+隧道在看，跟
+这次地图 bug 无关，但真上线前别忘了这茬。
+
+📍 下一步：
+- 这次的 bug 报告最终还是要站长肉眼确认一次——本环境无浏览器，已记入
+  教训区、不重试。已起一个全新 dev server（19:32 启动的干净进程，未
+  混用旧缓存），照 CLAUDE.local.md 的隧道命令开进来，依次看 /、
+  /itineraries/flow-a/、/itineraries/flow-b/，桌面宽度 + 缩到 375px
+  各看一遍。
+- 如果还能重现"地图不显示"：麻烦开一下浏览器控制台（F12→Console），
+  这次 catch 块会打印 "[RouteMap] init failed..." 加具体异常，把那行
+  错误原文发过来就能直接定位根因，不用再像这两次一样连"有没有报错"
+  都不知道。
+- 如果这次看着一切正常：大概率是上面说的陈旧 dev 缓存在作祟——以后改
+  完地图相关代码记得重启 npm run dev 而不是复用旧进程，不用再动代码。
+- F024 仍卡站长注册 Formspree，AI 拿不到。10 篇攻略仍卡站长回复
+  fact-check ledger（见上条）。
+本 session 未 push（铁律#7，push 由站长人工执行）；dev server 留在
+后台跑，站长随时可以隧道进来看。
+
+[2026-07-14] 站长裁定「240h 过境不能从东兴陆路出境」→ 全站修正 + 10 篇
+攻略核对结果落盘
+---------------------------------------------
+站长直接回答了卡最久的那条（F034 line 49，ledger 里唯一 YOUR CALL）：
+「54国公民用 240 小时过境免签，只能从指定的 65 个口岸出入境，不能从
+东兴陆路口岸出境去越南」。
+
+关键概念区分（本次最重要的认知，写下来免得以后又混）：
+**「在过境免签地理区域内」≠「是指定出入境口岸」**。东兴在广西、地理上
+确实在过境区内（所以 visa_zone: twov 是对的、能去玩），但不在 65 个
+指定口岸名单里（所以不能从那儿离境）。F034 原 line 50「Dongxing is the
+only coastal land port inside the zone」正好把这两件事混为一谈，暗示能
+从这儿走——这是全站最危险的一句。
+
+站长三个决策（AskUserQuestion 确认）：flow-a 分两种人写（保留 twov
+徽章 + Day4 分叉）／首页 tagline 现在就改保守版／措辞用「未确认→建议
+飞离」不写死「确定不能」。
+
+grep 出并修掉的 6 处矛盾：
+- flow-a 开头原写「you enter at a designated port (Nanning Wuxu) and
+  exit at another (the Dongxing land border)」——直接断言东兴是指定出境
+  口岸，正是裁定说不对的事。最危险，已重写。
+- flow-a Day4「a designated exit port」断言删除，改成按护照分叉。
+- flow-a description／首页 meta description「then walk into Vietnam」
+  → 「on your way through to Vietnam」。
+- stops.ts 东兴弹窗：原只讲入境限制，扩到出境也挂 hedge。
+- F034 两条 hard rules 重写，点明区域 vs 口岸的区别。
+- F034 标题/摘要原是「Leave Overland to Vietnam: The 240-Hour Transit
+  Route」——字面就是走不通的组合。站长选「护照分叉版」：新标题
+  「Fly Into Guangxi Visa-Free: The Coast Route, and How You Leave for
+  Vietnam」，开头首段同步改成结论前置（铁律：首屏先答你这护照行不行）。
+  slug 不动（/guides/fly-into-guangxi-leave-overland/），实测 flow-a
+  链接仍解析、无断链。visa_zone 保持 twov（地理分区，不该拿它表达口岸
+  资格——AI 一度建议改 non-twov，是错的，已纠正）。
+
+10 篇攻略 ledger 落盘（站长「按照建议改得了，我后期慢慢手动修改」）：
+65 条候选答案全部处理。值得记的几条实质纠错：
+- F044：原文列的南宁→巴马 15:20/17:30 两个班次，现有时刻表根本没有
+  （17:30 前后是班次空档）——照抄会让读者白等。南宁→河池 2h→3-3.5h。
+- F036：原文把微信的「月度」上限 ¥50,000 当成了年度。
+- F040：沙虫干 ¥80-150→¥195-770（差2-5倍）；补象拔蚌假货提醒。
+- F034：原文说南宁机场有地铁（没有）；「you walk the bridge」是错的
+  （二桥是车行桥无人行道，靠摆渡车接驳）。
+- F043：大石围 613m 是单一数字，原文 510-610m 区间的下限查无出处。
+- F038：暑期 7/1-8/31 老人/学生折扣一律不适用（正好是现在）。
+- F039：1.27km 有官方出处，官方原话是「岭南直线最长」，比原文转述的
+  「华南最长保存」更精确。
+
+**刻意没做的两件事**（重要，别以为做了）：
+1. 零 verified: 日期——该字段定义是「实地核实日期(on the ground)」，
+   AI 网上查到的 ≠ 站长实地核实。加了等于伪造本站唯一信任卖点。
+2. feature_list.json 一字未动，10 篇仍 passes:false（铁律：没有端到端
+   验证不标 passing）。
+即当前状态＝「数字更准了，但仍是未核实态」，正是站长要的。
+
+剩 20 处 (not yet verified) 全是有意保留，分三类：信源互相打架（涠洲岛
+门票有效期/德天班车——建议站长直接打电话问琅东站）、本质查不到（发卡行
+手续费/潜水安全标准/煎堆价格）、调研中断（F044 巴马人口/百魔洞客流，
+如实标未核实，没编数字）。
+
+附带查证（站长问「为啥要转车/包车多少/开车不是2小时么」）：防城港北站
+→东兴站口就有大巴直达（约50km/约1小时/¥15-20），不用绕行防城港市区；
+发车频率信源打架（像是跟车次联动非固定班次），如实挂 hedge；打车约1小时
+但车费没查到可靠数字，没编。站长记的「2小时」应是北海→东兴那段，而那段
+多数信源实为约3小时（201km/2.9h），只有一篇 2016 年老文写 2 小时。
+
+📍 下一步：
+- 站长本人实地走一遍后，再由站长决定摘 (not yet verified) 标记、加
+  verified 日期、翻 passes:true。AI 不代做。
+- F024 仍卡站长注册 Formspree。
+- 地图「部分页面不显示」仍等站长肉眼确认（见上一条，dev server 起了
+  新进程；catch 现在会打印 [RouteMap] init failed + 具体异常）。
+- fact-check-ledger.txt 已随本次提交（65 条的来源/可信度存档，供站长
+  日后实地核对时对照）；用不上可直接删。
+本 session 未 push（铁律#7，push 由站长人工执行）。

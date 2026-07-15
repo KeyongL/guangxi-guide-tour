@@ -37,15 +37,15 @@ Menu labels shift between app versions, so treat these as the shape of the flow,
 - Enter the billing name and address exactly as your bank has them.
 - Confirm the SMS or bank-app code your card issuer sends.
 
-Supported networks reported by both apps include Visa, Mastercard, American Express, JCB, Discover, Diners Club, and UnionPay International (not yet verified — confirm your specific card in-app). Tell your bank you will use the card in China so it does not block the first charge as suspicious.
+Both apps support Visa, Mastercard, American Express, JCB, Discover, Diners Club, and UnionPay International. All seven are current: Amex only joined Alipay in February 2025, and UnionPay International was added to both apps in November 2024. Confirm your specific card in-app anyway — support is by card, not just by network. Tell your bank you will use the card in China so it does not block the first charge as suspicious.
 
 ## Fees and limits to expect
 
-Expect a fee on larger payments. Reported terms as of 2026: no fee on single payments of ¥200 or under, and roughly a 3% fee on the full amount of any single payment above ¥200 (not yet verified — check the fee notice in-app before you confirm a large payment). Note the fee applies to the whole amount, not just the part over ¥200.
+Expect a fee on larger payments. Per Tenpay's own terms (Tenpay is the entity behind WeChat Pay): no fee on single payments of ¥200 or under, and a 3% fee on the **full amount** of any single payment above ¥200 — not just the part over ¥200. Refunds return the fee proportionally.
 
-There is also a first-time promotion some sources report — a fee waiver for new international-card users on small daily payments for a limited window (not yet verified — check the current offer in-app).
+WeChat Pay currently waives that fee for new international-card users: 90 consecutive days from first binding, on daily spending up to ¥1,000, running until 31 December 2026. This is a WeChat-only promotion — Alipay has no equivalent offer. Check the current terms in-app before relying on it.
 
-Per-transaction and annual caps exist, but the published numbers disagree across sources (single-payment caps reported anywhere from about ¥6,500 to ¥35,000; annual caps from about ¥50,000 upward) (not yet verified — check your account's current limits in-app). Higher caps usually require completing the deeper identity verification. For normal travel spending — meals, taxis, tickets, shopping — you are very unlikely to hit these.
+Caps come in two tiers. On the basic tier: about ¥6,500 per payment, ¥50,000 per month, ¥65,000 per year. After completing the deeper identity verification: roughly ¥35,000 per payment and ¥350,000 per year. Sources that quote "¥50,000 a year" appear to be reading WeChat's **monthly** ceiling as an annual one. For normal travel spending — meals, taxis, tickets, shopping — you are very unlikely to hit any of these.
 
 Your card issuer may add its own foreign-transaction fee on top. Check that with your bank (not yet verified — depends on your card).
 

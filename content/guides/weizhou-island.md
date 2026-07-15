@@ -10,17 +10,17 @@ Weizhou 涠洲岛 sits 21 nautical miles off Beihai 北海, inside the 240-hour 
 
 ## Getting there: the Beihai ferry 北海
 
-All sailings leave from Beihai International Passenger Port 北海国际客运港, about 20 minutes by taxi from Beihai's old town. Beiyou 北游 catamarans make the crossing in roughly 70–110 minutes depending on the boat and sea state (not yet verified).
+All sailings leave from Beihai International Passenger Port 北海国际客运港, about 20 minutes by taxi from Beihai's old town. Beiyou 北游 catamarans make the crossing in roughly 80–110 minutes depending on the boat and sea state.
 
-The official booking channel is Laiu8 来游吧 (laiu8.cn and the WeChat mini program 来游吧) — it lists timed, name-matched tickets tied to a specific sailing. Two problems for foreigners: the interface is Chinese-only, and passport-number registration reportedly fails for some users (not yet verified). Fallbacks that work: the ticket counter at the port with your passport, or any Beihai travel agency for a small commission. Trip.com does not sell this ferry.
+The official booking channel is Laiu8 来游吧 (laiu8.cn and the WeChat mini program 来游吧) — it lists timed, name-matched tickets tied to a specific sailing. Foreign visitors generally find it hard going: the interface is Chinese-only, and the passport route through it is awkward enough that plenty of people give up. Fallbacks that work: the ticket counter at the port with your passport, or any Beihai travel agency for a small commission. Trip.com does not sell this ferry.
 
 - Economy seat: ¥150 one way at 2025–26 listed prices; Guangxi residents pay ¥120 (volatile — confirm on the day)
-- Business/VIP cabin: about ¥180–¥300 one way (not yet verified)
+- Business cabin: ¥180–¥210. VIP/first cabin: ¥240–¥300, one way
 - Frequency: several sailings daily; exact times shift by season — check same-day
 
 Buy the round trip and lock your return sailing. Weekend and holiday boats sell out a day or more ahead. Bring your passport: the ticket is name-matched at boarding, and you need it again for island entry.
 
-Weather rule: strong wind or typhoon suspends all sailings, sometimes for a full day or more, and you wait it out on whichever side you're on. Refunds run through your booking channel (process not yet verified). If your 240-hour clock is tight, do not schedule the return crossing on your last day.
+Weather rule: strong wind or typhoon suspends all sailings, sometimes for a full day or more, and you wait it out on whichever side you're on. July and August are peak typhoon season. When a sailing is cancelled for weather, the system refunds automatically to your original payment method in 3–5 working days; you can also handle it at the counter or through your booking platform, and one free change to another sailing is allowed on the same document. If your 240-hour clock is tight, do not schedule the return crossing on your last day.
 
 ## The volcano park 火山公园
 
@@ -28,8 +28,8 @@ The core sight is Crocodile Mountain 鳄鱼山 in the Weizhou Island Volcano Nat
 
 Entry works on one island ticket, not per-site gates. It covers the volcano park, the coral beach, Shiluokou 石螺口, and the 1880s Catholic church at Shengtang 盛塘.
 
-- Island entry/eco ticket: about ¥98–¥115 per person, valid ~7 days (not yet verified)
-- Senior/student discounts and free entry for young children (not yet verified)
+- Island entry/eco ticket: a flat ¥98 per person. How long it stays valid is genuinely unclear — sources variously say same-day, 3 days, and 7 days (not yet verified). Ask at the gate if you plan to spread your visits.
+- Discounts: children under 6 or under 1.2 m free; reduced rates at 60 and again at 65; students aged 14–24 with a student card. **None of these apply from 1 July to 31 August** — which includes right now.
 
 Confirm price and inclusions at purchase — the bundle changes.
 
@@ -37,7 +37,7 @@ Confirm price and inclusions at purchase — the bundle changes.
 
 Volcanic-coast hiking: the south and west shores link cliff paths, tide pools, and black-rock coves. There is no marked long trail — plan sections by tide, and stay off wet lava.
 
-Freediving and snorkeling: live coral sits in the shallows off the west coast; small operators run trips and courses roughly April–October, when water is clearest. Prices and safety standards vary widely — inspect gear and confirm inclusions in person before paying (not yet verified).
+Freediving and snorkeling: live coral sits in the shallows off the west coast; small operators run trips and courses roughly April–October, when water is clearest. Reckon on ¥200–500. There is no single regulator setting safety standards here, so that part varies by operator — inspect gear and confirm inclusions in person before paying (not yet verified).
 
 Swimmers and sunbathers need only the coral beach and Shiluokou 石螺口.
 
@@ -52,9 +52,9 @@ Inland guesthouses among the banana fields run cheapest. High season fills every
 
 ## Practical notes
 
-- Getting around: e-bike/scooter is the default. Rental stands cluster at the dock, and most guesthouses rent or arrange one — ¥50–¥120 per day, down to ~¥35 in low season, negotiable; no driving-license check reported (not yet verified). The main loop rides in 2–3 hours. Wear the helmet.
-- What a day costs: roughly ¥400–¥600 per person — mid-range guesthouse bed, e-bike, island ticket amortized, three meals with some seafood (rough estimate, not yet verified).
-- Food, in order of priority: banana pig 香蕉猪 (pigs fed on island bananas — get the braised belly), banana chicken 白切香蕉鸡 (poached, served with chili-ginger soy), sea urchin steamed egg 海胆蒸蛋, and mantis shrimp 濑尿虾 from the South Bay 南湾 market. Market stalls will cook what you buy for a per-dish fee (fee not yet verified).
+- Getting around: e-bike/scooter is the default. Rental stands cluster at the dock, and most guesthouses rent or arrange one — ¥50–¥120 per day, negotiable, and ¥50 is about the floor even in low season. Nobody checks for a driving licence, least of all in high season. The main loop rides in 2–3 hours. Wear the helmet.
+- What a day costs: roughly ¥400–¥600 per person — mid-range guesthouse bed, e-bike, island ticket amortized, three meals with some seafood. Adding up the individual items lands near ¥510, so the range holds, but treat it as a rough estimate.
+- Food, in order of priority: banana pig 香蕉猪 (pigs fed on island bananas — get the braised belly), banana chicken 白切香蕉鸡 (poached, served with chili-ginger soy), sea urchin steamed egg 海胆蒸蛋, and mantis shrimp 濑尿虾 from the South Bay 南湾 market. Market stalls will cook what you buy for about ¥10–20 a dish — more for anything elaborate like braising or scallion oil.
 - Ticket order: ferry ticket first — it gates everything — then the island entry ticket.
 - Passport: carry it at all times; this is a border-zone island with checks at the ferry and island entry.
 - Cash and pay: mobile payment dominates, but small guesthouses, rental stands, and market stalls may want cash. Bring a few hundred yuan.

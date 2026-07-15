@@ -24,20 +24,20 @@ The classic tricks are all about weight and vague pricing. Protect yourself:
 
 ## What to order (with rough prices)
 
-All figures below are rough, vary by season and stall, and are (not yet verified) by us on the ground. Treat them as ballpark, and always confirm the current per-jin price at the stall.
+These are live prices: they move with the season and differ stall to stall, so treat every figure as a ballpark and confirm the current per-jin price before they weigh anything.
 
-- **Scallops with garlic and glass noodles 蒜蓉粉丝扇贝** — roughly ¥1 per scallop, or sold by weight (not yet verified). The default steamed order.
-- **Sandworm 沙虫** — a Beihai specialty, mild and crunchy; often ¥80–¥150 per jin dried, less fresh (not yet verified). Try it fresh, stir-fried or in soup.
-- **Oysters 生蚝** — roughly ¥2 each, cheaper by the dozen (not yet verified). Grilled with garlic is the standard.
-- **Mantis shrimp 濑尿虾 / 皮皮虾** — roughly ¥30–¥45 per jin in normal season, ¥50–¥70 per jin in spring for roe-heavy females (not yet verified). Salt-and-pepper fried.
-- **Clams and geoduck 花甲 / 象拔蚌** — clams cheap by weight; geoduck much pricier and sold per piece (not yet verified). Geoduck is usually served sashimi-style plus a hotpot of the trimmings.
-- **Crab 螃蟹** — green crab and flower crab priced per jin and highly seasonal (not yet verified). Steam it or fry with ginger and scallion.
+- **Scallops with garlic and glass noodles 蒜蓉粉丝扇贝** — about ¥2.5–4 per scallop, or sold by weight. The default steamed order.
+- **Sandworm 沙虫** — a Beihai specialty, mild and crunchy. Dried is expensive: roughly ¥195–770 per jin, and ¥730–1,100 around festivals. Fresh costs less. Try it fresh, stir-fried or in soup.
+- **Oysters 生蚝** — roughly ¥2 each (the range runs ¥1–3.5), cheaper by the dozen. Grilled with garlic is the standard.
+- **Mantis shrimp 濑尿虾 / 皮皮虾** — roughly ¥30–¥45 per jin in normal season, ¥50–¥70 per jin in spring for roe-heavy females. Salt-and-pepper fried.
+- **Clams and geoduck 花甲 / 象拔蚌** — clams are cheap, ¥6–8.5 per jin. Real geoduck runs ¥200–800 per jin, so treat a stall selling "geoduck" at ¥35–48 per jin as something else: a cheaper species under a better name. Geoduck is usually served sashimi-style plus a hotpot of the trimmings.
+- **Crab 螃蟹** — green crab and flower crab, ¥60–100+ per jin and sharply seasonal. Prices sit noticeably lower just after the August start of the fishing season than they do by October. Steam it or fry with ginger and scallion.
 
 A good first order for two people: scallops, oysters, mantis shrimp, and one crab. Steam most of it and salt-and-pepper the shrimp.
 
 ## Paying: cooking fees 加工费
 
-The cooking fee (加工费) is charged separately from the seafood. Most processing restaurants post a rate card. Typical structure is per jin by cooking method, for example steamed around ¥10 per jin and stir-fried or salt-and-pepper around ¥15 per jin (not yet verified) — always read the posted card, since rates differ by shop. Extras like a hotpot base, rice, drinks, and garlic-noodle toppings are billed on top.
+The cooking fee (加工费) is charged separately from the seafood. Most processing restaurants post a rate card. The structure is per jin by cooking method: steamed ¥8–10 per jin, stir-fried or salt-and-pepper around ¥15 per jin for a plain treatment. Fancier methods — spicy stir-fry, typhoon-shelter style — run ¥20–30. Always read the posted card, since rates differ by shop. Extras like a hotpot base, rice, drinks, and garlic-noodle toppings are billed on top.
 
 Pay for both parts with cash or mobile pay. Around 90% of stalls and restaurants take WeChat Pay or Alipay, and many also take cash — carry some small notes as backup, because a few stalls are cash-only. Foreign cards rarely work directly; link an international card to WeChat or Alipay before you travel, or bring cash.
 
@@ -45,4 +45,4 @@ Pay for both parts with cash or mobile pay. Around 90% of stalls and restaurants
 
 Go for dinner. These markets run hottest in the evening, the catch is freshest after the afternoon boats land, and the night-market atmosphere is the point. Avoid the mid-afternoon lull when fewer stalls are open.
 
-The best-known district is **Qiaogang 侨港**, a former Vietnamese-returnee settlement near the beach that is now Beihai's main late-night seafood and street-food strip, with clearly priced stalls and processing restaurants side by side. Waisha Island 外沙岛 is another seafood-restaurant cluster locals name. Exact current stall names and rates are (not yet verified) by us — pick a stall with prices clearly posted and a public checking scale nearby, and you have already avoided most of the trouble.
+The best-known district is **Qiaogang 侨港**. It was built in 1979 to resettle ethnic-Chinese refugees returning from Vietnam, and is now a AAAA-rated area with over 320 restaurants — CCTV has called it a "late-night canteen." It is Beihai's main late-night seafood and street-food strip, with clearly priced stalls and processing restaurants side by side. Waisha Island 外沙岛 is another seafood-restaurant cluster locals name. We have not checked individual stall names or rates on the ground — pick a stall with prices clearly posted and a public checking scale nearby, and you have already avoided most of the trouble.

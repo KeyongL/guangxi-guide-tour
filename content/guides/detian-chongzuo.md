@@ -23,7 +23,7 @@ If you are not sure which group you fall into, confirm it with a Chinese embassy
 
 Detian 德天瀑布 sits in Daxin 大新 county, about 230 km from Nanning 南宁. Plan on a half-day each way.
 
-- Direct tourist buses run from Nanning 南宁 to the Detian scenic area. Departures reported at 08:30 and 11:30 from Langdong station, fare around ¥75, journey 2.5 to 3 hours (not yet verified).
+- Direct tourist buses run from Nanning 南宁 to the Detian scenic area from Langdong station, fare around ¥75. Beyond that, the online information contradicts itself and we do not trust it (not yet verified): sources disagree on whether there are two daily departures or one, quote journeys anywhere from 2.5 to 4 hours, and disagree on whether the bus terminates at the scenic-area gate or at a visitor-centre car park that needs a further shuttle. Phone Langdong station and ask, rather than planning around a number you read online.
 - The last stretch runs right along the China–Vietnam border. Keep your passport and entry documents on you; this is a border zone and you may be checked.
 
 Buses back to Nanning are limited and fill up. Check the return time the moment you arrive, or book a same-day round trip.
@@ -32,8 +32,8 @@ Buses back to Nanning are limited and fill up. Check the return time the moment 
 
 Detian Transnational Waterfall 德天瀑布 is one of the largest transnational waterfalls in Asia. It straddles the China–Vietnam border: the Chinese side is Detian, the Vietnamese side is Ban Gioc. The falls run widest and loudest in the wet season, roughly May to September.
 
-- Entrance ticket, including the in-park shuttle bus: around ¥115 by day; night tickets reported at ¥168 to ¥198 (not yet verified).
-- Bamboo-raft ride to the base of the falls: around ¥30 to ¥48 per person for a 10 to 15-minute ride (not yet verified).
+- Entrance ticket, including the in-park shuttle bus: ¥110–115 by day, depending on whether you buy online or at the gate. The night ticket is a flat ¥168 — the ¥198 figure that circulates belongs to a different product.
+- Bamboo-raft ride to the base of the falls: ¥30–48 per person for a 10 to 15-minute ride. Current pricing sits at the top of that range.
 
 The raft is the reason to come. It takes you close to the churn at the foot of the falls, spray and all. It passes the boundary markers between the two countries.
 

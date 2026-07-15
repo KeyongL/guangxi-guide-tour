@@ -24,14 +24,14 @@ The main sights are natural and close together:
 - **Panyang River 盘阳河 valley** — a calm green river winding through karst peaks and farm villages. The valley walk and the riverside are the nicest part of a visit.
 - **Karst scenery and Yao 瑶族 villages** — terraced fields, limestone hills, and small minority settlements around the valley.
 
-Entrance fees exist for the caves and scenic areas but change often — confirm current prices at the gate (not yet verified).
+Baimo Cave 百魔洞, the main sight, is ¥85 at the gate or ¥80 booked online — a price that has held for years and was still being confirmed by visitors in May 2026. The other sights (Bainiao Rock 百鸟岩, Shuijinggong 水晶宫) charge separately or bundle into combination tickets; there is no single pass covering the county.
 
 ## Getting there (and whether it's worth it)
 
 There is no airport or train station in Bama 巴马 itself. Most people come by road from Nanning 南宁 or via Hechi 河池:
 
-- **From Nanning 南宁**: direct long-distance buses run to Bama, around 4 hours; one source lists departures at 12:20, 15:20, and 17:30 and a fare near ¥130 (not yet verified — check current schedules). Driving is about 3.5 hours.
-- **Via Hechi 河池**: Nanning 南宁 to Hechi 河池 is about a 2-hour drive, and Hechi has road and rail links, but Bama sits off the main line and still needs a road connection (not yet verified).
+- **From Nanning 南宁**: direct long-distance buses run to Bama from Langdong station in about 4 to 4.5 hours, ¥100–122. A 12:20 departure exists and is well attested. The 15:20 and 17:30 departures that circulate online do not match any current timetable — there is actually a gap around 17:30 — so do not build a plan around them. Driving is about 3.5 hours.
+- **Via Hechi 河池**: Nanning 南宁 to Hechi 河池 is about 3 to 3.5 hours by road, not the 2 hours often quoted. Hechi has road and rail links. Hechi to Bama is now expressway the whole way (the Hebai 河百 expressway, exiting at Bama North) rather than a slow back-road connection — but it is still a 3 to 4 hour drive in its own right, so routing via Hechi is not a shortcut.
 
 Honest verdict: for most Western travellers doing the coastal Beihai–Weizhou–Vietnam loop, Bama 巴马 is out of the way. It only makes sense if you are already heading inland and want a couple of slow days in the karst. It is not a quick side trip.
 

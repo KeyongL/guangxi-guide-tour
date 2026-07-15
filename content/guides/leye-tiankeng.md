@@ -12,13 +12,13 @@ So, is the Dashiwei 大石围 tiankeng cluster worth a long, remote detour? For 
 
 ## What the Dashiwei 大石围 sinkholes are
 
-A tiankeng (天坑, "heavenly pit") is a giant karst sinkhole — a collapsed cave chamber with sheer walls dropping hundreds of meters. Leye 乐业 holds one of the densest clusters on Earth. Sources put the group at roughly 28–30 tiankeng (exact count not yet verified — different surveys report different totals). The headline pit, Dashiwei 大石围 itself, is often cited at around 600 m deep (exact depth not yet verified; figures range from ~510 m to ~610 m depending on where it is measured).
+A tiankeng (天坑, "heavenly pit") is a giant karst sinkhole — a collapsed cave chamber with sheer walls dropping hundreds of meters. Leye 乐业 holds one of the densest clusters on Earth. The group is usually counted at 28–30 tiankeng, matching recent official surveys; UNESCO's own page says 35, using a wider definition that takes in every collapse feature. The headline pit, Dashiwei 大石围, is 613 m deep — sources are near-unanimous on that single figure, and the ~510 m sometimes quoted as a lower bound has no traceable origin.
 
 Inside the largest pits are undisturbed forests, underground rivers, and cave ecosystems with plants and animals rarely found at the surface. The whole area is a UNESCO Global Geopark. It is a genuinely rare landscape, not a manufactured attraction.
 
 ## Getting there (it's remote)
 
-There is no easy way in. Most travelers route through Baise 百色, then take a bus onward to Leye 乐业 county. The onward leg is long and winding through mountain roads (travel time not yet verified — budget most of a day, and confirm locally). Departure frequency and the fare are also not yet verified; ask at the Baise 百色 bus station the day before rather than trusting an online timetable.
+There is no easy way in. Most travelers route through Baise 百色, then take a bus onward to Leye 乐业 county. How long that leg takes genuinely depends on the road: about 1.5 hours by car on the expressway, but a public bus on the old mountain road can take up to 3.5 hours (not yet verified). The fare and departure times we could find date from around 2010 and are almost certainly stale, so we are not repeating them here — ask at the Baise 百色 bus station the day before rather than trusting an online timetable.
 
 Treat this as a multi-day trip, not a day trip. Reaching Leye 乐业, seeing the main viewpoints, and getting back out realistically fills two to three days. Arrange a night in Leye 乐业 town before you go.
 
@@ -26,11 +26,11 @@ Treat this as a multi-day trip, not a day trip. Reaching Leye 乐业, seeing the
 
 Two very different experiences share the same geopark.
 
-**Rim viewpoints.** This is what most visitors do. Marked platforms on the crater rims look down into the pits. No special gear, no experience needed. This is the safe, legal, accessible way to see Dashiwei 大石围. Geopark entry ticket price not yet verified — confirm at the gate.
+**Rim viewpoints.** This is what most visitors do. Marked platforms on the crater rims look down into the pits. No special gear, no experience needed. This is the safe, legal, accessible way to see Dashiwei 大石围. The basic geopark ticket is ¥90, a figure that has held steady for years; there is now also a ¥128 combined ticket that adds the Yunhai Tianzhou 云海天舟 glass viewing platform.
 
-**Caving and descent.** Going below the rim — into the pits, caves, or along the underground sections — is serious adventure caving. It requires a licensed guide, proper equipment, and real fitness. Do not attempt any descent on your own. Book through the official geopark or a licensed operator only. Guided-trip costs and what is currently permitted are not yet verified; arrange this in advance, not on the day.
+**Caving and descent.** Going below the rim — into the pits, caves, or along the underground sections — is serious adventure caving. It requires a licensed guide, proper equipment, and real fitness. Do not attempt any descent on your own. Book through the official geopark or a licensed operator only. For a sense of scale, a rappel-and-caving package at nearby Fengzidang 风子荡 tiankeng runs about ¥388 per person for 1.5–2 hours — but we cannot confirm that a licensed operator inside the Dashiwei park charges anything similar, so treat it as a reference point, not a quote (not yet verified). Arrange this in advance, not on the day.
 
-The Buliu River 布柳河 nearby is another draw, known for calm float trips through a forested gorge (operating season and boat fares not yet verified).
+The Buliu River 布柳河 nearby is another draw, known for calm float trips through a forested gorge. The season runs April to October, busiest May to September. Entry is ¥80 and the bamboo raft ¥120, or ¥160 for both together.
 
 ## Practical notes & season
 
